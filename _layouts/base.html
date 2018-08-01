@@ -12,6 +12,8 @@ common-js:
   - "/js/jquery-1.11.2.min.js"
   - "/js/bootstrap.min.js"
   - "/js/main.js"
+  - "/js/particles.js"
+  - "/js/app.js"
 ---
 
 <!DOCTYPE html>
@@ -21,12 +23,11 @@ common-js:
 
   <body>
 
-	<!-- particles.js container -->
-	<div id="particles-js"></div>
+	<div class="mobile-js-hide">
+		<!-- particles.js container -->
+		<div id="particles-js"></div>
+	</div>
 
-	<!-- scripts -->
-	<script src="js/particles.js"></script>
-	<script src="js/app.js"></script>
 
     {% include gtm_body.html %}
   
