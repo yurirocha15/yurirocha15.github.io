@@ -25,6 +25,7 @@ description: M.S. Student at Sungkyunkwan University - South Korea
 navbar-links:
   About Me: "aboutme"
   Publications: "publications"
+  Resume/CV: "/assets/cv_yuri_rocha_2018_7.pdf"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
