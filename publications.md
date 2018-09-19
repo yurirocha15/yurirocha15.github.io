@@ -9,7 +9,7 @@ My Publications
 
 ### 2017
 
-* C. M. Farias*, Y. G. Rocha*, L. F. C. Figueredo and M. C. Bernardes. **Design of singularity-robust and task-priority primitive controllers for cooperative manipulation using dual quaternion representation**. In IEEE 1st Conference on Control Technology and Applications (CCTA), 2017. [(Link EN-US)](https://ieeexplore.ieee.org/document/8062550/) _*Both authors have contributed equally_
+* C. M. Farias\*, Y. G. Rocha\*, L. F. C. Figueredo and M. C. Bernardes. **Design of singularity-robust and task-priority primitive controllers for cooperative manipulation using dual quaternion representation**. In IEEE 1st Conference on Control Technology and Applications (CCTA), 2017. [(Link EN-US)](https://ieeexplore.ieee.org/document/8062550/) _\*Both authors have contributed equally_
 
 ---
 ### 2016
