@@ -3,6 +3,7 @@ layout: page
 title: Publications
 ---
 <div style="text-align: justify;background-color: #FFFFFF;">
+
 ## Conference Papers
 
 ### 2017
