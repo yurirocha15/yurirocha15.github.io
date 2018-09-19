@@ -2,9 +2,7 @@
 layout: page
 title: Publications
 ---
-
-My Publications
-
+<div style="text-align: justify;background-color: #FFFFFF;">
 ## Conference Papers
 
 ### 2017
@@ -22,3 +20,5 @@ My Publications
 ### B.Sc. Dissertation
 
 * FARIAS, Cristiana Miranda de; ROCHA, Yuri Gonçalves. Métodos de Comunicação Visual e Controle Cooperativo entre robôs Humanóides (**Methods for visual communication and cooperative control between humanoid robots**). 2016. ix, 109 f., il. Trabalho de conclusão de curso (Bacharelado em Engenharia Mecatrônica)—Universidade de Brasília, Brasília, 2016. [(Link PT-BR)](http://bdm.unb.br/bitstream/10483/17169/1/2016_CristianaMiranda_YuriRocha_tcc.pdf)
+
+</div>
