@@ -4,7 +4,7 @@ title: Yuri Rocha
 subtitle: M.S. Student at Sungkyunkwan University - South Korea
 use-site-title: true
 bigimg:
-  - "/img/background.jpg" : ""
+  - "/img/bg-home.png" : ""
 ---
 
 ### About Me
