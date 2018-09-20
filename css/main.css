@@ -50,7 +50,7 @@ hr.small {
 .main-content {
   padding-top: 80px;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 868px) {
   .main-content {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
@@ -155,7 +155,7 @@ img {
   height: 40px;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 868px) {
   .navbar-custom {
     padding: 20px 0;
     -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
@@ -171,8 +171,8 @@ img {
 .navbar-custom .avatar-container {
   position: absolute;
   left: 50%;
-  width: 50px;
-  margin-top: -25px;
+  width: 80px;
+  margin-top: -40px;
 }
 .navbar-custom .avatar-container  .avatar-img-border {
   width: 100%;
@@ -193,7 +193,7 @@ img {
   display: none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 868px) {
   .navbar-custom .avatar-container {
     width: 150px;
     margin-top: -50px;
@@ -237,7 +237,7 @@ img {
   border-width: 0 1px 1px 1px;
   font-weight: normal;
 }
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 867px) {
   .navbar-custom .nav .navlinks-container.show-children {
     background: rgba(0, 0, 0, 0.2);
   }
@@ -245,7 +245,7 @@ img {
     display: block;
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 868px) {
   .navbar-custom .nav .navlinks-container {
     text-align: center;
   }
@@ -525,7 +525,7 @@ footer .theme-by {
   bottom: 0;
   display: none;
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 868px) {
   .intro-header {
     margin-top: 130px;
   }
