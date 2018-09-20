@@ -272,11 +272,18 @@ footer {
   border-top: 1px #EAEAEA solid;
   margin-top: 50px;
   font-size: 14px;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
   background-color: {{ site.footer-col }};
   {% if site.footer-img %}
   background-image: url({{ site.footer-img }});
   background-attachment: fixed;
   {% endif %}
+}
+
+footer:hover {
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 }
 
 footer p.text-muted {
