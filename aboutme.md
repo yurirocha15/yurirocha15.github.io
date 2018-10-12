@@ -5,6 +5,7 @@ title: About me
 
 My name is Yuri Rocha and I am a Brazilian who's currently living in South Korea. I have a B.Sc. in Control and Automation Engineering from the University of Brasilia (UnB). I am currently pursuing a Master's degree in Electrical and Computer Engineering at Sungkyunkwan University (SKKU).
 
+---
 ### My History
 
 My academic life started when I entered the University of Brasilia (2011). During my undergraduate studies, I had a keen interest in learning as much as possible from different areas, but foremost, to share the knowledge and the experience that I have been given. I was part of the “Electron Project” (2013-2014, 2015-2016), which was created by the IEEE UnB Student Branch. As a voluntary of this project, I gave practical lessons about Electronics for high school students, in order to encourage them to ingress into Engineering courses at Federal Universities.
@@ -28,6 +29,6 @@ By the end of 2016, I was granted the title of Bachelor’s degree due to the co
 
 From August 2016 to July 2017, I worked as a software developer at the company Moringa Digital. There I was able to apply all my knowledge about programming and project management, while also learning several new technologies.
 
-In August 2017 I was selected by the Korean Government Scholarship Program (KGSP) which gave me the opportunity to continue my research as a Master's degree student at Sungkyunkwan University. Before starting my Master's Degree, I studied Korean Language at Konyang University for 1 year and in May 2018 I obtained Level 5 on the TOPIK test (Advanced Level). In September 2018, I started my Master's course in Electrical and Computer Engineering at SKKU.
+In August 2017 I was selected by the Korean Government Scholarship Program (KGSP) which gave me the opportunity to continue my research as a Master's degree student at Sungkyunkwan University. Before starting my Master's Degree, I studied Korean Language at Konyang University for 1 year. In September 2018, I started my Master's course in Electrical and Computer Engineering at SKKU.
 
 I am currently a member of the Control and Robotics Lab and my research is about Semantic Simultaneous Localization and Mapping (Semantic SLAM) on highly dynamic environments.
