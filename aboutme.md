@@ -7,7 +7,7 @@ title: About me
 
 ### My History
 
-	My academic life started when I entered the University of Brasilia (2011). During my undergraduate studies, I had a keen interest in learning as much as possible from different areas, but foremost, to share the knowledge and the experience that I have been given. I was part of the “Electron Project” (2013-2014, 2015), which was created by the IEEE UnB Student Branch. As a voluntary of this project, I gave practical lessons about Electronics for high school students, in order to encourage them to ingress into Engineering courses at Federal Universities.
+	My academic life started when I entered the University of Brasilia (2011). During my undergraduate studies, I had a keen interest in learning as much as possible from different areas, but foremost, to share the knowledge and the experience that I have been given. I was part of the “Electron Project” (2013-2014, 2015-2016), which was created by the IEEE UnB Student Branch. As a voluntary of this project, I gave practical lessons about Electronics for high school students, in order to encourage them to ingress into Engineering courses at Federal Universities.
 
 ![Robocup 2016](img/electron.gif)
 *Electron Project - 2016*
