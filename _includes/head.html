@@ -9,12 +9,12 @@
 
   <!-- for Google Analytics-->
   <meta name="google-site-verification" content="5la3ZmYKptgcmNLCeGdBT75ThydyaoUE7AW5OcVToRs" />
+  
+  <meta name="description" content="{{ page.description }}">
 
   {% if page.subtitle %}
-  <meta name="description" content="{{ page.subtitle }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} {{ site.title-separator }} {{ site.subtitle }}" href="{{ site.baseurl }}/feed.xml" />
   {% endif %}
-
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} {{ site.title-separator }} {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
 
   {% include gtag.html %}
   {% include gtm_head.html %}
