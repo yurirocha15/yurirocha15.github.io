@@ -1,0 +1,653 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3"
+     xml:base="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtOisAbove -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtOisAbove">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBelow"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBehind -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBehind">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisInfront"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBelow -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBelow">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBeside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisBeside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisConnected -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisConnected">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisInfront -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisInfront">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisInside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoOisInside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtOisAbove -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtOisAbove">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBelow"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBehind -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBehind">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisInfront"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBelow -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBelow">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBeside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisBeside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisConnected -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisConnected">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisInfront -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisInfront">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisInside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoOisInside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisAbove -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisAbove">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBelow"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBehind -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBehind">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisInfront"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBelow -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBelow">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBeside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisBeside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisConnected -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisConnected">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisInfront -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisInfront">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisInside -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPisInside">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Color -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Color">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Geometry -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Geometry">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#ID">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Symbol"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Implicit -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Implicit">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Material -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Material">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Implicit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Name">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Symbol"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Orientation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Orientation">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Pose"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Pose -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Pose">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Position -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Position">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Pose"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Size -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Size">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Explicit"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Symbol -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Symbol">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#height -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#height">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Size"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#isMovable -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#isMovable">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Implicit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#isOpen -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#isOpen">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Implicit"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#length -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#length">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Size"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#pitch -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#pitch">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Orientation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#roll -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#roll">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Orientation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#width -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#width">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Size"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#x -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#x">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Position"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#y -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#y">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Position"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#yaw -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#yaw">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Orientation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#z -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#z">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Position"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Chair -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Chair">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Corridor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Corridor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Room"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant"/>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot"/>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Room -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Room">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Table -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Table">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Wall -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Wall">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door1">
+        <rdf:type rdf:resource="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Chair"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Door"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Table"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Wall"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Object"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Occupant"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Place"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#Robot"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointProperties"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#OtoORelation"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoORelation"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/icon-ling/ontologies/2019/1/untitled-ontology-3#PtoPRelation"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
