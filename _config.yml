@@ -39,13 +39,14 @@ avatar: "/img/yurirocha-icon.jpg"
 
 # Personalize the colors in your website. Colour values can be any valid CSS colour
 
-navbar-col: "#F5F5F5"
-navbar-text-col: "#404040"
-navbar-children-col: "#F5F5F5"
-page-col: "#FFFFFF"
+navbar-col: "#1e1e1e"
+navbar-text-col: "#e6e3db"
+navbar-children-col: "#1e1e1e"
+page-col: "#232323"
+page-text-col: "#e6e3db"
 link-col: "#008AFF"
 hover-col: "#0085A1"
-footer-col: "#F5F5F5"
+footer-col: "#1e1e1e"
 footer-text-col: "#777777"
 footer-link-col: "#303a8c"
 
