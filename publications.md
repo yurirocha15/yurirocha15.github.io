@@ -5,6 +5,10 @@ title: Publications
 
 ## Conference Papers
 
+### 2019
+
+* S. H. Joo, S. Manzoor, Y. G. Rocha, H. Y. Lee and T. Y. Kuc. **A Realtime Autonomous Robot Navigation Framework for Human like High-level Interaction and Task Planning in Global Dynamic Environment**. International Conference on Electronics, Information, and Communication (ICEIC) 2019. [(Link EN-US)](https://arxiv.org/abs/1905.12942)
+
 ### 2017
 
 * C. M. Farias\*, Y. G. Rocha\*, L. F. C. Figueredo and M. C. Bernardes. **Design of singularity-robust and task-priority primitive controllers for cooperative manipulation using dual quaternion representation**. In IEEE 1st Conference on Control Technology and Applications (CCTA), 2017. [(Link EN-US)](https://yurirocha15.github.io/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf) _\*Both authors have contributed equally_
