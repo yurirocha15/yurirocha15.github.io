@@ -4,7 +4,7 @@ title: Publications and Awards
 ---
 
 ***
-## Peer Reviewed Conferences
+## Peer Reviewed Publications
 
 ### 2019
 
