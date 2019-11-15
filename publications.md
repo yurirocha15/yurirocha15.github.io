@@ -8,9 +8,9 @@ title: Publications and Awards
 
 ### 2019
 
-* Y. G. Rocha and T. Y. Kuc.  **Mental Simulation for Autonomous Learning and Planning Based on Triplet Ontological Semantic Model**. CEUR Workshop Proceedings, Vol. 2487, pp. 65-73, 2019. [Link EN-US](https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf)
+* Y. G. Rocha and T. Y. Kuc.  **Mental Simulation for Autonomous Learning and Planning Based on Triplet Ontological Semantic Model**. CEUR Workshop Proceedings, Vol. 2487, pp. 65-73, 2019. [(Link EN-US)](https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf)
 
-* S. Manzoor, S. H. Joo, Y. G. Rocha, H. U. Lee and T. Y. Kuc.  **A Novel Semantic Slam Framework for Humanlike High-Level Interaction and Planning in Global Environment**. CEUR Workshop Proceedings, Vol. 2487, pp. 10-21, 2019. [Link EN-US](https://swb.skku.edu/_res/cnrlab/etc/A_Novel_Semantic_SLAM_Framework_for_Humanlike_High-Level_Interaction_and_Planning_in_Global_Environment.pdf)
+* S. Manzoor, S. H. Joo, Y. G. Rocha, H. U. Lee and T. Y. Kuc.  **A Novel Semantic Slam Framework for Humanlike High-Level Interaction and Planning in Global Environment**. CEUR Workshop Proceedings, Vol. 2487, pp. 10-21, 2019. [(Link EN-US)](https://swb.skku.edu/_res/cnrlab/etc/A_Novel_Semantic_SLAM_Framework_for_Humanlike_High-Level_Interaction_and_Planning_in_Global_Environment.pdf)
 
 * S. H. Joo, S. Manzoor, Y. G. Rocha, H. Y. Lee and T. Y. Kuc. **A Realtime Autonomous Robot Navigation Framework for Human like High-level Interaction and Task Planning in Global Dynamic Environment**. International Conference on Electronics, Information, and Communication (ICEIC) 2019. [(Link EN-US)](https://arxiv.org/abs/1905.12942)
 
