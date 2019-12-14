@@ -12,7 +12,9 @@ title: Publications and Awards
 
 * S. Manzoor, S. H. Joo, Y. G. Rocha, H. U. Lee and T. Y. Kuc.  **A Novel Semantic Slam Framework for Humanlike High-Level Interaction and Planning in Global Environment**. CEUR Workshop Proceedings, Vol. 2487, pp. 10-21, 2019. [(Link EN-US)](https://swb.skku.edu/_res/cnrlab/etc/A_Novel_Semantic_SLAM_Framework_for_Humanlike_High-Level_Interaction_and_Planning_in_Global_Environment.pdf)
 
-* S. H. Joo, S. Manzoor, Y. G. Rocha, H. Y. Lee and T. Y. Kuc. **A Realtime Autonomous Robot Navigation Framework for Human like High-level Interaction and Task Planning in Global Dynamic Environment**. International Conference on Electronics, Information, and Communication (ICEIC) 2019. [(Link EN-US)](https://arxiv.org/abs/1905.12942)
+* Y. G. Rocha, S. H. Joo, E. J. Kim and T. Y. Kuc. **Automatic Generation of a Simulated Robot from an Ontology-Based Semantic Description**. 19th International Conference on Control, Automation and Systems (ICCAS), 2019. [(Link EN-US)](https://www.yurirocha.com/assets/Automatic_Generation_ICCAS2019.pdf)
+
+* S. H. Joo, S. Manzoor, Y. G. Rocha, H. Y. Lee and T. Y. Kuc. **A Realtime Autonomous Robot Navigation Framework for Human like High-level Interaction and Task Planning in Global Dynamic Environment**. International Conference on Electronics, Information, and Communication (ICEIC), 2019. [(Link EN-US)](https://arxiv.org/abs/1905.12942)
 
 ### 2017
 
