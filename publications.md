@@ -34,9 +34,13 @@ title: Publications and Awards
 ***
 ## Awards
 
+### 2019
+
+* **Award for Academic Achievement as a Korean Government Scholarship Student**. By National Institute for International Education (NIIED), Korean Ministry of Education. [(Link EN-US)](http://www.yurirocha.com/assets/award_kgsp_academic_achievement.pdf)
+
 ### 2017
 
-* **Korean Government Scholarship Program (KGSP) for Graduate Students Grantee**. By National Institute for International Education (NIIED). [(Link EN-US)](http://www.yurirocha.com/assets/2017_kgsp_results.pdf)
+* **Korean Government Scholarship Program (KGSP) for Graduate Students Grantee**. By National Institute for International Education (NIIED), Korean Ministry of Education. [(Link EN-US)](http://www.yurirocha.com/assets/2017_kgsp_results.pdf)
 
 ### 2016
 
