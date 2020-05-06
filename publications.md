@@ -6,6 +6,10 @@ title: Publications and Awards
 ***
 ## Peer Reviewed Publications
 
+### 2020
+
+* S. -H. Joo; S. Manzoor; Y. G. Rocha; S. -H. Bae; K. -H. Lee; T. -Y. Kuc; M. Kim. **Autonomous Navigation Framework for Intelligent Robots Based on a Semantic Environment Modeling**. Appl. Sci. 2020, 10, 3219. [(Link EN-US)](https://www.mdpi.com/2076-3417/10/9/3219/pdf)
+
 ### 2019
 
 * Y. G. Rocha and T. Y. Kuc.  **Mental Simulation for Autonomous Learning and Planning Based on Triplet Ontological Semantic Model**. CEUR Workshop Proceedings, Vol. 2487, pp. 65-73, 2019. [(Link EN-US)](https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf)
