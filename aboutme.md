@@ -24,6 +24,7 @@ After coming back to Brazil, in 2015, I rejoined the UnBeatables team as the dev
 
 As a way to provide to children in need a chance to interact with real robots, we created the UnBeatables outreach project, where we performed ludic presentations in public schools and children hospitals.
 
+<p>
 <div class="wrapper">
     <div class="h_iframe">
         <iframe src="https://drive.google.com/file/d/1XBAO57M1xRluizfFkuugE6afXKtCOigx/preview" 
@@ -32,8 +33,8 @@ As a way to provide to children in need a chance to interact with real robots, w
         allowfullscreen></iframe>
     </div>
 </div>
-
-*UnBeatables Outreach Project*
+<em>UnBeatables Outreach Project</em>
+</p>
 
 By the end of 2016, I was granted the title of Bachelor’s degree due to the conclusion of the Mechatronics Undergraduate Program with major on Control and Automation. Our dissertation was about controlling two arms of a humanoid robot using the cooperative dual task-space. Using the description of the cooperative dual task-space using unit dual quaternions, our goal was to implement on a simulated system and, later on, on a physical platform different task controllers aiming the execution of a common activity regarding house service: carrying and positioning a tray using both arms.
 
