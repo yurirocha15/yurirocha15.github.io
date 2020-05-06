@@ -22,11 +22,11 @@ title: Publications and Awards
 
 ### 2017
 
-* C. M. Farias\*, Y. G. Rocha\*, L. F. C. Figueredo and M. C. Bernardes. **Design of singularity-robust and task-priority primitive controllers for cooperative manipulation using dual quaternion representation**. In IEEE 1st Conference on Control Technology and Applications (CCTA), 2017. [(Link EN-US)](https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf)
+* C. M. Farias\*, Y. G. Rocha\*, L. F. C. Figueredo and M. C. Bernardes. **Design of singularity-robust and task-priority primitive controllers for cooperative manipulation using dual quaternion representation**. IEEE 1st Conference on Control Technology and Applications (CCTA), 2017. [(Link EN-US)](https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf)
 
 ### 2016
 
-* C. M. Farias, F. M. Dalosto, Y. G. Rocha, and M. C. Bernardes. Estudo de Viabilidade do Framework ROS para futebol de Robôs com a Plataforma NAO (**Viability Study of the ROS Framework Applied to Robot Soccer Using the NAO Platform**). In I BRAHUR: Brazilian Humanoid Robot Workshop, 2016. [(Link PT-BR)](https://www.yurirocha.com/assets/Interface_ROS_NAO_BRAHUR_2016.pdf)
+* C. M. Farias, F. M. Dalosto, Y. G. Rocha, and M. C. Bernardes. Estudo de Viabilidade do Framework ROS para futebol de Robôs com a Plataforma NAO (**Viability Study of the ROS Framework Applied to Robot Soccer Using the NAO Platform**). I BRAHUR: Brazilian Humanoid Robot Workshop, 2016. [(Link PT-BR)](https://www.yurirocha.com/assets/Interface_ROS_NAO_BRAHUR_2016.pdf)
 
 ***
 ## Dissertations
