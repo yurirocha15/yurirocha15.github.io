@@ -10,7 +10,7 @@ My name is Yuri Rocha and I am a Brazilian who's currently living in South Korea
 
 My academic life started when I entered the University of Brasilia (2011). During my undergraduate studies, I had a keen interest in learning as much as possible from different areas, but foremost, to share the knowledge and the experience that I have been given. I was part of the “Electron Project” (2013-2014, 2015-2016), which was created by the IEEE UnB Student Branch. As a voluntary of this project, I gave practical lessons about Electronics for high school students, in order to encourage them to ingress into Engineering courses at Federal Universities.
 
-![Robocup 2016](img/electron.png)
+![Electron Project](img/electron.png)
 *Electron Project - 2016*
 
 In the third year of my graduation, I was eager to engage in more practical activities, on which I could apply concepts learned on theory and see how they translate to the physical world. Hence, I joined the UnBeatables Robot Soccer Team (2014), wherein I developed the robot behavior and computer vision regarding a soccer match. On that same year, we won the first place in the RoboCup SPL Drop-In Only league.
@@ -38,7 +38,7 @@ As a way to provide to children in need a chance to interact with real robots, w
 
 By the end of 2016, I was granted the title of Bachelor’s degree due to the conclusion of the Mechatronics Undergraduate Program with major on Control and Automation. Our dissertation was about controlling two arms of a humanoid robot using the cooperative dual task-space. Using the description of the cooperative dual task-space using unit dual quaternions, our goal was to implement on a simulated system and, later on, on a physical platform different task controllers aiming the execution of a common activity regarding house service: carrying and positioning a tray using both arms.
 
-![Robocup 2016](img/tg.jpg)
+![Dissertation Day](img/tg.jpg)
 *Photo after presenting our Bachelor Dissertation*
 
 From August 2016 to July 2017, I worked as a software developer at the company Moringa Digital. There I was able to apply all my knowledge about programming and project management, while also learning several new technologies.
