@@ -8,7 +8,7 @@ title: Publications and Awards
 
 ### 2020
 
-* S. -H. Joo; S. Manzoor; Y. G. Rocha; S. -H. Bae; K. -H. Lee; T. -Y. Kuc; M. Kim. **Autonomous Navigation Framework for Intelligent Robots Based on a Semantic Environment Modeling**. Appl. Sci. 2020, 10, 3219. [(Link EN-US)](https://www.mdpi.com/2076-3417/10/9/3219/pdf)
+* S. H. Joo; S. Manzoor; Y. G. Rocha; S. H. Bae; K. H. Lee; T. Y. Kuc; M. Kim. **Autonomous Navigation Framework for Intelligent Robots Based on a Semantic Environment Modeling**. Appl. Sci. 2020, 10, 3219. [(Link EN-US)](https://www.mdpi.com/2076-3417/10/9/3219/pdf)
 
 ### 2019
 
