@@ -10,7 +10,7 @@ My name is Yuri Rocha and I am a Brazilian who's currently living in South Korea
 
 My academic life started when I entered the University of Brasilia (2011). During my undergraduate studies, I had a keen interest in learning as much as possible from different areas, but foremost, to share the knowledge and the experience that I have been given. I was part of the “Electron Project” (2013-2014, 2015-2016), which was created by the IEEE UnB Student Branch. As a voluntary of this project, I gave practical lessons about Electronics for high school students, in order to encourage them to ingress into Engineering courses at Federal Universities.
 
-![Robocup 2016](img/electron.gif)
+![Robocup 2016](img/electron.png)
 *Electron Project - 2016*
 
 In the third year of my graduation, I was eager to engage in more practical activities, on which I could apply concepts learned on theory and see how they translate to the physical world. Hence, I joined the UnBeatables Robot Soccer Team (2014), wherein I developed the robot behavior and computer vision regarding a soccer match. On that same year, we won the first place in the RoboCup SPL Drop-In Only league.
