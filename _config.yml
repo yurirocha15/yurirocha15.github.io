@@ -25,7 +25,7 @@ description: I have a B.Sc. in Control and Automation Engineering from the Unive
 navbar-links:
   About Me: "aboutme"
   Publications: "publications"
-  Resume/CV: "assets/cv_yuri_2019_11.pdf"
+  Resume/CV: "assets/cv_yuri_website.pdf"
 
 # Image to show in the navigation bar - image must be a square (width = height)
 # Remove this parameter if you don't want an image in the navbar
