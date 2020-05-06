@@ -5,6 +5,7 @@ title: Publications and Awards
 
 ***
 ## Peer Reviewed Publications
+<!-- TODO: Standardize citation format -->
 
 ### 2020
 
