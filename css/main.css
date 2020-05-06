@@ -602,15 +602,24 @@ footer .theme-by {
   }
 }
 
-.c_iframe iframe {
-  display:block;
-  margin: 0 auto;
+.wrapper {
   width: 100%;
+  max-width: 800px;
   height: 100%;
+  margin: 0 auto;
+  background: #CCC
 }
 
-.c_iframe {
-  width: 100%;
+.h_iframe {
+  position: relative;
+  padding-top: 56.25%;
+}
+
+.h_iframe iframe {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
   height: 100%;
 }
 

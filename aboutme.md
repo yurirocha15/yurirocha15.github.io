@@ -24,11 +24,16 @@ After coming back to Brazil, in 2015, I rejoined the UnBeatables team as the dev
 
 As a way to provide to children in need a chance to interact with real robots, we created the UnBeatables outreach project, where we performed ludic presentations in public schools and children hospitals.
 
-<iframe class="c_iframe"
-src="https://drive.google.com/file/d/1XBAO57M1xRluizfFkuugE6afXKtCOigx/preview" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+
+<div class="wrapper">
+    <div class="h_iframe">
+        <iframe src="https://drive.google.com/file/d/1XBAO57M1xRluizfFkuugE6afXKtCOigx/preview" 
+        frameborder="0" 
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+</div>
+
 
 *UnBeatables Outreach Project*
 
