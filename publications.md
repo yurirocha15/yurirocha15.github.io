@@ -32,6 +32,10 @@ title: Publications and Awards
 ***
 ## Dissertations
 
+### M.Sc. Dissertation
+
+* ROCHA, Yuri Goncalves. **Methods for visual communication and cooperative control between humanoid robots**. Master Thesis, Electrical and Computer Engineering, Sungkyunkwan University, Suwon, South Korea, 2020. [(Link EN-US)](https://www.yurirocha.com/assets/Yuri_Master_Thesis.pdf)
+
 ### B.Sc. Dissertation
 
 * FARIAS, Cristiana Miranda de; ROCHA, Yuri Gonçalves. Métodos de Comunicação Visual e Controle Cooperativo entre robôs Humanóides (**Methods for visual communication and cooperative control between humanoid robots**). 2016. ix, 109 f., il. Trabalho de conclusão de curso (Bacharelado em Engenharia Mecatrônica)—Universidade de Brasília, Brasília, 2016. [(Link PT-BR)](http://bdm.unb.br/bitstream/10483/17169/1/2016_CristianaMiranda_YuriRocha_tcc.pdf)

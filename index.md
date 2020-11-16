@@ -1,12 +1,12 @@
 ---
 layout: page
 title: Yuri Rocha
-subtitle: M.Sc. Student at Sungkyunkwan University - South Korea
+subtitle: Machine Learning Research Engineer at MakinaRocks - South Korea
 use-site-title: true
 bigimg:
   - "/img/bg-home.jpg" : ""
 ---
 
-I have a B.Sc. in Control and Automation Engineering from the University of Brasilia (UnB). I am currently pursuing a Master's degree in Electrical and Computer Engineering at Sungkyunkwan University. I am also a member of the [Control and Robotics Lab](https://swb.skku.edu/cnrlab) under the supervision of Professor Tae-Yong Kuc.
+I have a B.Sc. in Control and Automation Engineering from the University of Brasilia (UnB) and a M.Sc. in Electrical and Computer Engineering at Sungkyunkwan University (SKKU). I am currently working as a Machine Learning Research Engineer at [MakinaRocks](http://www.makinarocks.ai/).
 
 For more details, please visit the [About Me section](https://yurirocha.com/aboutme/)
