@@ -32,9 +32,9 @@ title: Publications and Awards
 ***
 ## Dissertations
 
-### M.Sc. Dissertation
+### M.Sc. Thesis
 
-* ROCHA, Yuri Goncalves. **Methods for visual communication and cooperative control between humanoid robots**. Master Thesis, Electrical and Computer Engineering, Sungkyunkwan University, Suwon, South Korea, 2020. [(Link EN-US)](https://www.yurirocha.com/assets/Yuri_Master_Thesis.pdf)
+* ROCHA, Yuri Goncalves. **Mental Simulation for Autonomous Learning and Planning Using an Ontology-Based Modeling Framework**. Master Thesis, Electrical and Computer Engineering, Sungkyunkwan University, Suwon, South Korea, 2020. [(Link EN-US)](https://www.yurirocha.com/assets/Yuri_Master_Thesis.pdf)
 
 ### B.Sc. Dissertation
 
