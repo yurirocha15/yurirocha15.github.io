@@ -170,19 +170,25 @@ select {
   gap: 8px;
 }
 
-.nav-links a {
+.chrome-link {
   border: 1px solid transparent;
   border-radius: 999px;
   color: var(--muted);
   font-size: 0.86rem;
   font-weight: 750;
   padding: 8px 10px;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
-.nav-links a:hover {
+.chrome-link:hover {
   background: var(--yellow-soft);
   border-color: color-mix(in srgb, var(--yellow) 45%, transparent);
   color: var(--ink);
+  transform: translateY(-1px);
 }
 
 .section-band,

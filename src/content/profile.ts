@@ -13,6 +13,7 @@ export const profile = {
     { id: "nav-professional", label: "Professional", targetId: "professional" },
     { id: "nav-open-source", label: "Open Source", targetId: "open-source" },
     { id: "nav-research", label: "Research", targetId: "research" },
+    { id: "nav-skills", label: "Skills", targetId: "skills" },
     { id: "nav-contact", label: "Contact", targetId: "contact" },
   ],
   links: [
@@ -120,6 +121,6 @@ export const sections = {
   openSource: { id: "open-source", title: "Open source", tone: "paper" },
   research: { id: "research", title: "Research", tone: "green" },
   awards: { id: "awards", title: "Awards", tone: "paper" },
-  skills: { title: "Skills", tone: "green" },
+  skills: { id: "skills", title: "Skills", tone: "green" },
   languages: { title: "Languages", tone: "paper" },
 } satisfies Record<string, SectionDefinition>;

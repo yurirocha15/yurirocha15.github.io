@@ -552,19 +552,20 @@
   }
 
   .nav-links {
+    gap: 0;
     justify-content: space-between;
   }
 
   .nav-links a {
-    font-size: 0.68rem;
-    padding-left: 3px;
-    padding-right: 3px;
+    font-size: 0.64rem;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .board-header {
     align-items: start;
-    flex-direction: column;
     gap: 6px;
+    grid-template-columns: 1fr;
   }
 
   .board-header strong {

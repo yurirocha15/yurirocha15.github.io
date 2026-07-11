@@ -54,11 +54,22 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
       .filter((href): href is string => Boolean(href?.startsWith("#")));
     const ids = Array.from(document.querySelectorAll<HTMLElement>("[id]")).map((node) => node.id);
     const cards = Array.from(document.querySelectorAll<HTMLElement>("article.project-card"));
+    const chromeLinks = Array.from(document.querySelectorAll<HTMLElement>(".nav-links a"));
+    const heroLinkClasses = new Map(
+      Array.from(document.querySelectorAll<HTMLAnchorElement>(".hero-actions a"))
+        .map((link) => [link.getAttribute("href"), link.className]),
+    );
+    const footerLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".footer-links a"));
     return {
       cardsValid: cards.every((card) => {
         const bounds = card.getBoundingClientRect();
         return bounds.width > 0 && bounds.right <= document.documentElement.clientWidth + 1;
       }),
+      chromeLinksConsistent: chromeLinks.every((link) => link.classList.contains("chrome-link")),
+      profileLinkButtonsConsistent: footerLinks.every((link) => (
+        link.classList.contains("button")
+          && heroLinkClasses.get(link.getAttribute("href")) === link.className
+      )),
       idsUnique: new Set(ids).size === ids.length,
       navTargetsValid: navTargets.every((href) => document.querySelector(href)),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -67,10 +78,39 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
 
   expect(contract).toEqual({
     cardsValid: true,
+    chromeLinksConsistent: true,
     idsUnique: true,
     navTargetsValid: true,
     overflow: 0,
+    profileLinkButtonsConsistent: true,
   });
+});
+
+test("labels and framed content respond to pointer hover", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "Pointer hover is exercised once per CI job");
+  await page.goto("/");
+
+  const label = page.locator(".tag-list span").first();
+  await label.hover();
+  await expect.poll(() => label.evaluate((element) => getComputedStyle(element).transform))
+    .not.toBe("none");
+
+  const textBox = page.locator(".board-metrics > div").first();
+  await scrollToCenter(textBox);
+  await textBox.hover();
+  await expect.poll(() => textBox.evaluate((element) => getComputedStyle(element).translate))
+    .not.toBe("none");
+
+  const card = page.locator(".project-card").first();
+  await scrollToCenter(card);
+  await card.hover();
+  expect(await card.evaluate((element) => getComputedStyle(element).translate)).toBe("none");
+
+  const timelineItem = page.locator(".timeline-item").first();
+  await scrollToCenter(timelineItem);
+  await timelineItem.hover();
+  const timelineBody = timelineItem.locator(".timeline-body");
+  expect(await timelineBody.evaluate((element) => getComputedStyle(element).translate)).toBe("none");
 });
 
 test("project scenes load on demand and pause when offscreen", async ({ page }) => {

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import type { ProfileContent } from "../content";
+import { ProfileLinkButton } from "./ProfileLinkButton";
 import { TagList } from "./TagList";
 
 const HeroRobotScene = lazy(() => import("../HeroRobotScene"));
@@ -23,21 +24,9 @@ export function Hero({ profile }: HeroProps) {
           <h1>{profile.hero.heading}</h1>
           <p className="lead">{profile.hero.lead}</p>
           <div className="hero-actions" aria-label={profile.labels.primaryLinks}>
-            {heroLinks.map((link) => {
-              const classes = [
-                "button",
-                link.primary ? "button-primary" : "",
-                link.hideOnMobile ? "button--mobile-hidden" : "",
-              ]
-                .filter(Boolean)
-                .join(" ");
-
-              return (
-                <a className={classes} href={link.href} key={link.id}>
-                  {link.label}
-                </a>
-              );
-            })}
+            {heroLinks.map((link) => (
+              <ProfileLinkButton link={link} key={link.id} />
+            ))}
           </div>
         </div>
 

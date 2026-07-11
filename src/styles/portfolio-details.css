@@ -25,7 +25,6 @@
 
 .paper-row:hover {
   border-color: var(--yellow);
-  transform: translateY(-1px);
 }
 
 .paper-row span,
@@ -97,7 +96,7 @@
   margin-bottom: 8px;
 }
 
-.site-footer a:hover {
+.footer-email:hover {
   color: var(--ink);
 }
 
@@ -106,15 +105,6 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-end;
-}
-
-.footer-links a {
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  color: var(--ink);
-  font-size: 0.88rem;
-  font-weight: 850;
-  padding: 8px 12px;
 }
 
 [data-reveal] {
@@ -145,4 +135,54 @@
 .project-card:nth-child(4),
 .skill-block:nth-child(4) {
   transition-delay: 220ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tag-list span:hover {
+    background: #fff;
+    border-color: var(--yellow);
+    color: var(--ink);
+  }
+
+  .board-metrics > div:hover,
+  .contribution-row:hover {
+    background: color-mix(in srgb, var(--yellow-soft) 34%, var(--paper));
+  }
+
+  .paper-row:hover {
+    border-color: color-mix(in srgb, var(--yellow) 76%, var(--line));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .tag-list span {
+    transition:
+      background 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .tag-list span:hover {
+    box-shadow: 0 3px 8px rgba(33, 34, 28, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .board-metrics > div,
+  .paper-row {
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      opacity 620ms ease,
+      transform 620ms ease,
+      translate 180ms ease;
+  }
+
+  .board-metrics > div:hover,
+  .paper-row:hover {
+    transition-delay: 0ms;
+    translate: 0 -1px;
+  }
 }

@@ -1,4 +1,5 @@
 import type { NavigationItem, ProfileContent } from "../content";
+import { ProfileLinkButton } from "./ProfileLinkButton";
 
 type SiteHeaderProps = {
   identity: ProfileContent["identity"];
@@ -18,7 +19,7 @@ export function SiteHeader({ identity, navigation, navigationLabel }: SiteHeader
       </a>
       <nav className="nav-links" aria-label={navigationLabel}>
         {navigation.map((item) => (
-          <a href={`#${item.targetId}`} key={item.id}>
+          <a className="chrome-link" href={`#${item.targetId}`} key={item.id}>
             {item.label}
           </a>
         ))}
@@ -39,13 +40,11 @@ export function SiteFooter({ profile }: SiteFooterProps) {
       <div data-reveal>
         <p className="eyebrow">{profile.contact.eyebrow}</p>
         <h2>{profile.contact.location}</h2>
-        <a href={profile.contact.emailHref}>{profile.contact.email}</a>
+        <a className="footer-email" href={profile.contact.emailHref}>{profile.contact.email}</a>
       </div>
       <div className="footer-links" data-reveal>
         {footerLinks.map((link) => (
-          <a href={link.href} key={link.id}>
-            {link.label}
-          </a>
+          <ProfileLinkButton link={link} key={link.id} />
         ))}
       </div>
     </footer>
