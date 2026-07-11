@@ -45,13 +45,13 @@ function createMaterials() {
       transparent: true, opacity: 0.9,
     }),
     toolMid: new THREE.MeshStandardMaterial({
-      color: 0x737a76, metalness: 0.42, opacity: 0.88, roughness: 0.4, transparent: true,
+      color: 0x737a76, metalness: 0.42, opacity: 0.6, roughness: 0.4, transparent: true,
     }),
     toolLight: new THREE.MeshStandardMaterial({
-      color: 0xbfc3bf, metalness: 0.56, opacity: 0.88, roughness: 0.32, transparent: true,
+      color: 0xbfc3bf, metalness: 0.56, opacity: 0.6, roughness: 0.32, transparent: true,
     }),
     toolDark: new THREE.MeshStandardMaterial({
-      color: 0x444a47, metalness: 0.3, opacity: 0.88, roughness: 0.5, transparent: true,
+      color: 0x444a47, metalness: 0.3, opacity: 0.6, roughness: 0.5, transparent: true,
     }),
   };
 }

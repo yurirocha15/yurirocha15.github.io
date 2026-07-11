@@ -53,6 +53,38 @@ function makeZCylinder(
   return mesh;
 }
 
+type PlatePoint = [x: number, z: number];
+
+function makeExtrudedPlate(
+  points: PlatePoint[],
+  thickness: number,
+  material: THREE.Material,
+  holes: Array<[x: number, z: number, radius: number]> = [],
+) {
+  const shape = new THREE.Shape();
+  shape.moveTo(...points[0]);
+  points.slice(1).forEach((point) => shape.lineTo(...point));
+  shape.closePath();
+  holes.forEach(([x, z, radius]) => {
+    const hole = new THREE.Path();
+    hole.absarc(x, z, radius, 0, Math.PI * 2, false);
+    shape.holes.push(hole);
+  });
+
+  const geometry = new THREE.ExtrudeGeometry(shape, {
+    bevelEnabled: true,
+    bevelSegments: 1,
+    bevelSize: 0.002,
+    bevelThickness: 0.002,
+    curveSegments: 12,
+    depth: thickness,
+  });
+  geometry.rotateX(Math.PI / 2);
+  geometry.translate(0, thickness / 2, 0);
+  geometry.computeVertexNormals();
+  return addShadowMesh(new THREE.Mesh(geometry, material));
+}
+
 function makeSegment(
   start: [number, number, number],
   end: [number, number, number],
@@ -198,45 +230,71 @@ export function makeSpotWeldGun(materials: WeldGunMaterials) {
   const tool = new THREE.Group();
   tool.name = "spot-welding-c-gun";
 
-  const flange = makeZCylinder(0.055, 0.04, materials.dark, [0, 0, -0.02]);
-  const servo = makeZCylinder(0.062, 0.1, materials.metal, [0, 0, -0.085]);
-  const housing = makeBox([0.15, 0.12, 0.15], materials.body, [-0.015, 0, -0.165]);
-  const controller = makeBox([0.075, 0.13, 0.06], materials.dark, [-0.075, 0, -0.13]);
-
-  const spine = makeBox([0.06, 0.105, 0.3], materials.body, [-0.105, 0, -0.36]);
-  const upperJaw = makeBox([0.25, 0.095, 0.06], materials.body, [0, 0, -0.235]);
-  const lowerJaw = makeBox([0.25, 0.095, 0.06], materials.body, [0, 0, -0.515]);
-  const upperJoint = addShadowMesh(
-    new THREE.Mesh(new THREE.SphereGeometry(0.055, 18, 14), materials.body),
+  const flange = makeZCylinder(0.042, 0.024, materials.dark, [0, 0, -0.012], 16);
+  const upperArm = makeExtrudedPlate(
+    [
+      [-0.132, -0.178], [-0.02, -0.195], [0.073, -0.219], [0.105, -0.246],
+      [0.094, -0.271], [-0.02, -0.245], [-0.105, -0.225], [-0.14, -0.205],
+    ],
+    0.032,
+    materials.body,
   );
-  upperJoint.position.set(-0.105, 0, -0.235);
-  const lowerJoint = upperJoint.clone();
-  lowerJoint.position.z = -0.515;
-
-  const actuator = makeZCylinder(0.035, 0.12, materials.metal, [0.09, 0, -0.31]);
-  const actuatorBand = makeZCylinder(0.041, 0.028, materials.accent, [0.09, 0, -0.265]);
-  const upperElectrode = makeZCylinder(0.014, 0.06, materials.copper, [0.09, 0, -0.375], 16);
-  const lowerShank = makeZCylinder(0.026, 0.07, materials.metal, [0.09, 0, -0.48], 16);
-  const lowerElectrode = makeZCylinder(0.014, 0.06, materials.copper, [0.09, 0, -0.435], 16);
-
-  const tip = addShadowMesh(
-    new THREE.Mesh(new THREE.SphereGeometry(0.017, 14, 10), materials.copper),
+  const spine = makeExtrudedPlate(
+    [[-0.14, -0.2], [-0.095, -0.22], [-0.085, -0.455], [-0.105, -0.488], [-0.145, -0.475]],
+    0.032,
+    materials.body,
+    [[-0.113, -0.31, 0.011], [-0.11, -0.4, 0.011]],
   );
+  const lowerArm = makeExtrudedPlate(
+    [
+      [-0.115, -0.475], [-0.02, -0.465], [0.09, -0.452], [0.11, -0.48],
+      [0.078, -0.505], [-0.02, -0.495], [-0.14, -0.505],
+    ],
+    0.032,
+    materials.body,
+  );
+  const driveHousing = makeExtrudedPlate(
+    [
+      [-0.036, -0.032], [0.036, -0.032], [0.047, -0.058], [0.028, -0.132],
+      [-0.028, -0.15], [-0.058, -0.12], [-0.052, -0.06],
+    ],
+    0.056,
+    materials.metal,
+  );
+  const serviceCover = makeExtrudedPlate(
+    [[-0.057, -0.078], [-0.026, -0.092], [-0.04, -0.137], [-0.076, -0.126]],
+    0.062,
+    materials.dark,
+  );
+  const frameMount = makeExtrudedPlate(
+    [[-0.045, -0.13], [0.025, -0.145], [0.005, -0.2], [-0.065, -0.215], [-0.095, -0.18]],
+    0.04,
+    materials.metal,
+  );
+  const actuator = makeZCylinder(0.023, 0.078, materials.metal, [0.09, 0, -0.316], 8);
+  const actuatorCollar = makeZCylinder(0.028, 0.016, materials.accent, [0.09, 0, -0.278], 8);
+  const upperElectrode = makeSegment(
+    [0.09, 0, -0.352], [0.09, 0, -0.405], 0.011, materials.copper, 0.006, 12,
+  );
+  const lowerShank = makeZCylinder(0.015, 0.03, materials.metal, [0.09, 0, -0.47], 8);
+  const lowerElectrode = makeSegment(
+    [0.09, 0, -0.455], [0.09, 0, -0.405], 0.011, materials.copper, 0.006, 12,
+  );
+
+  const tip = new THREE.Group();
   tip.name = "weld-tip";
   tip.position.set(0.09, 0, -0.405);
 
   tool.add(
     flange,
-    servo,
-    housing,
-    controller,
+    upperArm,
     spine,
-    upperJaw,
-    lowerJaw,
-    upperJoint,
-    lowerJoint,
+    lowerArm,
+    driveHousing,
+    serviceCover,
+    frameMount,
     actuator,
-    actuatorBand,
+    actuatorCollar,
     upperElectrode,
     lowerShank,
     lowerElectrode,

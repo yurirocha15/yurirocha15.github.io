@@ -44,14 +44,14 @@ export const profile = {
     },
   ],
   hero: {
-    metadata: ["Senior Robotics Software Engineer", "Seoul, South Korea"],
+    metadata: ["Senior Robotics & AI Engineer", "Seoul, South Korea"],
     heading: "Performant, intelligent robot software.",
     lead:
       "I build real-time robot controllers, motion-planning systems, on-device inference, and GPU-backed deployment platforms for robotics teams.",
   },
   engineeringProfile: {
     label: "Engineering profile",
-    title: "Robotics software engineer",
+    title: "Robotics & AI software engineer",
     groups: [
       { id: "capability-real-time", title: "Real-time", items: ["C++", "Linux", "Task Scheduling", "IPC"] },
       {
@@ -98,7 +98,7 @@ export const profile = {
     mainNavigation: "Main navigation",
     primaryLinks: "Primary links",
     roleAndLocation: "Role and location",
-    engineeringCapabilities: "Robotics software engineering capabilities",
+    engineeringCapabilities: "Robotics & AI engineering capabilities",
     professionalSnapshot: "Professional snapshot",
     contributionTotals: "Contribution totals",
     publicPullRequests: "Public pull requests",

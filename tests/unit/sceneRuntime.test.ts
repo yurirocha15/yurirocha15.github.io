@@ -85,9 +85,11 @@ describe("shared scene runtime", () => {
 
     const dispose = mountSceneRuntime(mount, build, runtimeOptions(renderer));
     expect(mount).toContainElement(renderer.domElement);
+    expect(renderer.domElement).toHaveAttribute("data-runtime-active", "false");
     expect(renderer.setSize).toHaveBeenCalledWith(320, 180, false);
     const visibility = MockIntersectionObserver.instances.at(-1)!;
     visibility.trigger(mount, true);
+    expect(renderer.domElement).toHaveAttribute("data-runtime-active", "true");
     expect(updates).toHaveBeenCalledTimes(1);
     expect(renderer.render).toHaveBeenCalledTimes(1);
     expect(updates).toHaveBeenLastCalledWith({
@@ -97,6 +99,7 @@ describe("shared scene runtime", () => {
     });
 
     visibility.trigger(mount, false);
+    expect(renderer.domElement).toHaveAttribute("data-runtime-active", "false");
     expect(renderer.render).toHaveBeenCalledTimes(1);
     const resize = MockResizeObserver.instances.at(-1)!;
     width = 640;

@@ -1,6 +1,36 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
+const SCENE_ASSET_TIMEOUT = 15_000;
+const SCENE_TEST_TIMEOUT = 60_000;
 const browserErrors = new WeakMap<Page, string[]>();
+
+async function scrollToCenter(locator: Locator) {
+  await locator.evaluate((element) => {
+    element.scrollIntoView({ behavior: "instant", block: "center" });
+  });
+  await expect(locator).toBeInViewport();
+}
+
+async function expectAttributeToChange(locator: Locator, attribute: string) {
+  const changed = await locator.evaluate(
+    (element, { attributeName, timeout }) => new Promise<boolean>((resolve) => {
+      const initialValue = element.getAttribute(attributeName);
+      const observer = new MutationObserver(() => {
+        if (element.getAttribute(attributeName) === initialValue) return;
+        window.clearTimeout(timer);
+        observer.disconnect();
+        resolve(true);
+      });
+      const timer = window.setTimeout(() => {
+        observer.disconnect();
+        resolve(false);
+      }, timeout);
+      observer.observe(element, { attributeFilter: [attributeName], attributes: true });
+    }),
+    { attributeName: attribute, timeout: SCENE_ASSET_TIMEOUT },
+  );
+  expect(changed).toBe(true);
+}
 
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
@@ -44,24 +74,27 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
 });
 
 test("project scenes load on demand and pause when offscreen", async ({ page }) => {
+  test.setTimeout(SCENE_TEST_TIMEOUT);
   await page.goto("/");
   const palletizer = page.locator(".project-visual-palletizer");
   const canvas = palletizer.locator("canvas");
 
   await expect(canvas).toHaveCount(0);
-  await palletizer.scrollIntoViewIfNeeded();
+  await scrollToCenter(palletizer);
   await expect(canvas).toHaveCount(1);
-  await expect.poll(() => canvas.getAttribute("data-robot-ready")).toBe("true");
+  await expect(canvas).toHaveAttribute("data-robot-ready", "true", {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
+  await expect(canvas).toHaveAttribute("data-runtime-active", "true", {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
+  await expectAttributeToChange(canvas, "data-phase");
 
-  let previousPhase: string | null = null;
-  await expect.poll(async () => {
-    const current = await canvas.getAttribute("data-phase");
-    const changed = previousPhase !== null && current !== previousPhase;
-    previousPhase = current;
-    return changed;
-  }).toBe(true);
-
-  await page.locator(".hero-copy").scrollIntoViewIfNeeded();
+  await page.evaluate(() => window.scrollTo({ behavior: "instant", top: 0 }));
+  await expect(page.locator(".hero-copy")).toBeInViewport();
+  await expect(canvas).toHaveAttribute("data-runtime-active", "false", {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
   let stablePhase: string | null = null;
   let stableSamples = 0;
   await expect.poll(async () => {
@@ -71,19 +104,28 @@ test("project scenes load on demand and pause when offscreen", async ({ page }) 
     return stableSamples;
   }, { intervals: [100, 150, 200, 250], timeout: 3000 }).toBeGreaterThanOrEqual(2);
 
-  await palletizer.scrollIntoViewIfNeeded();
-  await expect.poll(async () => (await canvas.getAttribute("data-phase")) !== stablePhase).toBe(true);
+  await scrollToCenter(palletizer);
+  await expect(canvas).toHaveAttribute("data-runtime-active", "true", {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
+  await expectAttributeToChange(canvas, "data-phase");
 });
 
 test("reduced motion exposes content and keeps a deterministic scene frame", async ({ page }) => {
+  test.setTimeout(SCENE_TEST_TIMEOUT);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
 
   expect(await page.locator("[data-reveal]:not(.is-visible)").count()).toBe(0);
   const palletizer = page.locator(".project-visual-palletizer");
-  await palletizer.scrollIntoViewIfNeeded();
+  await scrollToCenter(palletizer);
   const canvas = palletizer.locator("canvas");
-  await expect.poll(() => canvas.getAttribute("data-phase")).not.toBeNull();
+  await expect(canvas).toHaveAttribute("data-runtime-active", "true", {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
+  await expect(canvas).toHaveAttribute("data-phase", /.+/, {
+    timeout: SCENE_ASSET_TIMEOUT,
+  });
   const phase = await canvas.getAttribute("data-phase");
   await expect.poll(() => canvas.getAttribute("data-phase"), {
     intervals: [100, 150, 200],
@@ -92,6 +134,7 @@ test("reduced motion exposes content and keeps a deterministic scene frame", asy
 });
 
 test("all robot scenes reach readiness and render nonblank WebGL pixels", async ({ page }, testInfo) => {
+  test.setTimeout(SCENE_TEST_TIMEOUT);
   test.skip(testInfo.project.name !== "desktop", "WebGL pixel sampling runs once per CI job");
   await page.goto("/");
 
@@ -117,10 +160,17 @@ test("all robot scenes reach readiness and render nonblank WebGL pixels", async 
   ];
 
   for (const scene of scenes) {
-    await page.locator(scene.frame).scrollIntoViewIfNeeded();
+    await scrollToCenter(page.locator(scene.frame));
     const canvas = page.locator(scene.canvas);
     await expect(canvas).toHaveCount(1);
-    await expect.poll(() => canvas.getAttribute(scene.readyAttribute)).toBe(scene.readyValue);
-    await expect.poll(() => canvas.getAttribute("data-pixel-signal")).toBe("true");
+    await expect(canvas).toHaveAttribute("data-runtime-active", "true", {
+      timeout: SCENE_ASSET_TIMEOUT,
+    });
+    await expect(canvas).toHaveAttribute(scene.readyAttribute, scene.readyValue, {
+      timeout: SCENE_ASSET_TIMEOUT,
+    });
+    await expect(canvas).toHaveAttribute("data-pixel-signal", "true", {
+      timeout: SCENE_ASSET_TIMEOUT,
+    });
   }
 });

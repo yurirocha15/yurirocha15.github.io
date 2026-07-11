@@ -1,7 +1,7 @@
 <p align="center">
   <img
-    src="https://capsule-render.vercel.app/api?type=rect&height=150&color=0:151713,100:34464a&text=Yuri%20Rocha&fontColor=fbfaf3&fontSize=44&fontAlignY=38&desc=Robotics%20software%20%2F%20AI%20systems%20%2F%20production%20infrastructure&descSize=16&descAlignY=66"
-    alt="Yuri Rocha - Robotics software / AI systems / production infrastructure"
+    src="https://capsule-render.vercel.app/api?type=rect&height=150&color=0:151713,100:34464a&text=Yuri%20Rocha&fontColor=fbfaf3&fontSize=44&fontAlignY=38&desc=Robotics%20%26%20AI%20Engineer%20%2F%20real-time%20systems%20%2F%20production%20infrastructure&descSize=16&descAlignY=66"
+    alt="Yuri Rocha - Robotics & AI Engineer"
     width="100%"
   />
 </p>
@@ -46,7 +46,7 @@ AI inference, and deployment infrastructure have to behave like one production s
 
 ```text
 CURRENT
-  Senior robotics software engineer in Seoul
+  Senior Robotics & AI Engineer in Seoul
   - controller-adjacent C++ and Linux software
   - official C++ APIs and ROS 2 packages
   - Kubernetes-backed robotics and AI workflows

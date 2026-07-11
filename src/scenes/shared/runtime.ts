@@ -89,6 +89,7 @@ export function mountSceneRuntime(
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.domElement.dataset.runtimeActive = "false";
   mount.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
@@ -161,12 +162,14 @@ export function mountSceneRuntime(
   const start = () => {
     if (disposed || visible) return;
     visible = true;
+    renderer.domElement.dataset.runtimeActive = "true";
     previousElapsed = 0;
     clock.start();
     renderFrame();
   };
   const stop = () => {
     visible = false;
+    renderer.domElement.dataset.runtimeActive = "false";
     window.cancelAnimationFrame(frameId);
   };
 
