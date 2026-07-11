@@ -44,6 +44,8 @@ h1 {
 }
 
 .lead {
+  background: var(--reading-surface);
+  box-shadow: 0 0 0 10px var(--reading-surface);
   color: var(--muted);
   font-size: 1.18rem;
   line-height: 1.62;
@@ -126,6 +128,7 @@ h1 {
 
 .board-header {
   align-items: baseline;
+  background: var(--reading-surface);
   border-bottom: 1px solid var(--line);
   display: grid;
   gap: 14px;
@@ -227,6 +230,7 @@ h1 {
 }
 
 .board-metrics {
+  background: var(--reading-surface);
   border-top: 1px solid var(--line);
   display: grid;
   gap: 0;
@@ -277,7 +281,7 @@ h1 {
 }
 
 .proof-item {
-  background: color-mix(in srgb, var(--paper) 62%, transparent);
+  background: var(--reading-surface);
   border-right: 1px solid var(--line);
   min-height: 132px;
   padding: 22px;
@@ -333,6 +337,8 @@ h1 {
 }
 
 .section-heading {
+  background: var(--reading-surface);
+  box-shadow: 0 0 0 4px var(--reading-surface);
   color: var(--olive);
   display: inline-block;
   font-size: 0.78rem;
@@ -350,7 +356,7 @@ h1 {
 
 .project-card,
 .award-list {
-  background: color-mix(in srgb, var(--paper) 83%, transparent);
+  background: var(--reading-surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
@@ -396,14 +402,16 @@ h1 {
 }
 
 .timeline {
-  border-left: 1px solid var(--line-strong);
+  background: var(--reading-surface);
+  position: relative;
 }
 
 .timeline-item {
+  --timeline-axis: 14px;
   display: grid;
-  gap: 28px;
-  grid-template-columns: 150px minmax(0, 1fr);
-  padding: 0 0 46px 28px;
+  gap: 0;
+  grid-template-columns: 28px 150px 28px minmax(0, 1fr);
+  padding: 0 0 46px;
   position: relative;
 }
 
@@ -417,10 +425,23 @@ h1 {
   border-radius: 50%;
   content: "";
   height: 14px;
-  left: -7.5px;
+  left: var(--timeline-axis);
   position: absolute;
   top: 2px;
+  transform: translateX(-50%);
   width: 14px;
+  z-index: 1;
+}
+
+.timeline-item::after {
+  background: var(--line-strong);
+  bottom: 0;
+  content: "";
+  left: var(--timeline-axis);
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 1px;
 }
 
 .timeline-period {
@@ -429,7 +450,12 @@ h1 {
     "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.82rem;
   font-weight: 850;
+  grid-column: 2;
   padding-top: 2px;
+}
+
+.timeline-body {
+  grid-column: 4;
 }
 
 .role {
@@ -565,6 +591,7 @@ h1 {
 
 .contribution-row {
   align-items: start;
+  background: var(--reading-surface);
   border-top: 1px solid var(--line-strong);
   display: grid;
   gap: 20px;
@@ -573,7 +600,7 @@ h1 {
 }
 
 .contribution-row:nth-child(even) {
-  background: rgba(255, 255, 255, 0.24);
+  background: color-mix(in srgb, var(--reading-surface) 94%, var(--green-soft));
 }
 
 .contribution-source {
@@ -624,6 +651,7 @@ h1 {
 }
 
 .project-copy {
+  background: var(--reading-surface);
   display: flex;
   flex: 1;
   flex-direction: column;

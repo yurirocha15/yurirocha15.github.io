@@ -152,7 +152,6 @@
     margin-top: 16px;
   }
 
-  .timeline-item,
   .paper-row {
     grid-template-columns: 1fr;
   }
@@ -162,12 +161,22 @@
   }
 
   .timeline-item {
-    gap: 10px;
-    padding-left: 24px;
+    --timeline-axis: 12px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    padding-left: 0;
+    row-gap: 10px;
   }
 
   .timeline-period {
+    grid-column: 2;
+    grid-row: 1;
     order: -1;
+  }
+
+  .timeline-body {
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .project-card,

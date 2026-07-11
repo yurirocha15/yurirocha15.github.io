@@ -20,6 +20,7 @@
   --steel: #34464a;
   --green-soft: #dfe7d3;
   --yellow-soft: #efe4c1;
+  --reading-surface: color-mix(in srgb, var(--paper) 94%, var(--page));
   --shadow: 0 26px 80px rgba(33, 34, 28, 0.12);
   --radius: 8px;
   --max: 1180px;

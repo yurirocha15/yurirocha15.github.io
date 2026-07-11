@@ -60,6 +60,26 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
         .map((link) => [link.getAttribute("href"), link.className]),
     );
     const footerLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".footer-links a"));
+    const readingSurfaces = [
+      ".lead",
+      ".board-header",
+      ".board-metrics",
+      ".timeline",
+      ".project-copy",
+      ".paper-row",
+      ".contribution-row",
+    ].map((selector) => document.querySelector<HTMLElement>(selector));
+    const hasOpaqueBackground = (element: HTMLElement | null) => {
+      if (!element) return false;
+      const color = getComputedStyle(element).backgroundColor;
+      if (color === "transparent" || color === "rgba(0, 0, 0, 0)") return false;
+      const legacyAlpha = color.match(/^rgba\(.+,\s*([\d.]+)\)$/)?.[1];
+      const modernAlpha = color.match(/\/\s*([\d.]+)\s*\)$/)?.[1];
+      return Number(legacyAlpha ?? modernAlpha ?? 1) === 1;
+    };
+    const timelineItem = document.querySelector<HTMLElement>(".timeline-item");
+    const marker = timelineItem ? getComputedStyle(timelineItem, "::before") : null;
+    const axis = timelineItem ? getComputedStyle(timelineItem, "::after") : null;
     return {
       cardsValid: cards.every((card) => {
         const bounds = card.getBoundingClientRect();
@@ -73,6 +93,9 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
       idsUnique: new Set(ids).size === ids.length,
       navTargetsValid: navTargets.every((href) => document.querySelector(href)),
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      pageGridPresent: getComputedStyle(document.body).backgroundImage.includes("linear-gradient"),
+      readingSurfacesOpaque: readingSurfaces.every(hasOpaqueBackground),
+      timelineAxisAligned: marker?.left === axis?.left,
     };
   });
 
@@ -82,7 +105,10 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
     idsUnique: true,
     navTargetsValid: true,
     overflow: 0,
+    pageGridPresent: true,
     profileLinkButtonsConsistent: true,
+    readingSurfacesOpaque: true,
+    timelineAxisAligned: true,
   });
 });
 
