@@ -61,7 +61,6 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
     );
     const footerLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".footer-links a"));
     const readingSurfaces = [
-      ".lead",
       ".board-header",
       ".board-metrics",
       ".timeline",
@@ -69,6 +68,7 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
       ".paper-row",
       ".contribution-row",
     ].map((selector) => document.querySelector<HTMLElement>(selector));
+    const leadSurface = document.querySelector<HTMLElement>(".lead span");
     const hasOpaqueBackground = (element: HTMLElement | null) => {
       if (!element) return false;
       const color = getComputedStyle(element).backgroundColor;
@@ -95,6 +95,13 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
       overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
       pageGridPresent: getComputedStyle(document.body).backgroundImage.includes("linear-gradient"),
       readingSurfacesOpaque: readingSurfaces.every(hasOpaqueBackground),
+      leadSurfaceVisible: (() => {
+        if (!leadSurface) return false;
+        const color = getComputedStyle(leadSurface).backgroundColor;
+        const alpha = color.match(/^rgba\(.+,\s*([\d.]+)\)$/)?.[1]
+          ?? color.match(/\/\s*([\d.]+)\s*\)$/)?.[1];
+        return Number(alpha ?? 1) >= 0.8;
+      })(),
       timelineAxisAligned: marker?.left === axis?.left,
     };
   });
@@ -103,6 +110,7 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
     cardsValid: true,
     chromeLinksConsistent: true,
     idsUnique: true,
+    leadSurfaceVisible: true,
     navTargetsValid: true,
     overflow: 0,
     pageGridPresent: true,

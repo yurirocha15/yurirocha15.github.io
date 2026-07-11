@@ -44,13 +44,22 @@ h1 {
 }
 
 .lead {
-  background: var(--reading-surface);
-  box-shadow: 0 0 0 10px var(--reading-surface);
   color: var(--muted);
   font-size: 1.18rem;
   line-height: 1.62;
   margin-bottom: 0;
   max-width: 760px;
+  padding-left: 7px;
+}
+
+.lead span {
+  --lead-surface: color-mix(in srgb, var(--paper) 88%, transparent);
+  background: var(--lead-surface);
+  box-decoration-break: clone;
+  box-shadow:
+    -7px 0 0 var(--lead-surface),
+    7px 0 0 var(--lead-surface);
+  -webkit-box-decoration-break: clone;
 }
 
 .hero-actions {

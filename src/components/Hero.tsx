@@ -22,7 +22,9 @@ export function Hero({ profile }: HeroProps) {
             label={profile.labels.roleAndLocation}
           />
           <h1>{profile.hero.heading}</h1>
-          <p className="lead">{profile.hero.lead}</p>
+          <p className="lead">
+            <span>{profile.hero.lead}</span>
+          </p>
           <div className="hero-actions" aria-label={profile.labels.primaryLinks}>
             {heroLinks.map((link) => (
               <ProfileLinkButton link={link} key={link.id} />
