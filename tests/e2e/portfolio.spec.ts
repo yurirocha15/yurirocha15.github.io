@@ -1,8 +1,21 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+const browserErrors = new WeakMap<Page, string[]>();
+
+test.beforeEach(async ({ page }) => {
+  const errors: string[] = [];
+  browserErrors.set(page, errors);
+  page.on("pageerror", (error) => errors.push(error.message));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+});
+
+test.afterEach(async ({ page }) => {
+  expect(browserErrors.get(page)).toEqual([]);
+});
 
 test("layout, navigation, and project contracts remain valid", async ({ page }) => {
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
 
   const contract = await page.evaluate(() => {
@@ -28,7 +41,6 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
     navTargetsValid: true,
     overflow: 0,
   });
-  expect(errors).toEqual([]);
 });
 
 test("project scenes load on demand and pause when offscreen", async ({ page }) => {
@@ -77,4 +89,38 @@ test("reduced motion exposes content and keeps a deterministic scene frame", asy
     intervals: [100, 150, 200],
     timeout: 1500,
   }).toBe(phase);
+});
+
+test("all robot scenes reach readiness and render nonblank WebGL pixels", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "WebGL pixel sampling runs once per CI job");
+  await page.goto("/");
+
+  const scenes = [
+    {
+      frame: ".robot-scene-canvas",
+      canvas: '[data-scene="franka-robot-cell"]',
+      readyAttribute: "data-robot-ready",
+      readyValue: "true",
+    },
+    {
+      frame: ".project-visual-palletizer",
+      canvas: '[data-scene="palletizer"]',
+      readyAttribute: "data-robot-ready",
+      readyValue: "true",
+    },
+    {
+      frame: ".project-visual-smart-frame",
+      canvas: '[data-scene="smart-frame-welding-line"]',
+      readyAttribute: "data-robot-count",
+      readyValue: "12",
+    },
+  ];
+
+  for (const scene of scenes) {
+    await page.locator(scene.frame).scrollIntoViewIfNeeded();
+    const canvas = page.locator(scene.canvas);
+    await expect(canvas).toHaveCount(1);
+    await expect.poll(() => canvas.getAttribute(scene.readyAttribute)).toBe(scene.readyValue);
+    await expect.poll(() => canvas.getAttribute("data-pixel-signal")).toBe("true");
+  }
 });

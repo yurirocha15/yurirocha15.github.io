@@ -17,6 +17,17 @@ npm run build
 
 The GitHub Pages workflow deploys the generated `dist` directory.
 
+## Quality gate
+
+```bash
+npm run check
+```
+
+This runs ESLint, Vitest coverage, the production build, and the desktop/mobile
+Playwright suite. Portfolio copy and metadata live in `src/content`, page
+rendering in `src/components`, decorative project graphics in `src/visuals`,
+and Three.js scene controllers in `src/scenes`.
+
 ## Third-party mesh attribution
 
 | Included mesh | Original author and source | Local files | License |

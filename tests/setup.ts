@@ -60,10 +60,37 @@ export class MockIntersectionObserver implements IntersectionObserver {
   }
 }
 
-class MockResizeObserver implements ResizeObserver {
-  observe = vi.fn();
-  unobserve = vi.fn();
-  disconnect = vi.fn();
+export class MockResizeObserver implements ResizeObserver {
+  static instances: MockResizeObserver[] = [];
+
+  readonly observed = new Set<Element>();
+  disconnected = false;
+
+  constructor(private readonly callback: ResizeObserverCallback) {
+    MockResizeObserver.instances.push(this);
+  }
+
+  observe = vi.fn((target: Element) => this.observed.add(target));
+  unobserve = vi.fn((target: Element) => this.observed.delete(target));
+  disconnect = vi.fn(() => {
+    this.disconnected = true;
+    this.observed.clear();
+  });
+
+  trigger(target: Element, width: number, height: number) {
+    this.callback(
+      [
+        {
+          target,
+          contentRect: new DOMRectReadOnly(0, 0, width, height),
+          borderBoxSize: [],
+          contentBoxSize: [],
+          devicePixelContentBoxSize: [],
+        },
+      ],
+      this,
+    );
+  }
 }
 
 let reduceMotion = false;
@@ -75,6 +102,7 @@ export function setReducedMotion(value: boolean) {
 beforeEach(() => {
   reduceMotion = false;
   MockIntersectionObserver.instances = [];
+  MockResizeObserver.instances = [];
   vi.stubGlobal("IntersectionObserver", MockIntersectionObserver);
   vi.stubGlobal("ResizeObserver", MockResizeObserver);
   vi.stubGlobal(

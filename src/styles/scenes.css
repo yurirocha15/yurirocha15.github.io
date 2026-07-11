@@ -1,0 +1,26 @@
+.smart-frame-scene,
+.palletizer-scene,
+.smart-frame-loading {
+  height: 100%;
+  width: 100%;
+}
+
+.smart-frame-scene canvas,
+.palletizer-scene canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.smart-frame-loading::after {
+  color: var(--quiet);
+  content: "loading 3D model";
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 850;
+  left: 18px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 18px;
+}

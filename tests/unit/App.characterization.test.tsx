@@ -90,4 +90,13 @@ describe("portfolio behavior contract", () => {
       ),
     ).toBe(false);
   });
+
+  test("content and visuals remain available without IntersectionObserver", () => {
+    vi.stubGlobal("IntersectionObserver", undefined);
+    const { container } = render(<App />);
+    const revealTargets = Array.from(container.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const visualTargets = Array.from(container.querySelectorAll<HTMLElement>(".project-visual"));
+    expect(revealTargets.every((target) => target.classList.contains("is-visible"))).toBe(true);
+    expect(visualTargets.every((target) => target.classList.contains("is-active"))).toBe(true);
+  });
 });
