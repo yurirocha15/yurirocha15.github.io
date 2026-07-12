@@ -48,6 +48,10 @@ Generated PDFs are ignored by Git and copied into the Pages artifact during the 
 
 The welding guns, arc torch, suction gripper, pallets, boxes, tables, and other cell fixtures are generated from Three.js primitives in this repository. No third-party mesh files are shipped for those objects.
 
+## Photo attribution
+
+The non-WebGL scene fallback uses [an industrial robot photo by Freek Wolsink on Pexels](https://www.pexels.com/photo/industrial-robot-arm-in-a-manufacturing-facility-34207359/), distributed under the [Pexels license](https://www.pexels.com/license/).
+
 ## Software and design references
 
 - The robot viewer uses [`gkjohnson/urdf-loaders`](https://github.com/gkjohnson/urdf-loaders) via the `urdf-loader` npm package, licensed Apache-2.0.

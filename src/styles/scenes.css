@@ -35,10 +35,9 @@
 
 .static-scene-fallback {
   background:
-    linear-gradient(90deg, rgba(89, 98, 77, 0.1) 1px, transparent 1px) 0 0 / 22px 22px,
-    linear-gradient(rgba(89, 98, 77, 0.1) 1px, transparent 1px) 0 0 / 22px 22px,
-    color-mix(in srgb, var(--paper) 94%, var(--green-soft));
-  color: var(--ink);
+    linear-gradient(180deg, rgba(16, 18, 15, 0.08), rgba(16, 18, 15, 0.72)),
+    url("../assets/industrial-robot-fallback.jpg") center / cover no-repeat;
+  color: var(--paper);
   height: 100%;
   overflow: hidden;
   position: relative;
@@ -46,213 +45,26 @@
   z-index: 3;
 }
 
-.fallback-scene-header {
-  align-items: baseline;
+.static-scene-fallback__message {
+  background: rgba(16, 18, 15, 0.82);
+  bottom: 16px;
   display: flex;
-  gap: 10px;
-  left: 18px;
-  position: absolute;
-  right: 18px;
-  top: 15px;
-  z-index: 4;
-}
-
-.fallback-scene-header span,
-.fallback-scene-header small,
-.fallback-scene-status {
-  color: var(--quiet);
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.66rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.fallback-scene-header strong {
-  font-size: 0.76rem;
-  margin-left: auto;
-  text-transform: uppercase;
-}
-
-.fallback-cell {
-  inset: 38px 10px 12px;
-  position: absolute;
-}
-
-.fallback-cell::before {
-  border-bottom: 1px solid var(--line-strong);
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-  bottom: 8%;
-  content: "";
-  left: 5%;
-  position: absolute;
-  right: 5%;
-}
-
-.fallback-robot-base,
-.fallback-robot-arm,
-.fallback-robot-joint,
-.fallback-robot-tool {
-  display: block;
-  position: absolute;
-}
-
-.fallback-robot-base {
-  background: var(--ink);
-  border: 3px solid var(--yellow);
-  bottom: 10%;
-  height: 22%;
-  left: 23%;
-  width: 13%;
-}
-
-.fallback-robot-arm {
-  background: var(--yellow);
-  border: 3px solid var(--ink);
-  border-radius: 999px;
-  height: 14px;
-  transform-origin: 8px center;
-}
-
-.fallback-robot-arm--lower {
-  bottom: 27%;
-  left: 29%;
-  transform: rotate(-58deg);
-  width: 25%;
-}
-
-.fallback-robot-arm--upper {
-  bottom: 52%;
-  left: 40%;
-  transform: rotate(-24deg);
-  width: 24%;
-}
-
-.fallback-robot-joint {
-  background: var(--paper);
-  border: 4px solid var(--ink);
-  border-radius: 50%;
-  height: 24px;
-  width: 24px;
-}
-
-.fallback-robot-joint--base {
-  bottom: 22%;
-  left: 27%;
-}
-
-.fallback-robot-joint--elbow {
-  bottom: 48%;
-  left: 38%;
-}
-
-.fallback-robot-tool {
-  border-bottom: 4px solid var(--rust);
-  border-right: 4px solid var(--rust);
-  bottom: 63%;
-  height: 28px;
-  left: 61%;
-  transform: rotate(28deg);
-  width: 24px;
-}
-
-.fallback-motion-arc {
-  border-radius: 50%;
-  border-top: 2px dashed color-mix(in srgb, var(--olive) 68%, transparent);
-  display: block;
-  height: 54%;
-  left: 25%;
-  position: absolute;
-  top: 8%;
-  transform: rotate(-12deg);
-  width: 45%;
-}
-
-.fallback-agent-terminal,
-.fallback-box-stack,
-.fallback-welding-frame {
-  background: color-mix(in srgb, var(--paper) 90%, transparent);
-  border: 2px solid var(--olive);
-  bottom: 13%;
-  position: absolute;
-  right: 9%;
-}
-
-.fallback-agent-terminal {
-  display: grid;
-  gap: 8px;
-  height: 42%;
-  padding: 16px 12px;
-  width: 24%;
-}
-
-.fallback-agent-terminal i {
-  background: var(--olive);
-  display: block;
-  height: 5px;
-}
-
-.fallback-agent-terminal i:nth-child(2) { width: 76%; }
-.fallback-agent-terminal i:nth-child(3) { width: 88%; }
-
-.fallback-box-stack {
-  background: transparent;
-  border: 0;
-  display: grid;
+  flex-direction: column;
   gap: 4px;
-  grid-template-columns: repeat(2, 44px);
-}
-
-.fallback-box-stack i {
-  background: var(--yellow-soft);
-  border: 2px solid var(--rust);
-  display: block;
-  height: 36px;
-}
-
-.fallback-box-stack i:last-child {
-  grid-column: 1 / span 2;
-  justify-self: center;
-  width: 44px;
-}
-
-.fallback-welding-frame {
-  background:
-    linear-gradient(90deg, transparent 31%, var(--steel) 31% 35%, transparent 35% 65%, var(--steel) 65% 69%, transparent 69%),
-    linear-gradient(var(--steel) 0 4%, transparent 4% 48%, var(--steel) 48% 52%, transparent 52% 96%, var(--steel) 96%);
-  border-color: var(--steel);
-  height: 48%;
-  width: 25%;
-}
-
-.fallback-welding-frame i {
-  background: var(--yellow);
-  border: 2px solid var(--rust);
-  border-radius: 50%;
-  bottom: 8px;
-  height: 12px;
+  left: 16px;
+  padding: 10px 12px;
   position: absolute;
-  width: 12px;
+  right: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
 
-.fallback-welding-frame i:nth-child(1) { left: 12%; }
-.fallback-welding-frame i:nth-child(2) { left: 45%; }
-.fallback-welding-frame i:nth-child(3) { right: 12%; }
-
-.fallback-scene-status {
-  align-items: center;
-  bottom: 13px;
-  display: flex;
-  gap: 6px;
-  position: absolute;
-  right: 18px;
+.static-scene-fallback__message strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-.fallback-scene-status i {
-  background: var(--yellow);
-  border: 1px solid var(--rust);
-  border-radius: 50%;
-  height: 7px;
-  width: 7px;
+.static-scene-fallback__message span {
+  font-size: 0.74rem;
+  line-height: 1.35;
 }

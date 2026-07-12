@@ -336,8 +336,8 @@ test("portfolio remains mounted when WebGL is unavailable", async ({ page }, tes
   } else {
     await expect(heroFallback).toBeAttached();
   }
-  await expect(heroFallback).toContainText("Agent-first control");
-  await expect(heroFallback).toContainText("Static mode");
+  await expect(heroFallback).toContainText("Interactive 3D preview unavailable");
+  await expect(heroFallback).toContainText("This 3D environment requires WebGL to run.");
   await page.waitForTimeout(1000);
   await expect(page.locator("#root")).not.toBeEmpty();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
