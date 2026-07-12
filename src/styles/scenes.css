@@ -1,0 +1,70 @@
+.smart-frame-scene,
+.palletizer-scene,
+.smart-frame-loading {
+  height: 100%;
+  width: 100%;
+}
+
+.smart-frame-scene canvas,
+.palletizer-scene canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.smart-frame-loading::after {
+  color: var(--quiet);
+  content: "loading 3D model";
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 850;
+  left: 18px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 18px;
+}
+
+.robot-scene-canvas[data-scene-unavailable="true"],
+.palletizer-scene[data-scene-unavailable="true"],
+.smart-frame-scene[data-scene-unavailable="true"] {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.static-scene-fallback {
+  background:
+    linear-gradient(180deg, rgba(16, 18, 15, 0.08), rgba(16, 18, 15, 0.72)),
+    url("../assets/industrial-robot-fallback.jpg") center / cover no-repeat;
+  color: var(--paper);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 3;
+}
+
+.static-scene-fallback__message {
+  background: rgba(16, 18, 15, 0.82);
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  left: 16px;
+  padding: 10px 12px;
+  position: absolute;
+  right: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+.static-scene-fallback__message strong {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.static-scene-fallback__message span {
+  font-size: 0.74rem;
+  line-height: 1.35;
+}

@@ -1,0 +1,6 @@
+build
+*.pdf
+*.aux
+*.log
+*.out
+*.xdv

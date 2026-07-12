@@ -2,6 +2,15 @@
 _site
 .sass-cache
 .vagrant
+dist
+node_modules
+*.tsbuildinfo
+coverage
+playwright-report
+test-results
+cv/build
+public/cv
+public/assets/cv_yuri_website.pdf
 
 # general
 .DS_Store

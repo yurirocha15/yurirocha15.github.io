@@ -1,0 +1,107 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{cv-style}
+\hypersetup{
+  pdftitle={유리 허샤 - 경력 중심 이력서},
+  pdfauthor={유리 허샤},
+  pdfsubject={로보틱스 소프트웨어 및 Physical AI},
+  pdflang={ko-KR}
+}
+
+\begin{document}
+\newgeometry{top=5mm,bottom=4mm,left=7mm,right=7mm}
+\setlength{\columnsep}{5mm}
+\renewenvironment{cvcolumns}{\columnratio{0.24}\begin{paracol}{2}}{\end{paracol}}
+\newcommand{\resumebar}[2]{%
+  {\footnotesize\bfseries\color{cvink}#1}\par
+  \vspace{0.2mm}
+  \makebox[0pt][l]{\color{cvnavylight}\rule{\linewidth}{1.1mm}}%
+  {\color{cvnavy}\rule{#2\linewidth}{1.1mm}}\par
+  \vspace{0.8mm}
+}
+\cvheader
+  {유리 허샤}
+  {시니어 로보틱스 소프트웨어 엔지니어}
+  {대한민국 서울}
+  {\href{mailto:yurirocha15@gmail.com}{yurirocha15@gmail.com}\enspace\textbullet\enspace
+   \href{https://www.yurirocha.com}{yurirocha.com}\enspace\textbullet\enspace
+   \href{https://www.linkedin.com/in/yurirocha15/}{LinkedIn}\enspace\textbullet\enspace
+   \href{https://github.com/yurirocha15}{GitHub}}
+
+\begin{cvcolumns}
+  \cvsidebarsection{핵심 기술}
+  \resumebar{C++}{0.92}
+  \resumebar{Python}{0.83}
+  \resumebar{Go}{0.50}
+  \resumebar{Linux}{0.92}
+  \resumebar{ROS}{0.92}
+  \resumebar{GitHub Actions}{0.92}
+  \resumebar{Docker}{0.83}
+  \resumebar{Kubernetes}{0.82}
+
+  \cvsidebarsection{소프트웨어, 로보틱스\\\& 시뮬레이션}
+  \cvsmall{Software Architecture}
+  \cvsmall{Real-time Linux}
+  \cvsmall{PREEMPT\_RT \textbullet\ Xenomai}
+  \cvsmall{MoveIt \textbullet\ OMPL}
+  \cvsmall{PyTorch \textbullet\ ONNX}
+
+  \cvsmall{Isaac Sim \textbullet\ Unity3D}
+  \cvsmall{MuJoCo}
+
+  \cvsidebarsection{자격}
+  \cvsmall{\href{https://www.credly.com/badges/bb876a9e-74e1-475d-b753-c43f2675c9ee}{CKA \textbullet\ LF-eivj0wxw1q}}
+  \cvsmall{\href{https://www.credly.com/badges/f1d71150-7469-4e33-9745-758d7256fa35}{CKS \textbullet\ LF-nyf5h9e9v9}}
+
+  \cvsidebarsection{특허}
+  \cvsmall{\href{https://patents.google.com/patent/US12093832B2}{US12093832B2}}
+  \cvsmall{\href{https://patents.google.com/patent/US12049013B1}{US12049013B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102590491B1}{KR102590491B1} \textbullet\ \href{https://patents.google.com/patent/KR102626109B1}{KR102626109B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102629021B1}{KR102629021B1} \textbullet\ \href{https://patents.google.com/patent/KR102660168B1}{KR102660168B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102638245B1}{KR102638245B1} \textbullet\ \href{https://patents.google.com/patent/KR102614099B1}{KR102614099B1}}
+
+  \cvsidebarsection{수상}
+  \cvsmall{\href{https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130}{NVIDIA Cosmos Cookoff 우승}}
+  \cvsmall{\href{https://github.com/doosan-robotics/explainable-palletizer}{공식 코드 공개}}
+
+  \cvsidebarsection{언어}
+  \cvsmall{포르투갈어 \textbullet\ 영어}
+  \cvsmall{한국어 \textbullet\ 프랑스어}
+
+  \cvmaincolumn
+  \cvmainsection{경력}
+  \cvrole{두산로보틱스}{2025/08--현재}{시니어 소프트웨어 엔지니어, AI \& Software}{}
+  \begin{cvbullets}
+    \item 태스크 관리와 데이터 흐름 설계를 포함한 핵심 실시간 로봇 컨트롤러 소프트웨어를 설계하고 개발하고 있습니다.
+    \item 실제 로봇용 에이전틱 인터페이스와 LLM·시뮬레이션 환경 배포 및 메트릭 모니터링을 위한 Kubernetes 웹 플랫폼을 개발했습니다.
+    \item Kubernetes, CI/CD 및 LLMOps 인프라를 운영하고 공식 C++ API와 ROS 패키지의 릴리스 및 유지보수를 주도하고 있습니다.
+  \end{cvbullets}
+
+  \cvrole{마키나락스}{2020/09--2025/08}{로보틱스 \& 머신러닝 리서치 엔지니어}{}
+  \begin{cvbullets}
+    \item 자동차 용접 라인의 로봇 프로그래밍 시간을 6주에서 3일로 단축한 자동 프로그램 생성 시스템의 소프트웨어 아키텍처를 주도했습니다.
+    \item 시스템 성능과 효율을 높이기 위해 ROS, MoveIt, OMPL 및 MongoDB 기반의 고병렬 C++ 플래닝 알고리즘을 개발했습니다.
+    \item Linux 및 GitHub Actions 기반 CI/CD와 확장 가능한 배포를 위한 Kubernetes 인프라를 관리했습니다.
+    \item PyTorch, Ray RLlib, ML-Agents 및 Unity3D를 사용해 모방학습 및 강화학습 실험을 수행했습니다.
+    \item 1년간의 ML 업무에서 엣지 NPU 배포를 위해 LLM과 ONNX 그래프를 모델 수준에서 최적화하고 평가했습니다.
+  \end{cvbullets}
+
+  \cvrole{Moringa Digital}{2016/08--2017/07}{소프트웨어 개발자}{}
+  \begin{cvbullets}
+    \item 공공 조달 플랫폼과 고객 ERP 시스템 간 연동을 자동화하는 Node.js 서비스를 개발했습니다.
+    \item 플랫폼 운영 시간을 줄이고 고객 기술팀과 직접 협업했습니다.
+  \end{cvbullets}
+
+  \cvmainsection{학력 \& 연구}
+  \cvrecord{전자전기컴퓨터공학 석사}{2018--2020}{성균관대학교, GPA 4.4/4.5. 강화학습/확률적 로드맵 하이브리드 주행 및 로봇 멘탈 시뮬레이션 연구}
+  \cvrecord{제어 및 자동화공학 학사}{2011--2016}{University of Brasilia, GPA 4.1/5.0. Dual quaternion 기반 협동 조작 연구}
+  \cvrecord{컴퓨터공학 교환 과정}{2014--2015}{성균관대학교, GPA 4.1/4.5}
+
+  \cvmainsection{주요 논문}
+  \cvrecord{\href{https://www.mdpi.com/2076-3417/10/9/3219/pdf}{Autonomous Navigation Framework for Intelligent Robots}}{2020}{Applied Sciences}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf}{Mental Simulation for Autonomous Learning and Planning}}{2019}{CEUR Workshop Proceedings}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf}{Singularity-Robust Controllers for Cooperative Manipulation}}{2017}{IEEE CCTA}
+
+  \cvmainsection{오픈 소스}
+  \cvrecord{\href{https://github.com/yurirocha15/mcp-cpp-sdk}{mcp-cpp-sdk}}{}{Model Context Protocol용 C++20 SDK}
+\end{cvcolumns}
+\end{document}

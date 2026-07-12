@@ -1,0 +1,116 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cv-style}[2026/07/11 Yuri Rocha CV style]
+
+\RequirePackage{fontspec}
+\RequirePackage{xeCJK}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont{Noto Sans}
+\setsansfont{Noto Sans}
+\setCJKmainfont{Noto Sans CJK KR}
+\setCJKsansfont{Noto Sans CJK KR}
+\xeCJKsetup{CJKspace=true}
+
+\RequirePackage[a4paper,top=11mm,bottom=11mm,left=13mm,right=13mm]{geometry}
+\RequirePackage{xcolor}
+\definecolor{cvnavy}{HTML}{17324D}
+\definecolor{cvnavylight}{HTML}{E8EEF4}
+\definecolor{cvink}{HTML}{1D2730}
+\definecolor{cvmid}{HTML}{536372}
+\definecolor{cvline}{HTML}{B8C4CE}
+
+\RequirePackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=cvnavy,
+  linkcolor=cvnavy,
+  pdfborder={0 0 0}
+}
+\urlstyle{same}
+
+\RequirePackage{enumitem}
+\RequirePackage{paracol}
+\RequirePackage{needspace}
+\RequirePackage{ragged2e}
+\RequirePackage{setspace}
+\RequirePackage{titlesec}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\columnsep}{7mm}
+\setlength{\columnseprule}{0.25pt}
+\def\columnseprulecolor{\color{cvline}}
+\raggedbottom
+\emergencystretch=2em
+\setstretch{1.02}
+
+\newcommand{\cvheader}[4]{%
+  {\fontsize{24}{26}\selectfont\bfseries\color{cvnavy}#1}\par
+  \vspace{1mm}
+  {\large\bfseries\color{cvink}#2}\hfill{\small\color{cvmid}#3}\par
+  \vspace{1.2mm}
+  {\small\color{cvmid}#4}\par
+  \vspace{2mm}
+  {\color{cvnavy}\rule{\textwidth}{1.1pt}}\par
+  \vspace{2.5mm}
+}
+
+\newenvironment{cvcolumns}{%
+  \columnratio{0.27}
+  \begin{paracol}{2}
+}{%
+  \end{paracol}
+}
+
+\newcommand{\cvmaincolumn}{\switchcolumn}
+
+\newcommand{\cvsidebarsection}[1]{%
+  \vspace{1.2mm}
+  {\small\bfseries\color{cvnavy}\MakeUppercase{#1}}\par
+  \vspace{0.6mm}
+  {\color{cvline}\rule{\linewidth}{0.4pt}}\par
+  \vspace{1mm}
+}
+
+\newcommand{\cvmainsection}[1]{%
+  \Needspace{3.5\baselineskip}
+  \vspace{1.2mm}
+  {\large\bfseries\color{cvnavy}#1}\par
+  \vspace{0.5mm}
+  {\color{cvline}\rule{\linewidth}{0.45pt}}\par
+  \vspace{1.2mm}
+}
+
+\newcommand{\cvsmall}[1]{{\footnotesize\color{cvink}#1}\par}
+\newcommand{\cvskill}[2]{%
+  {\footnotesize\bfseries\color{cvink}#1}\par
+  {\footnotesize\color{cvmid}#2}\par\vspace{1.2mm}
+}
+
+\newcommand{\cvrole}[4]{%
+  \Needspace{4\baselineskip}
+  {\normalsize\bfseries\color{cvink}#1}\hfill{\small\bfseries\color{cvnavy}#2}\par
+  {\small\bfseries\color{cvmid}#3}\par
+  \if\relax\detokenize{#4}\relax\else{\small\color{cvmid}#4}\par\fi
+  \vspace{0.8mm}
+}
+
+\newenvironment{cvbullets}{%
+  \begin{itemize}[leftmargin=4mm,itemsep=0.45mm,topsep=0.2mm,parsep=0pt]
+  \small\color{cvink}
+}{%
+  \end{itemize}
+  \vspace{0.8mm}
+}
+
+\newcommand{\cvproject}[2]{%
+  \Needspace{3\baselineskip}
+  {\small\bfseries\color{cvink}#1}\par
+  {\small\color{cvink}#2}\par\vspace{1.2mm}
+}
+
+\newcommand{\cvrecord}[3]{%
+  \Needspace{2.5\baselineskip}
+  {\footnotesize\bfseries\color{cvink}#1}\hfill{\footnotesize\color{cvnavy}#2}\par
+  {\footnotesize\color{cvmid}#3}\par\vspace{0.8mm}
+}
