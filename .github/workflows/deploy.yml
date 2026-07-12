@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
       - feature/new-page
   workflow_dispatch:
 
@@ -20,7 +19,7 @@ concurrency:
 jobs:
   quality:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,6 +50,13 @@ jobs:
           path: playwright-report
           if-no-files-found: ignore
           retention-days: 7
+      - name: Upload generated CVs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdfs
+          path: public/cv/*.pdf
+          if-no-files-found: error
+          retention-days: 14
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -28,6 +28,17 @@ Playwright suite. Portfolio copy and metadata live in `src/content`, page
 rendering in `src/components`, decorative project graphics in `src/visuals`,
 and Three.js scene controllers in `src/scenes`.
 
+## CV sources
+
+The bilingual one-page resumes and multi-page comprehensive CVs are generated from LaTeX sources in `cv/`. Docker keeps the local and CI toolchains consistent.
+
+```bash
+npm run cv:build
+npm run cv:verify
+```
+
+Generated PDFs are ignored by Git and copied into the Pages artifact during the production build. See [`cv/README.md`](cv/README.md) for the publication and privacy policy.
+
 ## Third-party mesh attribution
 
 | Included mesh | Original author and source | Local files | License |

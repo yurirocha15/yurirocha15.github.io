@@ -2,16 +2,16 @@ export function ControllerRuntimeVisual() {
   return (
     <div className="controller-diagram">
       <div className="cycle-strip">
-        <strong>real-time controller</strong>
+        <strong>robot controller</strong>
         <span><i /><i /><i /><i /></span>
       </div>
       <div className="schedule-overview">
         <div>
-          <strong>NRT schedule</strong>
+          <strong>developer API</strong>
           <span><i /><i /><i /></span>
         </div>
         <div>
-          <strong>RT schedule</strong>
+          <strong>ROS packages</strong>
           <span><i /><i /><i /><i /></span>
         </div>
       </div>
@@ -19,15 +19,15 @@ export function ControllerRuntimeVisual() {
         <div className="external-stack"><span>external</span></div>
         <div className="input-flow"><i><b /></i></div>
         <div className="task-manager-node">
-          <strong>task manager</strong>
-          <small>route / schedule / IPC</small>
+          <strong>controller core</strong>
+          <small>commands / state / events</small>
         </div>
         <div className="task-fanout"><i><b /></i><i><b /></i><i><b /></i><i><b /></i></div>
         <div className="controller-tasks">
-          <span>NRT 01</span><span>NRT 02</span><span>RT 01</span><span>RT 02</span>
+          <span>motion</span><span>I/O</span><span>safety</span><span>status</span>
         </div>
         <div className="hardware-flow"><i><b /></i><i><b /></i></div>
-        <div className="hardware-node">hardware</div>
+        <div className="hardware-node">robot</div>
       </div>
     </div>
   );
@@ -38,19 +38,19 @@ export function GpuPlatformVisual() {
     <>
       <div className="platform-console">
         <div className="platform-toolbar">
-          <span /><span /><span /><strong>cluster workloads</strong>
+          <span /><span /><span /><strong>development infrastructure</strong>
         </div>
         <div className="platform-body">
           <div className="workload-list">
-            <div className="workload-row is-active"><strong>LLM</strong><span>running</span></div>
-            <div className="workload-row"><strong>Isaac Sim</strong><span>queued</span></div>
-            <div className="workload-row"><strong>MuJoCo</strong><span>running</span></div>
+            <div className="workload-row is-active"><strong>CI/CD</strong><span>running</span></div>
+            <div className="workload-row"><strong>LLMOps</strong><span>healthy</span></div>
+            <div className="workload-row"><strong>Services</strong><span>ready</span></div>
           </div>
           <div className="gpu-cluster">
-            <div className="cluster-title"><strong>GPU cluster</strong><span>healthy</span></div>
-            <div className="gpu-row"><span>GPU 01</span><i><b /></i></div>
-            <div className="gpu-row"><span>GPU 02</span><i><b /></i></div>
-            <div className="gpu-row"><span>GPU 03</span><i><b /></i></div>
+            <div className="cluster-title"><strong>Kubernetes cluster</strong><span>healthy</span></div>
+            <div className="gpu-row"><span>NODE 01</span><i><b /></i></div>
+            <div className="gpu-row"><span>NODE 02</span><i><b /></i></div>
+            <div className="gpu-row"><span>NODE 03</span><i><b /></i></div>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@ export function EdgeLlmVisual() {
         <div className="phone-screen">
           <div className="phone-model-title"><strong>LLM</strong><span>on-device</span></div>
           <div className="model-layers"><span /><span /><span /><span /></div>
-          <div className="on-device-chip"><strong>NPU</strong><small>inference</small></div>
+          <div className="on-device-chip"><strong>EDGE</strong><small>inference</small></div>
           <div className="token-stream"><span /><span /><span /><span /></div>
         </div>
       </div>

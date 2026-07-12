@@ -248,3 +248,32 @@ test("all robot scenes reach readiness and render nonblank WebGL pixels", async 
     });
   }
 });
+
+test("generated CV routes are valid and the visible link uses the complete English CV", async ({ page, request }) => {
+  const routes = [
+    "/cv/yuri-rocha-cv-en.pdf",
+    "/cv/yuri-rocha-cv-ko.pdf",
+    "/cv/yuri-rocha-resume-en.pdf",
+    "/cv/yuri-rocha-resume-ko.pdf",
+  ];
+
+  for (const route of routes) {
+    const response = await request.get(route);
+    expect(response.ok()).toBe(true);
+    expect(response.headers()["content-type"]).toContain("application/pdf");
+    expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
+  }
+
+  await page.goto("/");
+  const cvLinks = page.getByRole("link", { name: "CV", exact: true });
+  await expect(cvLinks).toHaveCount(2);
+  for (const link of await cvLinks.all()) {
+    await expect(link).toHaveAttribute("href", "/cv/yuri-rocha-cv-en.pdf");
+  }
+
+  const canonicalResponse = await request.get("/cv/yuri-rocha-cv-en.pdf");
+  const legacyResponse = await request.get("/assets/cv_yuri_website.pdf");
+  const canonicalPdf = await canonicalResponse.body();
+  const legacyPdf = await legacyResponse.body();
+  expect(legacyPdf.equals(canonicalPdf)).toBe(true);
+});

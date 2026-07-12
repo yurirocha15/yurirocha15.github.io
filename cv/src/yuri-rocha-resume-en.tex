@@ -1,0 +1,107 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{cv-style}
+\hypersetup{
+  pdftitle={Yuri Rocha - Professional Resume},
+  pdfauthor={Yuri Rocha},
+  pdfsubject={Robotics software and Physical AI},
+  pdflang={en-US}
+}
+
+\begin{document}
+\newgeometry{top=5mm,bottom=4mm,left=7mm,right=7mm}
+\setlength{\columnsep}{5mm}
+\renewenvironment{cvcolumns}{\columnratio{0.24}\begin{paracol}{2}}{\end{paracol}}
+\newcommand{\resumebar}[2]{%
+  {\footnotesize\bfseries\color{cvink}#1}\par
+  \vspace{0.2mm}
+  \makebox[0pt][l]{\color{cvnavylight}\rule{\linewidth}{1.1mm}}%
+  {\color{cvnavy}\rule{#2\linewidth}{1.1mm}}\par
+  \vspace{0.8mm}
+}
+\cvheader
+  {Yuri Rocha}
+  {Senior Robotics Software Engineer}
+  {Seoul, South Korea}
+  {\href{mailto:yurirocha15@gmail.com}{yurirocha15@gmail.com}\enspace\textbullet\enspace
+   \href{https://www.yurirocha.com}{yurirocha.com}\enspace\textbullet\enspace
+   \href{https://www.linkedin.com/in/yurirocha15/}{LinkedIn}\enspace\textbullet\enspace
+   \href{https://github.com/yurirocha15}{GitHub}}
+
+\begin{cvcolumns}
+  \cvsidebarsection{Core skills}
+  \resumebar{C++}{0.92}
+  \resumebar{Python}{0.83}
+  \resumebar{Go}{0.50}
+  \resumebar{Linux}{0.92}
+  \resumebar{ROS}{0.92}
+  \resumebar{GitHub Actions}{0.92}
+  \resumebar{Docker}{0.83}
+  \resumebar{Kubernetes}{0.82}
+
+  \cvsidebarsection{Software, Robotics\\\& Simulation}
+  \cvsmall{Software Architecture}
+  \cvsmall{Real-time Linux}
+  \cvsmall{PREEMPT\_RT \textbullet\ Xenomai}
+  \cvsmall{MoveIt \textbullet\ OMPL}
+  \cvsmall{PyTorch \textbullet\ ONNX}
+
+  \cvsmall{Isaac Sim \textbullet\ Unity3D}
+  \cvsmall{MuJoCo}
+
+  \cvsidebarsection{Credentials}
+  \cvsmall{\href{https://www.credly.com/badges/bb876a9e-74e1-475d-b753-c43f2675c9ee}{CKA \textbullet\ LF-eivj0wxw1q}}
+  \cvsmall{\href{https://www.credly.com/badges/f1d71150-7469-4e33-9745-758d7256fa35}{CKS \textbullet\ LF-nyf5h9e9v9}}
+
+  \cvsidebarsection{Patents}
+  \cvsmall{\href{https://patents.google.com/patent/US12093832B2}{US12093832B2}}
+  \cvsmall{\href{https://patents.google.com/patent/US12049013B1}{US12049013B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102590491B1}{KR102590491B1} \textbullet\ \href{https://patents.google.com/patent/KR102626109B1}{KR102626109B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102629021B1}{KR102629021B1} \textbullet\ \href{https://patents.google.com/patent/KR102660168B1}{KR102660168B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102638245B1}{KR102638245B1} \textbullet\ \href{https://patents.google.com/patent/KR102614099B1}{KR102614099B1}}
+
+  \cvsidebarsection{Award}
+  \cvsmall{\href{https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130}{NVIDIA Cosmos Cookoff Winner}}
+  \cvsmall{\href{https://github.com/doosan-robotics/explainable-palletizer}{Official code release}}
+
+  \cvsidebarsection{Languages}
+  \cvsmall{Portuguese \textbullet\ English}
+  \cvsmall{Korean \textbullet\ French}
+
+  \cvmaincolumn
+  \cvmainsection{Professional experience}
+  \cvrole{Doosan Robotics}{Aug. 2025--present}{Senior Software Engineer, AI \& Software}{}
+  \begin{cvbullets}
+    \item Architect and develop the core C++ software for high-performance robot controllers.
+    \item Operate the internal Kubernetes cluster and maintain CI/CD and LLMOps pipelines for continuous development and deployment.
+    \item Own the development, release cycle, and maintenance of official C++ APIs and ROS packages used by robot application developers.
+  \end{cvbullets}
+
+  \cvrole{MakinaRocks}{Sep. 2020--Aug. 2025}{Robotics \& Machine Learning Research Engineer}{}
+  \begin{cvbullets}
+    \item Led the architecture of an automated robot-programming system for spot-welding lines that reduced industrial automation work from six weeks to three days.
+    \item Developed highly parallelized C++ planning algorithms for system performance and efficiency using ROS, MoveIt, OMPL, and MongoDB.
+    \item Managed Kubernetes infrastructure for scalable deployment, alongside Linux and GitHub Actions CI/CD.
+    \item Conducted imitation/reinforcement-learning experiments with PyTorch, Ray RLlib, ML-Agents, and Unity3D.
+    \item In a one-year ML role, optimized LLMs and ONNX graphs at the model level for edge-NPU deployment and evaluation.
+  \end{cvbullets}
+
+  \cvrole{Moringa Digital}{Aug. 2016--Jul. 2017}{Software Developer}{}
+  \begin{cvbullets}
+    \item Developed a Node.js service that automated integration between a public-procurement platform and customer ERP systems.
+    \item Reduced platform operating time and worked directly with customer technology teams.
+  \end{cvbullets}
+
+  \cvmainsection{Education \& research}
+  \cvrecord{M.Sc., Electrical \& Computer Engineering}{2018--2020}{Sungkyunkwan University, GPA 4.4/4.5. Hybrid RL/PRM navigation and automatic robot mental simulation.}
+  \cvrecord{B.Sc., Control \& Automation Engineering}{2011--2016}{University of Brasilia, GPA 4.1/5.0. Dual-quaternion cooperative manipulation research.}
+  \cvrecord{Exchange, Computer Engineering}{2014--2015}{Sungkyunkwan University, GPA 4.1/4.5}
+
+  \cvmainsection{Selected publications}
+  \cvrecord{\href{https://www.mdpi.com/2076-3417/10/9/3219/pdf}{Autonomous Navigation Framework for Intelligent Robots}}{2020}{Applied Sciences}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf}{Mental Simulation for Autonomous Learning and Planning}}{2019}{CEUR Workshop Proceedings}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf}{Singularity-Robust Controllers for Cooperative Manipulation}}{2017}{IEEE CCTA}
+
+  \cvmainsection{Open source}
+  \cvrecord{\href{https://github.com/yurirocha15/mcp-cpp-sdk}{mcp-cpp-sdk}}{}{C++20 SDK for the Model Context Protocol}
+\end{cvcolumns}
+\end{document}

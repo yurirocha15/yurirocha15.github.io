@@ -4,7 +4,7 @@ export const profile = {
   skipLinkLabel: "Skip to content",
   identity: {
     name: "Yuri Rocha",
-    title: "Robotics & AI Engineer",
+    title: "Robotics Software · Physical AI",
     mark: "YR",
     homeLabel: "Yuri Rocha home",
   },
@@ -33,7 +33,7 @@ export const profile = {
     {
       id: "cv",
       label: "CV",
-      href: "/assets/cv_yuri_website.pdf",
+      href: "/cv/yuri-rocha-cv-en.pdf",
       locations: ["hero", "footer"],
     },
     {
@@ -45,48 +45,52 @@ export const profile = {
     },
   ],
   hero: {
-    metadata: ["Senior Robotics & AI Engineer", "Seoul, South Korea"],
-    heading: "Performant, intelligent robot software.",
+    metadata: ["Senior Robotics Software Engineer", "C++ · ROS 2 · Linux", "Seoul, South Korea"],
+    heading: "Building reliable software for robotics.",
     lead:
-      "I build real-time robot controllers, motion-planning systems, on-device inference, and GPU-backed deployment platforms for robotics teams.",
+      "I develop robot-controller software, developer APIs, motion-planning systems, and model-level AI optimization, supported by Kubernetes, CI/CD, and LLMOps infrastructure.",
   },
   engineeringProfile: {
     label: "Engineering profile",
-    title: "Robotics & AI software engineer",
+    title: "Robotics software and infrastructure",
     groups: [
-      { id: "capability-real-time", title: "Real-time", items: ["C++", "Linux", "Task Scheduling", "IPC"] },
       {
-        id: "capability-robotics",
-        title: "Robotics",
-        items: ["ROS 2", "Robot Controllers", "Motion Planning"],
+        id: "capability-robot-software",
+        title: "Robot Software",
+        items: ["C++", "Linux", "ROS / ROS 2", "MoveIt", "OMPL"],
       },
       {
-        id: "capability-ai-systems",
-        title: "AI systems",
-        items: ["LLMs", "ONNX", "Edge Inference", "GPU Inference"],
+        id: "capability-ml",
+        title: "ML & Model Optimization",
+        items: ["Python", "PyTorch", "ONNX", "LLMs", "Quantization"],
       },
       {
         id: "capability-infrastructure",
         title: "Infrastructure",
-        items: ["Kubernetes", "APIs", "Isaac Sim", "MuJoCo"],
+        items: ["Kubernetes", "Docker", "GitHub Actions", "CI/CD", "LLMOps"],
+      },
+      {
+        id: "capability-simulation",
+        title: "Robotics Simulation",
+        items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo"],
       },
     ],
   },
   proofItems: [
     {
       id: "proof-current",
-      label: "Current",
-      detail: "Real-time robot controller and on-prem AI deployment platform",
+      label: "Current work",
+      detail: "Robot-controller software, official C++ APIs, and ROS packages",
     },
     {
-      id: "proof-hackathon",
-      label: "Hackathon win",
-      detail: "2026 NVIDIA Cosmos Cookoff, first place among 1,600+ participants",
+      id: "proof-industrial",
+      label: "Industrial automation",
+      detail: "Robot-programming workflow reduced from six weeks to three days",
     },
     {
       id: "proof-open-source",
-      label: "Latest open-source project",
-      detail: "mcp-cpp-sdk: a C++20 SDK connecting native software to AI agents",
+      label: "Open source",
+      detail: "C++20 SDK for the Model Context Protocol",
     },
   ],
   contact: {
@@ -99,7 +103,7 @@ export const profile = {
     mainNavigation: "Main navigation",
     primaryLinks: "Primary links",
     roleAndLocation: "Role and location",
-    engineeringCapabilities: "Robotics & AI engineering capabilities",
+    engineeringCapabilities: "Robotics software and Physical AI capabilities",
     professionalSnapshot: "Professional snapshot",
     contributionTotals: "Contribution totals",
     publicPullRequests: "Public pull requests",

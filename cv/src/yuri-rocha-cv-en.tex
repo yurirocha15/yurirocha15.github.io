@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{cv-style}
+\hypersetup{
+  pdftitle={Yuri Rocha - Comprehensive Curriculum Vitae},
+  pdfauthor={Yuri Rocha},
+  pdfsubject={Robotics software and Physical AI},
+  pdflang={en-US}
+}
+
+\begin{document}
+\newgeometry{top=7mm,bottom=6mm,left=10mm,right=10mm}
+\cvheader
+  {Yuri Rocha}
+  {Senior Robotics Software Engineer}
+  {Seoul, South Korea}
+  {\href{mailto:yurirocha15@gmail.com}{yurirocha15@gmail.com}\enspace\textbullet\enspace
+   \href{https://www.yurirocha.com}{yurirocha.com}\enspace\textbullet\enspace
+   \href{https://www.linkedin.com/in/yurirocha15/}{LinkedIn}\enspace\textbullet\enspace
+   \href{https://github.com/yurirocha15}{GitHub}}
+
+\cvmainsection{Fields of interest}
+{\small Robotics \textbullet\ LLMs and foundation models \textbullet\ Reinforcement learning \textbullet\ Deep learning \textbullet\ DevOps \textbullet\ Software development\par}
+
+\cvmainsection{Technical skills}
+\cvproject{Software}{C++, Python, Go, Linux, JavaScript, Node.js, software architecture}
+\cvproject{Real-time systems}{Real-time Linux, PREEMPT\_RT, Xenomai}
+\cvproject{Robotics}{ROS / ROS 2, MoveIt, OMPL, motion planning}
+\cvproject{Machine learning}{PyTorch, ONNX}
+\cvproject{Simulation}{Isaac Sim, MuJoCo, Unity3D, Gazebo}
+\cvproject{Infrastructure}{Kubernetes, Docker, GitHub Actions}
+
+\cvmainsection{Professional experience}
+\cvrole{Doosan Robotics}{Aug. 2025--present}{Senior Software Engineer, AI \& Software}{}
+\begin{cvbullets}
+  \item Architect and develop the core real-time software for high-performance robotic controllers, including the design of task management and data flow across the core system.
+  \item Develop software interfaces and harnesses that enable agentic workflows to interact with and operate real robotic hardware.
+  \item Manage the internal Kubernetes cluster and maintain CI/CD and LLMOps pipelines supporting continuous development and deployment.
+  \item Designed and developed a web platform that enables developers to deploy LLMs and simulation environments on Kubernetes and monitor their metrics.
+  \item Spearhead development, release cycles, and ongoing maintenance for official open-source repositories, including the C++ APIs and ROS packages.
+\end{cvbullets}
+
+\cvrole{MakinaRocks}{Sep. 2020--Aug. 2025}{Robotics \& Machine Learning Research Engineer}{}
+\begin{cvbullets}
+  \item Led the software architecture of an automated robot-programming system for spot-welding assembly lines containing hundreds of robots.
+  \item Reduced the industrial robot-programming workflow from approximately six weeks to three days.
+  \item Developed highly parallelized C++ planning algorithms using ROS, MoveIt, OMPL, and MongoDB for work-point validation, trajectory generation and evaluation, task distribution, and collision-aware coordination between robots.
+  \item Built and operated scalable Kubernetes and Docker deployment infrastructure for compute-intensive planning workloads, and maintained Linux/GitHub Actions CI/CD for build, test, packaging, and delivery.
+  \item Conducted imitation- and reinforcement-learning experiments and simulation development using PyTorch, Ray RLlib, ML-Agents, and Unity3D.
+  \item During a one-year ML assignment, optimized LLM architectures for mobile edge-device deployment at the model level.
+  \item Built PyTorch/ONNX workflows for graph optimization, quantization, and repeatable performance evaluation; the scope was limited to model- and graph-level work.
+\end{cvbullets}
+
+\cvrole{Moringa Digital / Portal de Compras Públicas}{Aug. 2016--Jul. 2017}{Software Developer}{}
+\begin{cvbullets}
+  \item Developed a Node.js service that automated integration between the public-procurement platform and customer ERP systems. The integration reduced operating time and became a major selling point; also developed website back ends and worked directly with customer technology teams.
+\end{cvbullets}
+
+\cvmainsection{Education \& research}
+\cvrecord{M.Sc., Electrical \& Computer Engineering}{2018--2020}{Sungkyunkwan University, GPA 4.4/4.5. Contributed to a semantic knowledge framework, created an automatic mental-simulation system using ROS and Gazebo, and developed reinforcement-learning navigation and hybrid planning methods.}
+\cvrecord{B.Sc., Control \& Automation Engineering}{2011--2016}{University of Brasilia, GPA 4.1/5.0. Derived dual-quaternion cooperative-manipulation methods, implemented control strategies on NAO and V-REP, and developed robot visual communication with OpenCV.}
+\cvrecord{Exchange, Computer Engineering}{2014--2015}{Sungkyunkwan University, GPA 4.1/4.5}
+
+\cvmainsection{Extra activities \& outreach}
+\cvrecord{UnBeatables humanoid robot soccer team}{2015--2016}{Team lead; coordinated RoboCup and LARC participation and developed the multithreaded C++/Python architecture, UDP communication, behavior management, and humanoid motion integration. Led demonstrations at schools, children hospitals, and science fairs to encourage STEM careers.}
+\cvrecord{Electron Project}{2013--2014}{Volunteer teacher of electronics and programming for public-school students in Brasilia.}
+
+\cvmainsection{Open source}
+\cvrecord{\href{https://github.com/yurirocha15/mcp-cpp-sdk}{mcp-cpp-sdk}}{}{C++20 SDK for the Model Context Protocol}
+
+\cvmainsection{Credentials, awards \& languages}
+\cvrecord{\href{https://www.credly.com/badges/bb876a9e-74e1-475d-b753-c43f2675c9ee}{Certified Kubernetes Administrator}}{}{LF-eivj0wxw1q}
+\cvrecord{\href{https://www.credly.com/badges/f1d71150-7469-4e33-9745-758d7256fa35}{Certified Kubernetes Security Specialist}}{}{LF-nyf5h9e9v9}
+\cvrecord{\href{https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130}{NVIDIA Cosmos Cookoff Winner}}{2026}{\href{https://github.com/doosan-robotics/explainable-palletizer}{Explainable mixed palletizing --- official code release}}
+\cvrecord{Academic Achievement Award}{2019}{Korean Government Scholarship Program}
+\cvrecord{Korean Government Scholarship}{2017--2020}{Graduate scholarship at Sungkyunkwan University}
+\cvrecord{Languages}{}{Portuguese: native \textbullet\ English: fluent, TOEFL 115/120 \textbullet\ Korean: fluent, TOPIK 5 \textbullet\ French: intermediate}
+
+\cvmainsection{Research outputs}
+\cvrecord{\href{https://www.mdpi.com/2076-3417/10/9/3219/pdf}{Autonomous Navigation Framework for Intelligent Robots Based on a Semantic Environment Modeling}}{2020}{S.-H. Joo*, S. Manzoor*, Y. G. Rocha, S.-H. Bae, K.-H. Lee, T.-Y. Kuc, and M. Kim. Applied Sciences, 10:3219.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Yuri_Master_Thesis.pdf}{Mental Simulation for Autonomous Learning and Planning Using an Ontology-Based Modeling Framework}}{2020}{Y. G. Rocha. M.Sc. thesis, Sungkyunkwan University.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf}{Mental Simulation for Autonomous Learning and Planning Based on Triplet Ontological Semantic Model}}{2019}{Y. G. Rocha and T.-Y. Kuc. CEUR Workshop Proceedings, 2487:65--73.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Automatic_Generation_ICCAS2019.pdf}{Automatic Generation of a Simulated Robot from an Ontology-Based Semantic Description}}{2019}{Y. G. Rocha, S.-H. Joo, E.-J. Kim, and T.-Y. Kuc. 19th International Conference on Control, Automation and Systems, 1340--1343.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf}{Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation}}{2017}{C. M. de Farias*, Y. G. Rocha*, L. F. C. Figueredo, and M. C. Bernardes. IEEE CCTA, 740--745.}
+
+\cvmainsection{Granted patents}
+\cvrecord{Generating a program for a robotic process}{\href{https://patents.google.com/patent/KR102590491B1}{KR102590491B1}}{}
+\cvrecord{Deciding valid working spots in a robotic process}{\href{https://patents.google.com/patent/KR102626109B1}{KR102626109B1}}{}
+\cvrecord{Generating trajectories for industrial robots}{\href{https://patents.google.com/patent/KR102629021B1}{KR102629021B1}}{}
+\cvrecord{Calculating the length of a robot work path}{\href{https://patents.google.com/patent/KR102660168B1}{KR102660168B1}, \href{https://patents.google.com/patent/KR102638245B1}{KR102638245B1}}{}
+\cvrecord{Distributing work points across task-performing robots}{\href{https://patents.google.com/patent/KR102614099B1}{KR102614099B1}, \href{https://patents.google.com/patent/US12093832B2}{US12093832B2}}{}
+\cvrecord{Preventing collision between task-performing robots}{\href{https://patents.google.com/patent/US12049013B1}{US12049013B1}}{}
+\end{document}

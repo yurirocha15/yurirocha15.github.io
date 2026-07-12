@@ -2,45 +2,46 @@ import type { Contribution, Project } from "./types";
 
 export const professionalProjects = [
   {
-    id: "real-time-controller",
+    id: "robot-controller-core",
     eyebrow: "Robot controller at Doosan Robotics",
-    title: "Real-time robot controller software",
+    title: "Robot controller core software",
     description:
-      "Controller-side C++ that coordinates communication and data flow across real-time and non-real-time components.",
+      "Performance-critical C++ software for high-performance robot controllers.",
     visual: "controller-runtime",
     layout: "standard",
     bullets: [
-      "TCP/UDP interfaces, task lifecycle management, and inter-process communication.",
-      "RT/NRT data paths designed around timing, isolation, and dependable state exchange.",
+      "Core controller software designed for reliable robot applications.",
+      "Official C++ APIs and ROS packages for robot application developers.",
     ],
-    tags: ["C++", "Linux", "Real-Time", "TCP/UDP", "IPC"],
+    tags: ["C++", "Linux", "ROS 2", "Developer APIs"],
   },
   {
-    id: "ai-simulation-platform",
-    eyebrow: "Internal AI platform at Doosan Robotics",
-    title: "On-prem AI and simulation deployment platform",
+    id: "development-infrastructure",
+    eyebrow: "Development infrastructure at Doosan Robotics",
+    title: "Kubernetes, CI/CD, and LLMOps infrastructure",
     description:
-      "Full-stack platform for deploying LLM services and Isaac Sim or MuJoCo environments on an on-premises Kubernetes GPU cluster.",
+      "Internal infrastructure supporting continuous development, deployment, and operation.",
     visual: "gpu-platform",
     layout: "standard",
     bullets: [
-      "Combined workload deployment, cluster monitoring, and GPU utilization visibility in one operating interface.",
+      "Kubernetes cluster management for internal development workloads.",
+      "CI/CD and LLMOps pipelines supporting software delivery.",
     ],
-    tags: ["Kubernetes", "APIs", "LLMs", "Isaac Sim", "MuJoCo", "GPU"],
+    tags: ["Kubernetes", "Docker", "CI/CD", "LLMOps"],
   },
   {
-    id: "automotive-olp",
+    id: "automated-robot-programming",
     eyebrow: "Industrial automation at MakinaRocks",
-    title: "Offline planning for automotive welding lines",
+    title: "Automated robot programming for welding lines",
     description:
-      "Architected the planning system and parallel C++ algorithms used to configure industrial robot cells, reducing planning work from roughly 6 weeks to 3 days.",
+      "Led the architecture of an automated robot-programming system that reduced industrial automation work from six weeks to three days.",
     visual: "smart-frame",
     layout: "wide-visual",
     bullets: [
-      "Constraint evaluation and task allocation for multi-robot stations.",
-      "Kubernetes services for scaling planning runs and delivery workflows.",
+      "Highly parallelized C++ planning with ROS, MoveIt, OMPL, and MongoDB.",
+      "Kubernetes infrastructure for scalable deployment and operation.",
     ],
-    tags: ["C++", "Parallel Algorithms", "Motion Planning", "OLP", "Kubernetes"],
+    tags: ["C++", "ROS", "MoveIt", "OMPL", "Kubernetes"],
   },
   {
     id: "explainable-palletizer",
@@ -71,27 +72,18 @@ export const professionalProjects = [
     ],
   },
   {
-    id: "mobile-npu-llm",
-    eyebrow: "On-device inference for mobile NPUs",
-    title: "LLM optimization for mobile NPUs",
+    id: "model-level-llm-optimization",
+    eyebrow: "One-year machine-learning assignment at MakinaRocks",
+    title: "Model-level LLM optimization for mobile inference",
     description:
-      "Built ONNX graph optimization and evaluation pipelines for running LLMs on constrained mobile NPUs.",
+      "Optimized LLM architectures and ONNX graphs at the model level for deployment on edge-device NPUs.",
     visual: "edge-llm",
     layout: "standard",
     bullets: [
-      "Measured latency, throughput, and regressions across runtime and graph changes.",
-      "Optimized MoE and Mamba models and improved KV-cache efficiency for transformer workloads.",
+      "Built model-optimization and performance-evaluation pipelines.",
+      "Worked with PyTorch, ONNX, quantization, and mobile inference constraints.",
     ],
-    tags: [
-      "ONNX",
-      "LLMs",
-      "MoE",
-      "Mamba",
-      "Efficient KV Caching",
-      "Mobile NPU",
-      "Quantization",
-      "Performance",
-    ],
+    tags: ["PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization", "Mobile Inference"],
   },
 ] satisfies readonly Project[];
 

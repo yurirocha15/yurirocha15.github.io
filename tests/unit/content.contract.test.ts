@@ -78,4 +78,26 @@ describe("typed portfolio content", () => {
     ]));
     expect(() => assertValidContent(portfolioContent, { visualKeys: projectVisualKeys })).not.toThrow();
   });
+
+  test("public positioning and CV link remain software-scoped", () => {
+    const cvLink = portfolioContent.profile.links.find((link) => link.id === "cv");
+    expect(cvLink?.href).toBe("/cv/yuri-rocha-cv-en.pdf");
+    expect(portfolioContent.profile.hero.heading).toBe(
+      "Building reliable software for robotics.",
+    );
+    expect(portfolioContent.profile.engineeringProfile.groups.map((group) => group.title)).toEqual([
+      "Robot Software",
+      "ML & Model Optimization",
+      "Infrastructure",
+      "Robotics Simulation",
+    ]);
+    expect(portfolioContent.languages.map((language) => language.name)).not.toContain("Spanish");
+
+    const publicCopy = JSON.stringify({
+      experience: portfolioContent.experience,
+      professionalProjects: portfolioContent.professionalProjects,
+      skills: portfolioContent.skills,
+    });
+    expect(publicCopy).not.toMatch(/NPU Optimization|NPU expert|NPU specialist|low-level NPU|RT\/NRT|\bIPC\b|Deployment Platforms|Industrial OLP/i);
+  });
 });

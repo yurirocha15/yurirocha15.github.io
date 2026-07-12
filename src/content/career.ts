@@ -3,54 +3,43 @@ import type { Experience } from "./types";
 export const experience = [
   {
     id: "doosan-robotics",
-    period: "2025 - now",
+    period: "Aug. 2025 - now",
     role: "Senior Software Engineer, AI & Software",
     company: "Doosan Robotics",
     detail:
-      "Real-time robot controller software, official developer APIs, and an internal AI/simulation deployment platform.",
+      "Core robot-controller software, Kubernetes infrastructure, and official open-source C++ APIs and ROS packages.",
     bullets: [
-      "Developing controller-side C++ for TCP/UDP interfaces, task management, IPC, and RT/NRT data flows.",
-      "Built the web UI, service APIs, and Kubernetes orchestration for deploying LLMs, Isaac Sim, and MuJoCo workloads, with cluster monitoring and GPU utilization visibility.",
-      "Creating interfaces for agentic robot control and harnesses for robotic applications.",
-      "Maintaining official C++ APIs and ROS packages for robot application developers.",
+      "Architecting and developing the core C++ software for high-performance robot controllers.",
+      "Operating the internal Kubernetes cluster and maintaining CI/CD and LLMOps pipelines for continuous development and deployment.",
+      "Owning the development, release cycle, and maintenance of official C++ APIs and ROS packages used by robot application developers.",
     ],
-    tags: ["C++", "Real-Time", "TCP/UDP", "IPC", "ROS 2", "Kubernetes", "Agentic Control", "GPU"],
+    tags: ["C++", "Linux", "ROS 2", "Kubernetes", "CI/CD", "LLMOps"],
   },
   {
     id: "makinarocks",
-    period: "2020 - 2025",
+    period: "Sep. 2020 - Aug. 2025",
     role: "Robotics and Machine Learning Research Engineer",
     company: "MakinaRocks",
     detail:
-      "Industrial OLP automation, scalable planning services, and mobile NPU inference optimization.",
+      "Automated industrial robot programming, parallel C++ planning, scalable deployment, and model-level LLM optimization.",
     bullets: [
-      "Led software architecture for an industrial OLP system spanning planning, evaluation, and deployment.",
-      "Built highly parallelized C++ planning and evaluation algorithms for factory automation constraints.",
-      "Operated Kubernetes infrastructure for scalable OLP deployment and production-facing workflows.",
-      "Built ONNX graph optimization and performance evaluation pipelines for edge NPU LLM work.",
+      "Led the architecture of an automated robot-programming system that reduced industrial automation work from six weeks to three days.",
+      "Developed highly parallelized C++ algorithms using ROS, MoveIt, and OMPL.",
+      "Managed Kubernetes infrastructure for scalable deployment and operation.",
+      "During a one-year ML assignment, optimized LLM architectures and ONNX graphs at the model level for edge-NPU deployment and evaluation.",
     ],
-    tags: ["OLP", "C++", "Kubernetes", "ONNX", "LLMs", "NPU"],
-  },
-  {
-    id: "skku",
-    period: "2018 - 2020",
-    role: "Researcher",
-    company: "Sungkyunkwan University, Control and Robotics Lab",
-    detail:
-      "Research on robot world models, semantic navigation, mental simulation, and autonomous planning.",
-    bullets: [
-      "Developed Semantic SLAM and ontology-based environment models for autonomous navigation.",
-      "Published and implemented mental-simulation workflows for robot learning and planning.",
-    ],
-    tags: ["Semantic SLAM", "Motion Planning", "Simulation", "Deep Learning"],
+    tags: ["C++", "ROS", "MoveIt", "OMPL", "Kubernetes", "PyTorch", "ONNX"],
   },
   {
     id: "moringa-digital",
-    period: "2016 - 2017",
+    period: "Aug. 2016 - Jul. 2017",
     role: "Software Developer",
     company: "Moringa Digital",
     detail: "ERP integration and web/mobile application development.",
-    bullets: ["Built Node.js services that connected application workflows to ERP systems."],
-    tags: ["Node.js", "APIs", "Integration"],
+    bullets: [
+      "Developed a Node.js service that automated integration between a public-procurement platform and customer ERP systems.",
+      "Worked directly with customer technology teams.",
+    ],
+    tags: ["Node.js", "JavaScript", "MongoDB", "Integration"],
   },
 ] satisfies readonly Experience[];
