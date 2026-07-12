@@ -249,6 +249,28 @@ test("all robot scenes reach readiness and render nonblank WebGL pixels", async 
   }
 });
 
+test("controller and platform visuals use source-backed labels", async ({ page }) => {
+  await page.goto("/");
+
+  const controllerVisual = page
+    .locator("[data-content-id=robot-controller-core]")
+    .locator(".project-visual");
+  await expect(controllerVisual).toContainText("real-time controller");
+  await expect(controllerVisual).toContainText("task management");
+  await expect(controllerVisual).toContainText("data flow");
+  await expect(controllerVisual).toContainText("agent interface");
+  await expect(controllerVisual).not.toContainText("safety");
+  await expect(controllerVisual).not.toContainText("I/O");
+
+  const platformVisual = page
+    .locator("[data-content-id=development-infrastructure]")
+    .locator(".project-visual");
+  await expect(platformVisual).toContainText("LLM environment");
+  await expect(platformVisual).toContainText("Simulation");
+  await expect(platformVisual).toContainText("Metrics");
+  await expect(platformVisual).toContainText("Kubernetes cluster");
+});
+
 test("generated CV routes are valid and the visible link uses the complete English CV", async ({ page, request }) => {
   const routes = [
     "/cv/yuri-rocha-cv-en.pdf",

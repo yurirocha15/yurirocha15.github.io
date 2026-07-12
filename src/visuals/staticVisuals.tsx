@@ -2,32 +2,32 @@ export function ControllerRuntimeVisual() {
   return (
     <div className="controller-diagram">
       <div className="cycle-strip">
-        <strong>robot controller</strong>
+        <strong>real-time controller</strong>
         <span><i /><i /><i /><i /></span>
       </div>
       <div className="schedule-overview">
         <div>
-          <strong>developer API</strong>
+          <strong>task management</strong>
           <span><i /><i /><i /></span>
         </div>
         <div>
-          <strong>ROS packages</strong>
+          <strong>data flow</strong>
           <span><i /><i /><i /><i /></span>
         </div>
       </div>
       <div className="task-manager-graph">
-        <div className="external-stack"><span>external</span></div>
+        <div className="external-stack"><span>agent</span></div>
         <div className="input-flow"><i><b /></i></div>
         <div className="task-manager-node">
-          <strong>controller core</strong>
-          <small>commands / state / events</small>
+          <strong>agent interface</strong>
+          <small>agentic workflows</small>
         </div>
         <div className="task-fanout"><i><b /></i><i><b /></i><i><b /></i><i><b /></i></div>
         <div className="controller-tasks">
-          <span>motion</span><span>I/O</span><span>safety</span><span>status</span>
+          <span>task 01</span><span>task 02</span><span>task 03</span><span>task 04</span>
         </div>
         <div className="hardware-flow"><i><b /></i><i><b /></i></div>
-        <div className="hardware-node">robot</div>
+        <div className="hardware-node">real robot</div>
       </div>
     </div>
   );
@@ -38,19 +38,19 @@ export function GpuPlatformVisual() {
     <>
       <div className="platform-console">
         <div className="platform-toolbar">
-          <span /><span /><span /><strong>development infrastructure</strong>
+          <span /><span /><span /><strong>deployment platform</strong>
         </div>
         <div className="platform-body">
           <div className="workload-list">
-            <div className="workload-row is-active"><strong>CI/CD</strong><span>running</span></div>
-            <div className="workload-row"><strong>LLMOps</strong><span>healthy</span></div>
-            <div className="workload-row"><strong>Services</strong><span>ready</span></div>
+            <div className="workload-row is-active"><strong>LLM environment</strong><span>deploy</span></div>
+            <div className="workload-row"><strong>Simulation</strong><span>deploy</span></div>
+            <div className="workload-row"><strong>Metrics</strong><span>monitor</span></div>
           </div>
           <div className="gpu-cluster">
             <div className="cluster-title"><strong>Kubernetes cluster</strong><span>healthy</span></div>
-            <div className="gpu-row"><span>NODE 01</span><i><b /></i></div>
-            <div className="gpu-row"><span>NODE 02</span><i><b /></i></div>
-            <div className="gpu-row"><span>NODE 03</span><i><b /></i></div>
+            <div className="gpu-row"><span>LLM</span><i><b /></i></div>
+            <div className="gpu-row"><span>SIM</span><i><b /></i></div>
+            <div className="gpu-row"><span>METRICS</span><i><b /></i></div>
           </div>
         </div>
       </div>

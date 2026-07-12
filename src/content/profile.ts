@@ -48,11 +48,11 @@ export const profile = {
     metadata: ["Senior Robotics Software Engineer", "C++ · ROS 2 · Linux", "Seoul, South Korea"],
     heading: "Building reliable software for robotics.",
     lead:
-      "I develop robot-controller software, developer APIs, motion-planning systems, and model-level AI optimization, supported by Kubernetes, CI/CD, and LLMOps infrastructure.",
+      "I architect real-time robot-controller software and interfaces for agentic workflows on physical robots. My work also spans industrial motion planning, model-level AI optimization, and Kubernetes-based LLMOps and simulation infrastructure.",
   },
   engineeringProfile: {
     label: "Engineering profile",
-    title: "Robotics software and infrastructure",
+    title: "Software architecture for robotics and Physical AI",
     groups: [
       {
         id: "capability-robot-software",
@@ -80,7 +80,7 @@ export const profile = {
     {
       id: "proof-current",
       label: "Current work",
-      detail: "Robot-controller software, official C++ APIs, and ROS packages",
+      detail: "Real-time controller architecture with agent-first integration",
     },
     {
       id: "proof-industrial",
