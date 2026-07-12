@@ -19,12 +19,12 @@ export const skills = [
   {
     id: "machine-learning",
     title: "Machine Learning",
-    items: ["PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization", "Reinforcement Learning"],
+    items: ["PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization"],
   },
   {
     id: "simulation",
-    title: "Robotics Simulation",
-    items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo"],
+    title: "Robotics Simulation & Learning",
+    items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo", "Reinforcement Learning"],
   },
   {
     id: "infrastructure",

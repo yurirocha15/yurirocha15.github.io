@@ -37,12 +37,12 @@ export function SiteFooter({ profile }: SiteFooterProps) {
 
   return (
     <footer className="site-footer" id="contact">
-      <div data-reveal>
+      <div>
         <p className="eyebrow">{profile.contact.eyebrow}</p>
         <h2>{profile.contact.location}</h2>
         <a className="footer-email" href={profile.contact.emailHref}>{profile.contact.email}</a>
       </div>
-      <div className="footer-links" data-reveal>
+      <div className="footer-links">
         {footerLinks.map((link) => (
           <ProfileLinkButton link={link} key={link.id} />
         ))}

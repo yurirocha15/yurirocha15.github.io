@@ -104,7 +104,7 @@ describe("typed portfolio content", () => {
       "Robot Software",
       "ML & Model Optimization",
       "Infrastructure",
-      "Robotics Simulation",
+      "Robotics Simulation & Learning",
     ]);
     expect(portfolioContent.languages.map((language) => language.name)).not.toContain("Spanish");
 

@@ -151,3 +151,43 @@ export function KimsVisual() {
     </>
   );
 }
+
+type StaticSceneFallbackProps = {
+  variant: "hero" | "palletizer" | "smart-frame";
+};
+
+const staticSceneCopy = {
+  hero: { eyebrow: "Robot software", title: "Agent-first control", detail: "Real-time core" },
+  palletizer: { eyebrow: "Vision + planning", title: "Mixed palletizing", detail: "Explainable" },
+  "smart-frame": { eyebrow: "Parallel planning", title: "Robot programming", detail: "Welding line" },
+} as const;
+
+export function StaticSceneFallback({ variant }: StaticSceneFallbackProps) {
+  const copy = staticSceneCopy[variant];
+
+  return (
+    <div
+      className={"static-scene-fallback static-scene-fallback--" + variant}
+      data-scene-fallback={variant}
+    >
+      <div className="fallback-scene-header">
+        <span>{copy.eyebrow}</span>
+        <strong>{copy.title}</strong>
+        <small>{copy.detail}</small>
+      </div>
+      <div className="fallback-cell">
+        <i className="fallback-motion-arc" />
+        <i className="fallback-robot-base" />
+        <i className="fallback-robot-arm fallback-robot-arm--lower" />
+        <i className="fallback-robot-joint fallback-robot-joint--base" />
+        <i className="fallback-robot-arm fallback-robot-arm--upper" />
+        <i className="fallback-robot-joint fallback-robot-joint--elbow" />
+        <i className="fallback-robot-tool" />
+        {variant === "hero" ? <div className="fallback-agent-terminal"><i /><i /><i /></div> : null}
+        {variant === "palletizer" ? <div className="fallback-box-stack"><i /><i /><i /></div> : null}
+        {variant === "smart-frame" ? <div className="fallback-welding-frame"><i /><i /><i /></div> : null}
+      </div>
+      <div className="fallback-scene-status"><i /> Static mode</div>
+    </div>
+  );
+}

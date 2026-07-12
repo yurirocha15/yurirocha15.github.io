@@ -293,6 +293,12 @@ test("generated CV routes are valid and the visible link uses the complete Engli
     await expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-en.pdf");
   }
 
+  const footer = page.locator("footer");
+  await footer.scrollIntoViewIfNeeded();
+  for (const label of ["GitHub", "LinkedIn", "CV", "Email"]) {
+    await expect(footer.getByRole("link", { name: label, exact: true })).toBeVisible();
+  }
+
   const canonicalResponse = await request.get("/cv/yuri-rocha-cv-en.pdf");
   const legacyResponse = await request.get("/assets/cv_yuri_website.pdf");
   const canonicalPdf = await canonicalResponse.body();
@@ -309,7 +315,7 @@ test("application remains mounted after delayed runtime loading", async ({ page 
   );
 });
 
-test("portfolio remains mounted when WebGL is unavailable", async ({ page }) => {
+test("portfolio remains mounted when WebGL is unavailable", async ({ page }, testInfo) => {
   await page.addInitScript(() => {
     const originalGetContext = HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getContext = function (...args) {
@@ -324,6 +330,14 @@ test("portfolio remains mounted when WebGL is unavailable", async ({ page }) => 
     "data-scene-unavailable",
     "true",
   );
+  const heroFallback = page.locator("[data-scene-fallback=hero]");
+  if (testInfo.project.name === "desktop") {
+    await expect(heroFallback).toBeVisible();
+  } else {
+    await expect(heroFallback).toBeAttached();
+  }
+  await expect(heroFallback).toContainText("Agent-first control");
+  await expect(heroFallback).toContainText("Static mode");
   await page.waitForTimeout(1000);
   await expect(page.locator("#root")).not.toBeEmpty();
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();

@@ -199,7 +199,7 @@ describe("shared scene runtime", () => {
     };
 
     function FailingScene() {
-      const mountRef = useThreeScene(() => ({ update: () => undefined }), options);
+      const { mountRef } = useThreeScene(() => ({ update: () => undefined }), options);
       return createElement("div", { ref: mountRef });
     }
 

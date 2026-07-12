@@ -71,8 +71,8 @@ export const profile = {
       },
       {
         id: "capability-simulation",
-        title: "Robotics Simulation",
-        items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo"],
+        title: "Robotics Simulation & Learning",
+        items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo", "Reinforcement Learning"],
       },
     ],
   },
