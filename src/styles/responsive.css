@@ -183,7 +183,7 @@
   }
 
   .robot-scene-panel {
-    display: none;
+    height: 210px;
   }
 
   .planning-board::after {
@@ -582,7 +582,7 @@
   }
 
   .hero-meta {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 4px;
   }
 

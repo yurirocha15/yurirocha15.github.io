@@ -9,6 +9,7 @@
 .hero-copy {
   align-self: center;
   max-width: 820px;
+  min-width: 0;
 }
 
 .eyebrow {
@@ -118,6 +119,7 @@ h1 {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   min-height: 520px;
+  min-width: 0;
   overflow: hidden;
   padding: 18px;
   position: relative;

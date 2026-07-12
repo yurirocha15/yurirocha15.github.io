@@ -124,7 +124,7 @@ describe("typed portfolio content", () => {
       (project) => project.id === "model-level-llm-optimization",
     );
     expect(npuProject?.bullets).toContain(
-      "The work focused on model and graph optimization, not low-level NPU software.",
+      "The work focused on model inference efficiency and static graph optimization.",
     );
     expect(portfolioContent.professionalProjects.some(
       (project) => project.id === "explainable-palletizer",

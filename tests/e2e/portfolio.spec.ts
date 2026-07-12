@@ -69,6 +69,10 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
       ".contribution-row",
     ].map((selector) => document.querySelector<HTMLElement>(selector));
     const leadSurface = document.querySelector<HTMLElement>(".lead span");
+    const heroElements = [
+      document.querySelector<HTMLElement>(".hero-copy"),
+      document.querySelector<HTMLElement>(".planning-board"),
+    ];
     const hasOpaqueBackground = (element: HTMLElement | null) => {
       if (!element) return false;
       const color = getComputedStyle(element).backgroundColor;
@@ -86,6 +90,17 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
         return bounds.width > 0 && bounds.right <= document.documentElement.clientWidth + 1;
       }),
       chromeLinksConsistent: chromeLinks.every((link) => link.classList.contains("chrome-link")),
+      heroContentFitsViewport: heroElements.every((element) => {
+        if (!element) return false;
+        const bounds = element.getBoundingClientRect();
+        return bounds.left >= -1 && bounds.right <= document.documentElement.clientWidth + 1;
+      }),
+      heroSceneVisible: (() => {
+        const scene = document.querySelector<HTMLElement>(".robot-scene-panel");
+        if (!scene) return false;
+        const bounds = scene.getBoundingClientRect();
+        return getComputedStyle(scene).display !== "none" && bounds.height > 0;
+      })(),
       profileLinkButtonsConsistent: footerLinks.every((link) => (
         link.classList.contains("button")
           && heroLinkClasses.get(link.getAttribute("href")) === link.className
@@ -109,6 +124,8 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
   expect(contract).toEqual({
     cardsValid: true,
     chromeLinksConsistent: true,
+    heroContentFitsViewport: true,
+    heroSceneVisible: true,
     idsUnique: true,
     leadSurfaceVisible: true,
     navTargetsValid: true,

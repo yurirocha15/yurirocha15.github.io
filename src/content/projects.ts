@@ -83,7 +83,7 @@ export const professionalProjects = [
     layout: "standard",
     bullets: [
       "Built PyTorch/ONNX workflows for graph optimization, quantization, and repeatable performance evaluation.",
-      "The work focused on model and graph optimization, not low-level NPU software.",
+      "The work focused on model inference efficiency and static graph optimization.",
     ],
     tags: ["Python", "PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization", "Mobile Inference"],
   },
