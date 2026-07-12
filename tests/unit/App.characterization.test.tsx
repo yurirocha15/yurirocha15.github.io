@@ -49,7 +49,7 @@ describe("portfolio behavior contract", () => {
     });
 
     Array.from(container.querySelectorAll<HTMLAnchorElement>("a[href]")).forEach((link) => {
-      expect(link.getAttribute("href")).toMatch(/^(?:#|\/|https:\/\/|mailto:)/);
+      expect(link.getAttribute("href")).toMatch(/^(?:#|\/|\.\/|https:\/\/|mailto:)/);
     });
   });
 

@@ -15,7 +15,7 @@ export const publications = [
     title:
       "Mental Simulation for Autonomous Learning and Planning Using an Ontology-Based Modeling Framework",
     venue: "M.Sc. thesis, Sungkyunkwan University",
-    href: "/assets/Yuri_Master_Thesis.pdf",
+    href: "./assets/Yuri_Master_Thesis.pdf",
   },
   {
     id: "mental-simulation-iros",
@@ -23,7 +23,7 @@ export const publications = [
     title:
       "Mental Simulation for Autonomous Learning and Planning Based on Triplet Ontological Semantic Model",
     venue: "CEUR Workshop Proceedings",
-    href: "/assets/Mental_Simulation_IROS_2019.pdf",
+    href: "./assets/Mental_Simulation_IROS_2019.pdf",
   },
   {
     id: "automatic-generation-iccas",
@@ -31,7 +31,7 @@ export const publications = [
     title:
       "Automatic Generation of a Simulated Robot from an Ontology-Based Semantic Description",
     venue: "ICCAS",
-    href: "/assets/Automatic_Generation_ICCAS2019.pdf",
+    href: "./assets/Automatic_Generation_ICCAS2019.pdf",
   },
   {
     id: "cooperative-manipulation-ccta",
@@ -39,7 +39,7 @@ export const publications = [
     title:
       "Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation",
     venue: "IEEE CCTA",
-    href: "/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf",
+    href: "./assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf",
   },
 ] satisfies readonly Publication[];
 

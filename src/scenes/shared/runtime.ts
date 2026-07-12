@@ -42,11 +42,16 @@ export type SceneRuntimeOptions = {
 };
 
 function createRenderer() {
-  return new THREE.WebGLRenderer({
+  const canvas = document.createElement("canvas");
+  const attributes: WebGLContextAttributes = {
     alpha: true,
     antialias: true,
     powerPreference: "high-performance",
-  });
+  };
+  const context = canvas.getContext("webgl2", attributes);
+  if (!context) throw new Error("WebGL2 is unavailable");
+
+  return new THREE.WebGLRenderer({ canvas, context, ...attributes });
 }
 
 function updatePixelSignal(renderer: THREE.WebGLRenderer, canvas: HTMLCanvasElement) {

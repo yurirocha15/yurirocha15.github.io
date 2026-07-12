@@ -33,7 +33,7 @@ export const profile = {
     {
       id: "cv",
       label: "CV",
-      href: "/cv/yuri-rocha-cv-en.pdf",
+      href: "./cv/yuri-rocha-cv-en.pdf",
       locations: ["hero", "footer"],
     },
     {

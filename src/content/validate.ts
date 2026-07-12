@@ -7,7 +7,7 @@ export type ContentValidationOptions = {
 };
 
 function isSupportedHref(href: string) {
-  if (href.startsWith("/") || href.startsWith("#")) return true;
+  if (href.startsWith("/") || href.startsWith("./") || href.startsWith("#")) return true;
 
   try {
     return SUPPORTED_PROTOCOLS.has(new URL(href).protocol);

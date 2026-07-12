@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { readFileSync } from "node:fs";
 import { portfolioContent, type PortfolioContent } from "../../src/content";
 import {
   assertValidContent,
@@ -11,6 +12,11 @@ function validate(content: PortfolioContent) {
 }
 
 describe("typed portfolio content", () => {
+  test("production assets use a proxy-safe relative base", () => {
+    const configSource = readFileSync("vite.config.ts", "utf8");
+    expect(configSource).toContain("base: \"./\"");
+  });
+
   test("production content satisfies generic identity, target, visual, count, and URL contracts", () => {
     expect(validate(portfolioContent)).toEqual([]);
   });
@@ -81,7 +87,7 @@ describe("typed portfolio content", () => {
 
   test("public positioning and CV link remain software-scoped", () => {
     const cvLink = portfolioContent.profile.links.find((link) => link.id === "cv");
-    expect(cvLink?.href).toBe("/cv/yuri-rocha-cv-en.pdf");
+    expect(cvLink?.href).toBe("./cv/yuri-rocha-cv-en.pdf");
     expect(portfolioContent.profile.identity.title).toBe("Robotics Software · Physical AI");
     expect(portfolioContent.profile.hero.heading).toBe(
       "Building reliable software for robotics.",

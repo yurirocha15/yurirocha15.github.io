@@ -290,7 +290,7 @@ test("generated CV routes are valid and the visible link uses the complete Engli
   const cvLinks = page.getByRole("link", { name: "CV", exact: true });
   await expect(cvLinks).toHaveCount(2);
   for (const link of await cvLinks.all()) {
-    await expect(link).toHaveAttribute("href", "/cv/yuri-rocha-cv-en.pdf");
+    await expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-en.pdf");
   }
 
   const canonicalResponse = await request.get("/cv/yuri-rocha-cv-en.pdf");
@@ -298,4 +298,53 @@ test("generated CV routes are valid and the visible link uses the complete Engli
   const canonicalPdf = await canonicalResponse.body();
   const legacyPdf = await legacyResponse.body();
   expect(legacyPdf.equals(canonicalPdf)).toBe(true);
+});
+
+test("application remains mounted after delayed runtime loading", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForTimeout(1000);
+  await expect(page.locator("#root")).not.toBeEmpty();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Building reliable software for robotics.",
+  );
+});
+
+test("portfolio remains mounted when WebGL is unavailable", async ({ page }) => {
+  await page.addInitScript(() => {
+    const originalGetContext = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (...args) {
+      const [contextId] = args;
+      if (typeof contextId === "string" && contextId.includes("webgl")) return null;
+      return Reflect.apply(originalGetContext, this, args);
+    } as typeof originalGetContext;
+  });
+
+  await page.goto("/");
+  await expect(page.locator(".robot-scene-canvas")).toHaveAttribute(
+    "data-scene-unavailable",
+    "true",
+  );
+  await page.waitForTimeout(1000);
+  await expect(page.locator("#root")).not.toBeEmpty();
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+});
+
+test("ultra-wide layout expands content and caps hero height", async ({ page }) => {
+  await page.setViewportSize({ width: 3840, height: 2160 });
+  await page.goto("/");
+
+  const layout = await page.evaluate(() => {
+    const header = document.querySelector<HTMLElement>(".site-header")!;
+    const hero = document.querySelector<HTMLElement>(".hero")!;
+    const proof = document.querySelector<HTMLElement>(".proof-strip")!;
+    return {
+      headerWidth: header.getBoundingClientRect().width,
+      heroHeight: hero.getBoundingClientRect().height,
+      proofTop: proof.getBoundingClientRect().top,
+    };
+  });
+
+  expect(layout.headerWidth).toBeGreaterThan(2000);
+  expect(layout.heroHeight).toBeLessThanOrEqual(1100);
+  expect(layout.proofTop).toBeLessThan(1300);
 });

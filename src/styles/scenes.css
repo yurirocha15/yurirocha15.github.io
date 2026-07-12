@@ -24,3 +24,23 @@
   text-transform: uppercase;
   top: 18px;
 }
+
+.robot-scene-canvas[data-scene-unavailable="true"],
+.palletizer-scene[data-scene-unavailable="true"],
+.smart-frame-scene[data-scene-unavailable="true"] {
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.robot-scene-canvas[data-scene-unavailable="true"]::after,
+.palletizer-scene[data-scene-unavailable="true"]::after,
+.smart-frame-scene[data-scene-unavailable="true"]::after {
+  color: var(--quiet);
+  content: "3D preview unavailable";
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

@@ -1,5 +1,8 @@
+import { render } from "@testing-library/react";
+import { createElement } from "react";
 import * as THREE from "three";
 import { describe, expect, test, vi } from "vitest";
+import { useThreeScene } from "../../src/scenes/shared/useThreeScene";
 import {
   mountSceneRuntime,
   type SceneContext,
@@ -182,5 +185,29 @@ describe("shared scene runtime", () => {
     expect(updates).toHaveBeenCalledTimes(3);
     dispose();
     mount.remove();
+  });
+
+  test("contains renderer failures and marks the scene unavailable", () => {
+    const warning = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const options: SceneRuntimeOptions = {
+      camera: { fov: 40, near: 0.1, far: 10, position: [1, 2, 3] },
+      reducedMotionTime: 0,
+      visibility: { threshold: 0 },
+      rendererFactory: () => {
+        throw new Error("WebGL disabled");
+      },
+    };
+
+    function FailingScene() {
+      const mountRef = useThreeScene(() => ({ update: () => undefined }), options);
+      return createElement("div", { ref: mountRef });
+    }
+
+    const { container } = render(createElement(FailingScene));
+    expect(container.firstElementChild).toHaveAttribute("data-scene-unavailable", "true");
+    expect(warning).toHaveBeenCalledWith(
+      "3D scene unavailable; using the static fallback.",
+      expect.any(Error),
+    );
   });
 });
