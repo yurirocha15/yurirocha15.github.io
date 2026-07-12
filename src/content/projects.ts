@@ -29,7 +29,7 @@ export const professionalProjects = [
       "Workload metrics available through the same operating interface.",
       "Supported by internal cluster operations and CI/CD and LLMOps pipelines.",
     ],
-    tags: ["Kubernetes", "LLMOps", "CI/CD", "Simulation", "Monitoring", "Web Platform"],
+    tags: ["Kubernetes", "Python", "LLMOps", "CI/CD", "Simulation", "Monitoring", "Web Platform"],
   },
   {
     id: "automated-robot-programming",
@@ -43,7 +43,7 @@ export const professionalProjects = [
       "Parallel C++ planning for work-point validation, trajectory generation and evaluation, task distribution, and collision-aware coordination.",
       "ROS, MoveIt, OMPL, and MongoDB algorithms backed by scalable Kubernetes and Docker planning infrastructure.",
     ],
-    tags: ["C++", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker"],
+    tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker"],
   },
   {
     id: "explainable-palletizer",
@@ -85,7 +85,7 @@ export const professionalProjects = [
       "Built PyTorch/ONNX workflows for graph optimization, quantization, and repeatable performance evaluation.",
       "The work focused on model and graph optimization, not low-level NPU software.",
     ],
-    tags: ["PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization", "Mobile Inference"],
+    tags: ["Python", "PyTorch", "ONNX", "LLMs", "Quantization", "Model Optimization", "Mobile Inference"],
   },
 ] satisfies readonly Project[];
 

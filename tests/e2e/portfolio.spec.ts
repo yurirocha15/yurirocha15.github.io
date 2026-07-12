@@ -311,7 +311,7 @@ test("application remains mounted after delayed runtime loading", async ({ page 
   await page.waitForTimeout(1000);
   await expect(page.locator("#root")).not.toBeEmpty();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Building reliable software for robotics.",
+    "Building reliable software for Physical AI.",
   );
 });
 

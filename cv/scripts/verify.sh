@@ -44,7 +44,7 @@ done
 
 for document in yuri-rocha-cv-en yuri-rocha-cv-ko; do
   pages="$(pdfinfo "${BUILD_DIR}/${document}.pdf" | awk '/^Pages:/ {print $2}')"
-  (( pages >= 2 && pages <= 3 )) || fail "$document must use two or three pages (got $pages)"
+  [[ "$pages" == "2" ]] || fail "$document must be exactly two pages (got $pages)"
 done
 
 text_dir="$(mktemp -d)"

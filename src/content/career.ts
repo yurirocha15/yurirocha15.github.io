@@ -15,7 +15,7 @@ export const experience = [
       "Designed and developed a web platform that lets developers deploy LLMs and simulation environments on Kubernetes and monitor their metrics.",
       "Spearheading development, release cycles, and ongoing maintenance for official open-source C++ APIs and ROS packages.",
     ],
-    tags: ["C++", "Real-time Linux", "Software Architecture", "Agentic Workflows", "ROS 2", "Kubernetes", "CI/CD", "LLMOps"],
+    tags: ["C++", "Python", "Real-time Linux", "Software Architecture", "Agentic Workflows", "ROS 2", "Kubernetes", "CI/CD", "LLMOps"],
   },
   {
     id: "makinarocks",
@@ -31,7 +31,7 @@ export const experience = [
       "Conducted imitation- and reinforcement-learning experiments and simulation development using PyTorch and Unity3D.",
       "During a one-year ML assignment, built PyTorch/ONNX workflows for model and graph optimization, quantization, and repeatable evaluation targeting mobile edge devices.",
     ],
-    tags: ["C++", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker", "PyTorch", "ONNX"],
+    tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker", "PyTorch", "ONNX"],
   },
   {
     id: "moringa-digital",

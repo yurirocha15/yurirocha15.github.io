@@ -46,9 +46,9 @@ export const profile = {
   ],
   hero: {
     metadata: ["Senior Robotics Software Engineer", "C++ · ROS 2 · Linux", "Seoul, South Korea"],
-    heading: "Building reliable software for robotics.",
+    heading: "Building reliable software for Physical AI.",
     lead:
-      "I architect real-time robot-controller software and interfaces for agentic workflows on physical robots. My work also spans industrial motion planning, model-level AI optimization, and Kubernetes-based LLMOps and simulation infrastructure.",
+      "I architect real-time robot-controller software and interfaces for agentic workflows on collaborative robots. My work also spans industrial motion planning, model-level AI optimization, and Kubernetes-based LLMOps and simulation infrastructure.",
   },
   engineeringProfile: {
     label: "Engineering profile",
