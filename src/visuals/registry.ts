@@ -1,5 +1,5 @@
 import { lazy, type ComponentType, type LazyExoticComponent } from "react";
-import type { ProjectVisualKey } from "../content";
+import type { PortfolioContent, ProjectVisualKey } from "../content";
 import {
   ControllerRuntimeVisual,
   EdgeLlmVisual,
@@ -13,7 +13,13 @@ import {
 const PalletizerScene = lazy(() => import("../PalletizerScene"));
 const SmartFrameScene = lazy(() => import("../SmartFrameScene"));
 
-type VisualComponent = ComponentType | LazyExoticComponent<ComponentType>;
+export type ProjectVisualProps = {
+  labels: PortfolioContent["visuals"];
+};
+
+type VisualComponent =
+  | ComponentType<ProjectVisualProps>
+  | LazyExoticComponent<ComponentType<ProjectVisualProps>>;
 
 export type ProjectVisualDefinition = {
   component: VisualComponent;

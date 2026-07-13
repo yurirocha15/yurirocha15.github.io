@@ -17,6 +17,7 @@
     "test:unit:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
+    "test:e2e:fast": "playwright test --grep-invert @scene",
     "check": "npm run lint && npm run test:coverage && npm run build && npm run test:e2e"
   },
   "dependencies": {

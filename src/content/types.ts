@@ -1,5 +1,7 @@
 export type LinkLocation = "hero" | "footer" | "project";
 
+export type Locale = "en" | "ko";
+
 export type Link = {
   id: string;
   label: string;
@@ -97,6 +99,11 @@ export type SectionDefinition = {
 
 export type PortfolioLabels = {
   mainNavigation: string;
+  openMenu: string;
+  closeMenu: string;
+  languageSelector: string;
+  switchToEnglish: string;
+  switchToKorean: string;
   primaryLinks: string;
   roleAndLocation: string;
   engineeringCapabilities: string;
@@ -111,6 +118,71 @@ export type PortfolioLabels = {
   technologiesForExperience: (company: string) => string;
   technologiesForContribution: (repository: string) => string;
   skillsForGroup: (title: string) => string;
+};
+
+export type PortfolioMetadata = {
+  title: string;
+  description: string;
+};
+
+export type PortfolioVisualLabels = {
+  sceneFallback: {
+    title: string;
+    description: string;
+  };
+  controllerRuntime: {
+    realTimeController: string;
+    taskManagement: string;
+    dataFlow: string;
+    agent: string;
+    agentInterface: string;
+    agenticWorkflows: string;
+    tasks: readonly [string, string, string, string];
+    realRobot: string;
+  };
+  gpuPlatform: {
+    deploymentPlatform: string;
+    llmEnvironment: string;
+    simulation: string;
+    metrics: string;
+    deploy: string;
+    monitor: string;
+    kubernetesCluster: string;
+    healthy: string;
+    llmAbbreviation: string;
+    simulationAbbreviation: string;
+    metricsAbbreviation: string;
+  };
+  edgeLlm: {
+    onDevice: string;
+    edge: string;
+    inference: string;
+  };
+  mcp: {
+    cppApplication: string;
+    nativeRuntime: string;
+    robotApi: string;
+    planner: string;
+    telemetry: string;
+    typedCalls: string;
+    tools: string;
+    resources: string;
+    agent: string;
+  };
+  leetcode: {
+    problem: string;
+    description: string;
+    examples: string;
+    accepted: string;
+    pythonScraper: string;
+    gitRepository: string;
+  };
+  kims: {
+    vectorizedEnvironments: string;
+    policy: string;
+    rollouts: string;
+    reward: string;
+  };
 };
 
 export type ProfileContent = {
@@ -148,6 +220,8 @@ export type ProfileContent = {
 };
 
 export type PortfolioContent = {
+  locale: Locale;
+  metadata: PortfolioMetadata;
   profile: ProfileContent;
   sections: {
     career: SectionDefinition;
@@ -166,4 +240,5 @@ export type PortfolioContent = {
   awards: readonly Award[];
   skills: readonly TagGroup[];
   languages: readonly Language[];
+  visuals: PortfolioVisualLabels;
 };

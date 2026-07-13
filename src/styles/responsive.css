@@ -118,33 +118,94 @@
   }
 }
 
+@media (min-width: 721px) and (max-width: 980px) {
+  .brand small {
+    display: none;
+  }
+
+  .site-header-actions {
+    gap: 4px;
+  }
+
+  .nav-links {
+    gap: 2px;
+  }
+
+  .chrome-link {
+    font-size: 0.72rem;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .locale-option {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
 @media (max-width: 720px) {
   .site-header {
     align-items: stretch;
     flex-direction: column;
-    gap: 8px;
-    position: static;
+    gap: 0;
+    left: auto;
+    margin-top: 12px;
+    padding: 8px;
+    position: sticky;
+    right: auto;
+    top: 12px;
     width: calc(100% - 24px);
   }
 
-  .nav-links {
-    flex-wrap: nowrap;
-    gap: 2px;
-    max-width: 100%;
-    overflow-x: auto;
-    padding-bottom: 2px;
-    scrollbar-width: none;
+  .site-header-row {
+    justify-content: space-between;
+    width: 100%;
   }
 
-  .nav-links::-webkit-scrollbar {
+  .menu-toggle {
+    display: grid;
+    flex: 0 0 44px;
+  }
+
+  .site-header-actions {
     display: none;
+    gap: 8px;
+    padding-top: 8px;
+    width: 100%;
+  }
+
+  .site-header.is-menu-open .site-header-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .nav-links {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
   }
 
   .nav-links a {
     align-items: center;
     display: inline-flex;
-    flex: 0 0 auto;
+    justify-content: center;
     min-height: 44px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .locale-selector {
+    border-top: 1px solid var(--line);
+    justify-content: center;
+    min-height: 52px;
+    padding-top: 8px;
+    width: 100%;
+  }
+
+  .locale-option {
+    min-height: 44px;
+    min-width: 76px;
   }
 
   .hero h1 {
@@ -175,7 +236,7 @@
 
   section[id],
   footer[id] {
-    scroll-margin-top: 16px;
+    scroll-margin-top: 92px;
   }
 
   .planning-board {
@@ -602,17 +663,6 @@
     margin-top: 16px;
   }
 
-  .nav-links {
-    gap: 0;
-    justify-content: space-between;
-  }
-
-  .nav-links a {
-    font-size: 0.64rem;
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-
   .board-header {
     align-items: start;
     gap: 6px;
@@ -664,7 +714,7 @@
     min-height: 50px;
   }
 
-  .button {
+  .hero-actions .button {
     flex: 1 1 0;
     min-width: 0;
     padding-left: 8px;

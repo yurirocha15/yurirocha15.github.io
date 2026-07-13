@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
+const ENGLISH_ROUTE = "/?lang=en";
 const SCENE_ASSET_TIMEOUT = 15_000;
 const SCENE_TEST_TIMEOUT = 60_000;
 const browserErrors = new WeakMap<Page, string[]>();
@@ -32,6 +33,49 @@ async function expectAttributeToChange(locator: Locator, attribute: string) {
   expect(changed).toBe(true);
 }
 
+async function hasRenderedPixelSignal(locator: Locator): Promise<boolean> {
+  return locator.evaluate((element) => new Promise<boolean>((resolve) => {
+    window.requestAnimationFrame(() => {
+      const canvas = element as HTMLCanvasElement;
+      if (canvas.dataset.pixelSignal === "true") {
+        resolve(true);
+        return;
+      }
+
+      const gl = canvas.getContext("webgl2");
+      const width = Math.min(64, canvas.width);
+      const height = Math.min(64, canvas.height);
+      if (!gl || width < 2 || height < 2) {
+        resolve(false);
+        return;
+      }
+
+      const pixels = new Uint8Array(width * height * 4);
+      gl.readPixels(
+        Math.max(0, Math.floor((canvas.width - width) / 2)),
+        Math.max(0, Math.floor((canvas.height - height) / 2)),
+        width,
+        height,
+        gl.RGBA,
+        gl.UNSIGNED_BYTE,
+        pixels,
+      );
+
+      let opaquePixels = 0;
+      let minimum = 765;
+      let maximum = 0;
+      for (let index = 0; index < pixels.length; index += 4) {
+        if (pixels[index + 3] === 0) continue;
+        opaquePixels += 1;
+        const luminance = pixels[index] + pixels[index + 1] + pixels[index + 2];
+        minimum = Math.min(minimum, luminance);
+        maximum = Math.max(maximum, luminance);
+      }
+      resolve(opaquePixels > 20 && maximum - minimum > 12);
+    });
+  }));
+}
+
 test.beforeEach(async ({ page }) => {
   const errors: string[] = [];
   browserErrors.set(page, errors);
@@ -46,7 +90,7 @@ test.afterEach(async ({ page }) => {
 });
 
 test("layout, navigation, and project contracts remain valid", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   const contract = await page.evaluate(() => {
     const navTargets = Array.from(document.querySelectorAll<HTMLAnchorElement>("nav a, .skip-link"))
@@ -137,9 +181,9 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
   });
 });
 
-test("labels and framed content respond to pointer hover", async ({ page }, testInfo) => {
+test("@scene labels and framed content respond to pointer hover", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Pointer hover is exercised once per CI job");
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   const label = page.locator(".tag-list span").first();
   await label.hover();
@@ -164,9 +208,9 @@ test("labels and framed content respond to pointer hover", async ({ page }, test
   expect(await timelineBody.evaluate((element) => getComputedStyle(element).translate)).toBe("none");
 });
 
-test("project scenes load on demand and pause when offscreen", async ({ page }) => {
+test("@scene project scenes load on demand and pause when offscreen", async ({ page }) => {
   test.setTimeout(SCENE_TEST_TIMEOUT);
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
   const palletizer = page.locator(".project-visual-palletizer");
   const canvas = palletizer.locator("canvas");
 
@@ -202,10 +246,10 @@ test("project scenes load on demand and pause when offscreen", async ({ page }) 
   await expectAttributeToChange(canvas, "data-phase");
 });
 
-test("reduced motion exposes content and keeps a deterministic scene frame", async ({ page }) => {
+test("@scene reduced motion exposes content and keeps a deterministic scene frame", async ({ page }) => {
   test.setTimeout(SCENE_TEST_TIMEOUT);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   expect(await page.locator("[data-reveal]:not(.is-visible)").count()).toBe(0);
   const palletizer = page.locator(".project-visual-palletizer");
@@ -224,10 +268,10 @@ test("reduced motion exposes content and keeps a deterministic scene frame", asy
   }).toBe(phase);
 });
 
-test("all robot scenes reach readiness and render nonblank WebGL pixels", async ({ page }, testInfo) => {
+test("@scene all robot scenes reach readiness and render nonblank WebGL pixels", async ({ page }, testInfo) => {
   test.setTimeout(SCENE_TEST_TIMEOUT);
   test.skip(testInfo.project.name !== "desktop", "WebGL pixel sampling runs once per CI job");
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   const scenes = [
     {
@@ -260,14 +304,15 @@ test("all robot scenes reach readiness and render nonblank WebGL pixels", async 
     await expect(canvas).toHaveAttribute(scene.readyAttribute, scene.readyValue, {
       timeout: SCENE_ASSET_TIMEOUT,
     });
-    await expect(canvas).toHaveAttribute("data-pixel-signal", "true", {
-      timeout: SCENE_ASSET_TIMEOUT,
-    });
+    await expect.poll(
+      () => hasRenderedPixelSignal(canvas),
+      { timeout: SCENE_ASSET_TIMEOUT },
+    ).toBe(true);
   }
 });
 
 test("controller and platform visuals use source-backed labels", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   const controllerVisual = page
     .locator("[data-content-id=robot-controller-core]")
@@ -303,7 +348,7 @@ test("generated CV routes are valid and the visible link uses the complete Engli
     expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
   }
 
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
   const cvLinks = page.getByRole("link", { name: "CV", exact: true });
   await expect(cvLinks).toHaveCount(2);
   for (const link of await cvLinks.all()) {
@@ -324,7 +369,7 @@ test("generated CV routes are valid and the visible link uses the complete Engli
 });
 
 test("application remains mounted after delayed runtime loading", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
   await page.waitForTimeout(1000);
   await expect(page.locator("#root")).not.toBeEmpty();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
@@ -342,7 +387,7 @@ test("portfolio remains mounted when WebGL is unavailable", async ({ page }, tes
     } as typeof originalGetContext;
   });
 
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
   await expect(page.locator(".robot-scene-canvas")).toHaveAttribute(
     "data-scene-unavailable",
     "true",
@@ -362,7 +407,7 @@ test("portfolio remains mounted when WebGL is unavailable", async ({ page }, tes
 
 test("ultra-wide layout expands content and caps hero height", async ({ page }) => {
   await page.setViewportSize({ width: 3840, height: 2160 });
-  await page.goto("/");
+  await page.goto(ENGLISH_ROUTE);
 
   const layout = await page.evaluate(() => {
     const header = document.querySelector<HTMLElement>(".site-header")!;

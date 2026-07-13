@@ -128,6 +128,108 @@ select {
   z-index: 20;
 }
 
+.site-header-row,
+.site-header-actions {
+  align-items: center;
+  display: flex;
+}
+
+.site-header-row {
+  flex: 0 0 auto;
+}
+
+.site-header-actions {
+  gap: 10px;
+  min-width: 0;
+}
+
+.menu-toggle {
+  align-items: center;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+  display: none;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  width: 44px;
+}
+
+.menu-toggle-icon {
+  display: grid;
+  gap: 4px;
+  width: 20px;
+}
+
+.menu-toggle-icon span {
+  background: currentColor;
+  display: block;
+  height: 2px;
+  transform-origin: center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+  width: 100%;
+}
+
+.site-header.is-menu-open .menu-toggle-icon span:first-child {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.site-header.is-menu-open .menu-toggle-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header.is-menu-open .menu-toggle-icon span:last-child {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.locale-selector {
+  align-items: center;
+  color: var(--quiet);
+  display: flex;
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 850;
+  gap: 3px;
+}
+
+.locale-option {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--quiet);
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+  min-height: 36px;
+  padding: 6px 7px;
+}
+
+.locale-option[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.menu-toggle:hover,
+.locale-option:hover {
+  background: var(--yellow-soft);
+  color: var(--ink);
+}
+
+.locale-option[aria-pressed="true"]:hover {
+  background: var(--olive-2);
+  color: var(--paper);
+}
+
+.menu-toggle:focus-visible,
+.locale-option:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--yellow) 78%, white);
+  outline-offset: 3px;
+}
+
 .brand {
   align-items: center;
   display: inline-flex;

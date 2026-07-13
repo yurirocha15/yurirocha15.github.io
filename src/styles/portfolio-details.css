@@ -107,6 +107,11 @@
   justify-content: flex-end;
 }
 
+.footer-links .button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
 [data-reveal] {
   opacity: 0;
   transform: translateY(22px);
