@@ -83,6 +83,7 @@ describe("localized portfolio content", () => {
     expect(englishCv?.locations).toEqual(["hero", "footer"]);
     expect(englishCv?.href).toBe("./cv/yuri-rocha-cv-en.pdf");
     expect(koreanCv?.locations).toEqual(["hero", "footer"]);
+    expect(koreanCv?.label).toBe("이력서");
     expect(koreanCv?.href).toBe("./cv/yuri-rocha-cv-ko.pdf");
   });
 

@@ -94,19 +94,6 @@
     min-height: 0;
   }
 
-  .proof-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .proof-item {
-    border-bottom: 1px solid var(--line);
-    border-right: 0;
-  }
-
-  .proof-item:last-child {
-    border-bottom: 0;
-  }
-
   .site-footer {
     align-items: start;
     flex-direction: column;

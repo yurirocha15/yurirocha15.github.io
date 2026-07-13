@@ -98,8 +98,6 @@ describe("typed portfolio content", () => {
     expect(portfolioContent.profile.engineeringProfile.title).toBe(
       "Software architecture for robotics and Physical AI",
     );
-    expect(portfolioContent.profile.proofItems.find((item) => item.id === "proof-current")?.detail)
-      .toBe("Real-time controller architecture with agent-first integration");
     expect(portfolioContent.profile.engineeringProfile.groups.map((group) => group.title)).toEqual([
       "Robot Software",
       "ML & Model Optimization",

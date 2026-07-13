@@ -14,61 +14,47 @@ export function Hero({ profile, visualLabels }: HeroProps) {
   const heroLinks = profile.links.filter((link) => link.locations.includes("hero"));
 
   return (
-    <>
-      <section className="hero section-band">
-        <div className="hero-copy" data-reveal>
-          <TagList
-            items={profile.hero.metadata}
-            className="hero-meta"
-            label={profile.labels.roleAndLocation}
-          />
-          <h1>{profile.hero.heading}</h1>
-          <p className="lead">
-            <span>{profile.hero.lead}</span>
-          </p>
-          <div className="hero-actions" aria-label={profile.labels.primaryLinks}>
-            {heroLinks.map((link) => (
-              <ProfileLinkButton link={link} key={link.id} />
-            ))}
-          </div>
+    <section className="hero section-band">
+      <div className="hero-copy" data-reveal>
+        <TagList
+          items={profile.hero.metadata}
+          className="hero-meta"
+          label={profile.labels.roleAndLocation}
+        />
+        <h1>{profile.hero.heading}</h1>
+        <p className="lead">
+          <span>{profile.hero.lead}</span>
+        </p>
+        <div className="hero-actions" aria-label={profile.labels.primaryLinks}>
+          {heroLinks.map((link) => (
+            <ProfileLinkButton link={link} key={link.id} />
+          ))}
         </div>
+      </div>
 
-        <div
-          className="planning-board"
-          aria-label={profile.labels.engineeringCapabilities}
-          data-reveal
-        >
-          <div className="board-header">
-            <span>{profile.engineeringProfile.label}</span>
-            <strong>{profile.engineeringProfile.title}</strong>
-          </div>
-          <Suspense fallback={<div className="robot-scene-panel robot-scene-fallback" />}>
-            <HeroRobotScene labels={visualLabels} />
-          </Suspense>
-          <dl className="board-metrics">
-            {profile.engineeringProfile.groups.map((group) => (
-              <div key={group.id}>
-                <dt>{group.title}</dt>
-                <dd>
-                  <TagList items={group.items} className="capability-tags" />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      <section
-        className="section-band proof-strip"
-        aria-label={profile.labels.professionalSnapshot}
+      <div
+        className="planning-board"
+        aria-label={profile.labels.engineeringCapabilities}
+        data-reveal
       >
-        {profile.proofItems.map((item) => (
-          <div className="proof-item" data-reveal key={item.id}>
-            <span>{item.label}</span>
-            <strong>{item.detail}</strong>
-          </div>
-        ))}
-      </section>
-    </>
+        <div className="board-header">
+          <span>{profile.engineeringProfile.label}</span>
+          <strong>{profile.engineeringProfile.title}</strong>
+        </div>
+        <Suspense fallback={<div className="robot-scene-panel robot-scene-fallback" />}>
+          <HeroRobotScene labels={visualLabels} />
+        </Suspense>
+        <dl className="board-metrics">
+          {profile.engineeringProfile.groups.map((group) => (
+            <div key={group.id}>
+              <dt>{group.title}</dt>
+              <dd>
+                <TagList items={group.items} className="capability-tags" />
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
   );
 }

@@ -125,13 +125,11 @@
   transform: translateY(0);
 }
 
-.proof-item:nth-child(2),
 .project-card:nth-child(2),
 .skill-block:nth-child(2) {
   transition-delay: 80ms;
 }
 
-.proof-item:nth-child(3),
 .project-card:nth-child(3),
 .skill-block:nth-child(3) {
   transition-delay: 150ms;

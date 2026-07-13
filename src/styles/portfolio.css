@@ -282,41 +282,6 @@ h1 {
   margin: 0;
 }
 
-.proof-strip {
-  background: color-mix(in srgb, var(--yellow-soft) 52%, transparent);
-  border-bottom: 1px solid var(--line);
-  border-top: 1px solid var(--line);
-  display: grid;
-  gap: 0;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.proof-item {
-  background: var(--reading-surface);
-  border-right: 1px solid var(--line);
-  min-height: 132px;
-  padding: 22px;
-}
-
-.proof-item:last-child {
-  border-right: 0;
-}
-
-.proof-item span {
-  color: var(--olive);
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 900;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
-
-.proof-item strong {
-  display: block;
-  font-size: 1.12rem;
-  line-height: 1.25;
-}
-
 .section-grid {
   display: grid;
   gap: clamp(22px, 3vw, 36px);

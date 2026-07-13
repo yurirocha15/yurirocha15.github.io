@@ -42,7 +42,6 @@ export function collectContentValidationErrors(
   content.profile.engineeringProfile.groups.forEach((group) => {
     addId(group.id, "capability group");
   });
-  content.profile.proofItems.forEach((item) => addId(item.id, "proof item"));
 
   const projects = [...content.professionalProjects, ...content.openSourceProjects];
   const links = [

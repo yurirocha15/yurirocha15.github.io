@@ -76,23 +76,6 @@ export const profile = {
       },
     ],
   },
-  proofItems: [
-    {
-      id: "proof-current",
-      label: "Current work",
-      detail: "Real-time controller architecture with agent-first integration",
-    },
-    {
-      id: "proof-industrial",
-      label: "Industrial automation",
-      detail: "Robot-programming workflow reduced from six weeks to three days",
-    },
-    {
-      id: "proof-open-source",
-      label: "Open source",
-      detail: "C++20 SDK for the Model Context Protocol",
-    },
-  ],
   contact: {
     eyebrow: "Contact",
     location: "Seoul, South Korea",
@@ -109,7 +92,6 @@ export const profile = {
     primaryLinks: "Primary links",
     roleAndLocation: "Role and location",
     engineeringCapabilities: "Robotics software and Physical AI capabilities",
-    professionalSnapshot: "Professional snapshot",
     contributionTotals: "Contribution totals",
     publicPullRequests: "Public pull requests",
     contributionsTitle: "Open-source contributions",

@@ -107,7 +107,6 @@ export type PortfolioLabels = {
   primaryLinks: string;
   roleAndLocation: string;
   engineeringCapabilities: string;
-  professionalSnapshot: string;
   contributionTotals: string;
   publicPullRequests: string;
   contributionsTitle: string;
@@ -205,11 +204,6 @@ export type ProfileContent = {
     title: string;
     groups: readonly TagGroup[];
   };
-  proofItems: readonly {
-    id: string;
-    label: string;
-    detail: string;
-  }[];
   contact: {
     eyebrow: string;
     location: string;

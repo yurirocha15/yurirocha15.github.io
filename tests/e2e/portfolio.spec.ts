@@ -412,15 +412,12 @@ test("ultra-wide layout expands content and caps hero height", async ({ page }) 
   const layout = await page.evaluate(() => {
     const header = document.querySelector<HTMLElement>(".site-header")!;
     const hero = document.querySelector<HTMLElement>(".hero")!;
-    const proof = document.querySelector<HTMLElement>(".proof-strip")!;
     return {
       headerWidth: header.getBoundingClientRect().width,
       heroHeight: hero.getBoundingClientRect().height,
-      proofTop: proof.getBoundingClientRect().top,
     };
   });
 
   expect(layout.headerWidth).toBeGreaterThan(2000);
   expect(layout.heroHeight).toBeLessThanOrEqual(1100);
-  expect(layout.proofTop).toBeLessThan(1300);
 });

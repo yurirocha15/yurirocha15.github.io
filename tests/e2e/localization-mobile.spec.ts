@@ -14,8 +14,9 @@ test("locale query renders localized metadata, content, and complete CV links", 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Physical AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
   );
+  await expect(page.locator(".proof-strip")).toHaveCount(0);
 
-  const koreanCvLinks = page.getByRole("link", { name: "CV", exact: true });
+  const koreanCvLinks = page.getByRole("link", { name: "이력서", exact: true });
   await expect(koreanCvLinks).toHaveCount(2);
   for (const link of await koreanCvLinks.all()) {
     await expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-ko.pdf");

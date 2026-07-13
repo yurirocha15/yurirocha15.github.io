@@ -40,7 +40,7 @@ export const koreanPortfolioContent = {
       },
       {
         id: "cv",
-        label: "CV",
+        label: "이력서",
         href: "./cv/yuri-rocha-cv-ko.pdf",
         locations: ["hero", "footer"],
       },
@@ -84,23 +84,6 @@ export const koreanPortfolioContent = {
         },
       ],
     },
-    proofItems: [
-      {
-        id: "proof-current",
-        label: "현재 업무",
-        detail: "에이전트 우선 통합을 지원하는 실시간 컨트롤러 아키텍처",
-      },
-      {
-        id: "proof-industrial",
-        label: "산업 자동화",
-        detail: "로봇 프로그래밍 소요 시간을 6주에서 3일로 단축",
-      },
-      {
-        id: "proof-open-source",
-        label: "오픈 소스",
-        detail: "Model Context Protocol용 C++20 SDK",
-      },
-    ],
     contact: {
       eyebrow: "연락처",
       location: "대한민국 서울",
@@ -117,7 +100,6 @@ export const koreanPortfolioContent = {
       primaryLinks: "주요 링크",
       roleAndLocation: "직무 및 위치",
       engineeringCapabilities: "로보틱스 소프트웨어 및 Physical AI 역량",
-      professionalSnapshot: "경력 요약",
       contributionTotals: "기여 요약",
       publicPullRequests: "공개 Pull Request",
       contributionsTitle: "오픈 소스 기여",
