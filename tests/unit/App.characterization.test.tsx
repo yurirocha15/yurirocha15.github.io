@@ -16,7 +16,7 @@ import App from "../../src/App";
 
 describe("portfolio behavior contract", () => {
   beforeEach(() => {
-    window.history.replaceState({}, "", "/");
+    window.history.replaceState({}, "", "/?lang=en");
   });
 
   test("all local navigation links resolve to unique document targets", async () => {

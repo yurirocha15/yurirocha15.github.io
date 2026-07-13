@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
-import type { PortfolioLabels, Project } from "../../src/content";
+import { portfolioContent, type PortfolioLabels, type Project } from "../../src/content";
 
 vi.mock("../../src/ProjectVisuals", () => ({
   default: ({ kind }: { kind: string }) => <div className="project-visual" data-kind={kind} />,
@@ -32,7 +32,7 @@ const project: Project = {
 };
 
 test("project cards render fixture-driven layout, visual, tags, and links", () => {
-  const { container } = render(<ProjectCard project={project} labels={labels} />);
+  const { container } = render(<ProjectCard project={project} labels={labels} visualLabels={portfolioContent.visuals} />);
   const card = container.querySelector("article")!;
   expect(card).toHaveAttribute("data-content-id", project.id);
   expect(card).toHaveAttribute("data-project-layout", project.layout);

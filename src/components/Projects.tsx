@@ -1,13 +1,14 @@
-import type { Contribution, PortfolioLabels, Project } from "../content";
+import type { Contribution, PortfolioContent, PortfolioLabels, Project } from "../content";
 import ProjectVisual from "../ProjectVisuals";
 import { TagList } from "./TagList";
 
 type ProjectCardProps = {
   project: Project;
   labels: PortfolioLabels;
+  visualLabels: PortfolioContent["visuals"];
 };
 
-export function ProjectCard({ project, labels }: ProjectCardProps) {
+export function ProjectCard({ project, labels, visualLabels }: ProjectCardProps) {
   return (
     <article
       className={`project-card project-card-${project.visual} project-card--${project.layout}`}
@@ -16,7 +17,7 @@ export function ProjectCard({ project, labels }: ProjectCardProps) {
       data-visual-key={project.visual}
       data-reveal
     >
-      <ProjectVisual kind={project.visual} />
+      <ProjectVisual kind={project.visual} labels={visualLabels} />
       <div className="project-copy">
         <p className="project-eyebrow">{project.eyebrow}</p>
         <h3>{project.title}</h3>
@@ -48,14 +49,20 @@ export function ProjectCard({ project, labels }: ProjectCardProps) {
 type ProjectGridProps = {
   projects: readonly Project[];
   labels: PortfolioLabels;
+  visualLabels: PortfolioContent["visuals"];
   className?: string;
 };
 
-export function ProjectGrid({ projects, labels, className = "" }: ProjectGridProps) {
+export function ProjectGrid({ projects, labels, visualLabels, className = "" }: ProjectGridProps) {
   return (
     <div className={`project-grid ${className}`.trim()}>
       {projects.map((project) => (
-        <ProjectCard project={project} labels={labels} key={project.id} />
+        <ProjectCard
+          project={project}
+          labels={labels}
+          visualLabels={visualLabels}
+          key={project.id}
+        />
       ))}
     </div>
   );

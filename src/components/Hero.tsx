@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import type { ProfileContent } from "../content";
+import type { PortfolioContent, ProfileContent } from "../content";
 import { ProfileLinkButton } from "./ProfileLinkButton";
 import { TagList } from "./TagList";
 
@@ -7,9 +7,10 @@ const HeroRobotScene = lazy(() => import("../HeroRobotScene"));
 
 type HeroProps = {
   profile: ProfileContent;
+  visualLabels: PortfolioContent["visuals"];
 };
 
-export function Hero({ profile }: HeroProps) {
+export function Hero({ profile, visualLabels }: HeroProps) {
   const heroLinks = profile.links.filter((link) => link.locations.includes("hero"));
 
   return (
@@ -42,7 +43,7 @@ export function Hero({ profile }: HeroProps) {
             <strong>{profile.engineeringProfile.title}</strong>
           </div>
           <Suspense fallback={<div className="robot-scene-panel robot-scene-fallback" />}>
-            <HeroRobotScene />
+            <HeroRobotScene labels={visualLabels} />
           </Suspense>
           <dl className="board-metrics">
             {profile.engineeringProfile.groups.map((group) => (

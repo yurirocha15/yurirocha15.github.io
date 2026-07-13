@@ -101,6 +101,11 @@ export const profile = {
   },
   labels: {
     mainNavigation: "Main navigation",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    languageSelector: "Language selector",
+    switchToEnglish: "Switch to English",
+    switchToKorean: "Switch to Korean",
     primaryLinks: "Primary links",
     roleAndLocation: "Role and location",
     engineeringCapabilities: "Robotics software and Physical AI capabilities",
