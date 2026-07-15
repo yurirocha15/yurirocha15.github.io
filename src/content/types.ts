@@ -189,7 +189,6 @@ export type ProfileContent = {
   identity: {
     name: string;
     title: string;
-    mark: string;
     homeLabel: string;
   };
   navigation: readonly NavigationItem[];

@@ -13,7 +13,6 @@ function renderHeader(overrides: Partial<SiteHeaderProps> = {}) {
     identity: {
       name: "Yuri Rocha",
       title: "Robotics Software",
-      mark: "YR",
       homeLabel: "Yuri Rocha home",
     },
     navigation,
@@ -43,6 +42,17 @@ function renderHeader(overrides: Partial<SiteHeaderProps> = {}) {
 describe("SiteHeader mobile disclosure", () => {
   beforeEach(() => {
     window.history.replaceState({}, "", "/");
+  });
+
+  test("keeps the minimalist monogram decorative and the home link accessible", () => {
+    renderHeader();
+    const homeLink = screen.getByRole("link", { name: "Yuri Rocha home" });
+    const monogram = homeLink.querySelector(".brand-monogram");
+
+    expect(homeLink).toHaveAttribute("href", "#top");
+    expect(monogram).toHaveAttribute("aria-hidden", "true");
+    expect(monogram).toHaveAttribute("focusable", "false");
+    expect(monogram).toHaveAttribute("viewBox", "0 0 48 36");
   });
 
   test("connects the localized toggle to navigation and exposes locale state", () => {

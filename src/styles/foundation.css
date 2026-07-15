@@ -35,6 +35,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html[lang="ko"] {
+  word-break: keep-all;
+}
+
+html[lang="ko"] body {
+  overflow-wrap: break-word;
+}
+
 body {
   margin: 0;
   min-width: 0;
@@ -233,22 +241,42 @@ select {
 .brand {
   align-items: center;
   display: inline-flex;
-  gap: 12px;
+  gap: 10px;
+  min-height: 44px;
 }
 
-.brand-mark {
-  align-items: center;
-  background:
-    linear-gradient(135deg, transparent 0 46%, rgba(211, 155, 42, 0.5) 46% 52%, transparent 52%),
-    var(--ink);
-  color: var(--page);
-  display: grid;
-  font-size: 0.78rem;
-  font-weight: 900;
-  height: 38px;
-  justify-items: center;
-  letter-spacing: 0;
-  width: 38px;
+.brand-monogram {
+  display: block;
+  flex: 0 0 auto;
+  height: 34px;
+  overflow: visible;
+  width: 45px;
+}
+
+.brand-monogram-stroke {
+  fill: none;
+  stroke: var(--ink);
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-width: 2.35;
+  transition: stroke 160ms ease;
+  vector-effect: non-scaling-stroke;
+}
+
+.brand-monogram-node {
+  fill: var(--yellow);
+  stroke: var(--page);
+  stroke-width: 1.25;
+  transition: fill 160ms ease;
+  vector-effect: non-scaling-stroke;
+}
+
+.brand:hover .brand-monogram-stroke {
+  stroke: var(--olive-2);
+}
+
+.brand:hover .brand-monogram-node {
+  fill: var(--rust);
 }
 
 .brand strong,

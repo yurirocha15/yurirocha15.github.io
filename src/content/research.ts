@@ -67,12 +67,12 @@ export const awards = [
     year: "2016",
     title: "Latin American Robotics Competition",
     detail:
-      "Standard Platform League first place with UnBeatables in Latin America's humanoid robot football competition",
+      "Won first place in the Standard Platform League with UnBeatables at Latin America’s humanoid robot football competition",
   },
   {
     id: "robocup",
     year: "2016",
     title: "RoboCup Standard Platform League",
-    detail: "Best Drop-in Only Team with UnBeatables in the worldwide humanoid robot football competition",
+    detail: "Won the Best Drop-in Only Team award with UnBeatables at RoboCup",
   },
 ] satisfies readonly Award[];

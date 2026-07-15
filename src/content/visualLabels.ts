@@ -17,7 +17,7 @@ export const englishVisualLabels = {
   },
   gpuPlatform: {
     deploymentPlatform: "deployment platform",
-    llmEnvironment: "LLM environment",
+    llmEnvironment: "LLM serving",
     simulation: "Simulation",
     metrics: "Metrics",
     deploy: "deploy",
@@ -45,7 +45,7 @@ export const englishVisualLabels = {
     agent: "Agent",
   },
   leetcode: {
-    problem: "Problem 0042",
+    problem: "Problem",
     description: "description",
     examples: "examples",
     accepted: "Accepted",
@@ -77,7 +77,7 @@ export const koreanVisualLabels = {
   },
   gpuPlatform: {
     deploymentPlatform: "배포 플랫폼",
-    llmEnvironment: "LLM 환경",
+    llmEnvironment: "LLM 서빙",
     simulation: "시뮬레이션",
     metrics: "메트릭",
     deploy: "배포",
@@ -86,7 +86,7 @@ export const koreanVisualLabels = {
     healthy: "정상",
     llmAbbreviation: "LLM",
     simulationAbbreviation: "SIM",
-    metricsAbbreviation: "METRICS",
+    metricsAbbreviation: "지표",
   },
   edgeLlm: {
     onDevice: "온디바이스",
@@ -105,10 +105,10 @@ export const koreanVisualLabels = {
     agent: "에이전트",
   },
   leetcode: {
-    problem: "문제 0042",
+    problem: "문제",
     description: "문제 설명",
     examples: "예제",
-    accepted: "정답",
+    accepted: "통과",
     pythonScraper: "Python 스크레이퍼",
     gitRepository: "Git 리포지토리",
   },

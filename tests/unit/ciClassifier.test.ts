@@ -28,7 +28,12 @@ describe("CI change classification", () => {
 
   it("runs the fast UI suite for localized copy only", () => {
     expect(classifyChanges({
-      paths: ["README.md", "src/content/profile.ts", "src/content/locales/ko.ts"],
+      paths: [
+        "README.md",
+        "src/content/profile.ts",
+        "src/content/locales/en.ts",
+        "src/content/locales/ko.ts",
+      ],
     })).toMatchObject({
       mode: "content",
       publish: true,
@@ -62,6 +67,8 @@ describe("CI change classification", () => {
   });
 
   it("keeps contracts and localization runtime changes on full CI", () => {
+    expect(classifyPath("src/content/locales/en.ts")).toBe("content");
+    expect(classifyPath("src/content/locales/ko.ts")).toBe("content");
     expect(classifyPath("src/content/visualLabels.ts")).toBe("content");
     expect(classifyPath("src/content/validate.ts")).toBe("full");
     expect(classifyPath("src/content/index.ts")).toBe("full");

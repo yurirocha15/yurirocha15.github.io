@@ -74,6 +74,26 @@
     position: static;
   }
 
+  .timeline-item {
+    --timeline-axis: 8px;
+    grid-template-columns: 16px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    padding-left: 0;
+    row-gap: 8px;
+  }
+
+  .timeline-period {
+    grid-column: 2;
+    grid-row: 1;
+    order: -1;
+    white-space: nowrap;
+  }
+
+  .timeline-body {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
   .project-grid {
     grid-template-columns: 1fr;
   }
@@ -248,25 +268,6 @@
 
   .award-row {
     grid-template-columns: 1fr;
-  }
-
-  .timeline-item {
-    --timeline-axis: 12px;
-    grid-template-columns: 24px minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    padding-left: 0;
-    row-gap: 10px;
-  }
-
-  .timeline-period {
-    grid-column: 2;
-    grid-row: 1;
-    order: -1;
-  }
-
-  .timeline-body {
-    grid-column: 2;
-    grid-row: 2;
   }
 
   .project-card,
@@ -559,6 +560,15 @@
 
   .planning-board {
     padding: 14px;
+  }
+
+  .project-visual-controller {
+    padding-inline: 10px;
+  }
+
+  .task-manager-graph {
+    gap: 2px;
+    padding-inline: 5px;
   }
 
   .project-card--featured .project-visual-mcp {

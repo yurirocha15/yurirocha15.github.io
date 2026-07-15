@@ -181,6 +181,206 @@ test("layout, navigation, and project contracts remain valid", async ({ page }) 
   });
 });
 
+test("Korean career timeline uses compact mobile geometry", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Mobile career geometry is exercised once");
+
+  await page.setViewportSize({ width: 490, height: 844 });
+  await page.goto("/?lang=ko");
+
+  const career = page.locator("#career");
+  await scrollToCenter(career.locator(".timeline-item").first());
+
+  const layout = await career.evaluate((section) => {
+    const timelineItems = Array.from(section.querySelectorAll<HTMLElement>(".timeline-item"));
+    const headings = Array.from(document.querySelectorAll<HTMLElement>(".section-heading"));
+
+    return {
+      documentOverflow:
+        document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      headingsMatchSectionBands: headings.every(
+        (heading) => getComputedStyle(heading).backgroundColor === "rgba(0, 0, 0, 0)",
+      ),
+      headingsAreReadable: headings.every(
+        (heading) => Number.parseFloat(getComputedStyle(heading).fontSize) >= 13.5,
+      ),
+      items: timelineItems.map((item) => {
+        const body = item.querySelector<HTMLElement>(".timeline-body")!;
+        const period = item.querySelector<HTMLElement>(".timeline-period")!;
+        const axisStyle = getComputedStyle(item, "::after");
+        const markerStyle = getComputedStyle(item, "::before");
+        const itemBounds = item.getBoundingClientRect();
+        const bodyBounds = body.getBoundingClientRect();
+        const periodBounds = period.getBoundingClientRect();
+        const periodStyle = getComputedStyle(period);
+        const markerCenter = Number.parseFloat(markerStyle.top)
+          + Number.parseFloat(markerStyle.height) / 2;
+        const periodCenter = periodBounds.top - itemBounds.top + periodBounds.height / 2;
+
+        return {
+          axisStartsAtMarkerCenter:
+            Math.abs(Number.parseFloat(axisStyle.top) - markerCenter) <= 0.5,
+          bodyOffset: bodyBounds.left - itemBounds.left,
+          bodyWidthRatio: bodyBounds.width / itemBounds.width,
+          markerAboveAxis:
+            Number.parseInt(markerStyle.zIndex, 10) > Number.parseInt(axisStyle.zIndex, 10),
+          markerMatchesTimeline:
+            markerStyle.borderTopColor
+              === getComputedStyle(section.querySelector(".timeline")!).backgroundColor,
+          markerPeriodAlignment: Math.abs(markerCenter - periodCenter),
+          periodFits: period.scrollWidth <= period.clientWidth + 1,
+          periodSingleLine:
+            periodStyle.whiteSpace === "nowrap"
+            && period.clientHeight <= Number.parseFloat(periodStyle.fontSize) * 1.8,
+        };
+      }),
+    };
+  });
+
+  expect(layout.documentOverflow).toBe(0);
+  expect(layout.headingsMatchSectionBands).toBe(true);
+  expect(layout.headingsAreReadable).toBe(true);
+  expect(layout.items).toHaveLength(3);
+  for (const item of layout.items) {
+    expect(item.axisStartsAtMarkerCenter).toBe(true);
+    expect(item.bodyOffset).toBeLessThanOrEqual(18);
+    expect(item.bodyWidthRatio).toBeGreaterThan(0.94);
+    expect(item.markerAboveAxis).toBe(true);
+    expect(item.markerMatchesTimeline).toBe(true);
+    expect(item.markerPeriodAlignment).toBeLessThanOrEqual(0.5);
+    expect(item.periodFits).toBe(true);
+    expect(item.periodSingleLine).toBe(true);
+  }
+});
+
+test("Korean words never split between syllables", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Korean wrapping is exercised once");
+
+  await page.goto("/?lang=ko");
+
+  for (const width of [320, 390, 490, 790, 958]) {
+    await page.setViewportSize({ width, height: 844 });
+
+    const wrapping = await page.evaluate(() => {
+      const splitWords: string[] = [];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let textNode = walker.nextNode();
+
+      while (textNode) {
+        const parent = textNode.parentElement;
+        const text = textNode.textContent ?? "";
+        if (parent && /[가-힣]{2,}/.test(text)) {
+          const style = getComputedStyle(parent);
+          if (style.display !== "none" && style.visibility !== "hidden") {
+            for (const match of text.matchAll(/[가-힣]+(?:·[가-힣]+)*/g)) {
+              const start = match.index ?? 0;
+              const range = document.createRange();
+              range.setStart(textNode, start);
+              range.setEnd(textNode, start + match[0].length);
+              const lineTops = new Set(
+                Array.from(range.getClientRects())
+                  .filter((rect) => rect.width > 0 && rect.height > 0)
+                  .map((rect) => Math.round(rect.top * 2) / 2),
+              );
+              if (lineTops.size > 1) splitWords.push(match[0]);
+            }
+          }
+        }
+        textNode = walker.nextNode();
+      }
+
+      return {
+        documentOverflow:
+          document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        splitWords,
+      };
+    });
+
+    expect(wrapping.documentOverflow, `horizontal overflow at ${width}px`).toBe(0);
+    expect(wrapping.splitWords, `split Korean words at ${width}px`).toEqual([]);
+  }
+});
+
+test("Korean platform and controller visuals remain contained and legible", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Responsive visual geometry is exercised once");
+
+  await page.setViewportSize({ width: 958, height: 900 });
+  await page.goto("/?lang=ko");
+
+  const platform = page.locator(
+    "[data-content-id=development-infrastructure] .project-visual",
+  );
+  await scrollToCenter(platform);
+  const platformGeometry = await platform.evaluate((root) => {
+    const consoleElement = root.querySelector<HTMLElement>(".platform-console")!;
+    const lastRow = root.querySelector<HTMLElement>(".workload-row:last-child")!;
+    const consoleBounds = consoleElement.getBoundingClientRect();
+    const lastRowBounds = lastRow.getBoundingClientRect();
+    const borderBottom = Number.parseFloat(
+      getComputedStyle(consoleElement).borderBottomWidth,
+    );
+
+    return {
+      bottomOverflow: lastRowBounds.bottom - (consoleBounds.bottom - borderBottom),
+      scrollOverflow: consoleElement.scrollHeight - consoleElement.clientHeight,
+    };
+  });
+
+  expect(platformGeometry.bottomOverflow).toBeLessThanOrEqual(0.5);
+  expect(platformGeometry.scrollOverflow).toBeLessThanOrEqual(0);
+
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto("/?lang=ko");
+
+    const controller = page.locator(
+      "[data-content-id=robot-controller-core] .controller-diagram",
+    );
+    await scrollToCenter(controller);
+    const controllerGeometry = await controller.evaluate((root) => {
+      const graph = root.querySelector<HTMLElement>(".task-manager-graph")!;
+      const title = root.querySelector<HTMLElement>(".task-manager-node__title")!;
+      const subtitle = root.querySelector<HTMLElement>(".task-manager-node__subtitle")!;
+      const primaryLabels = Array.from(root.querySelectorAll<HTMLElement>(
+        ".cycle-strip strong, .schedule-overview strong, .external-stack span, "
+          + ".controller-tasks span, .hardware-node, .task-manager-node__title",
+      ));
+      const textNode = title.firstChild;
+      const textContent = textNode?.textContent ?? "";
+      const word = "인터페이스";
+      const start = textContent.indexOf(word);
+      if (!(textNode instanceof Text) || start < 0) {
+        throw new Error("Agent interface label is missing");
+      }
+      const range = document.createRange();
+      range.setStart(textNode, start);
+      range.setEnd(textNode, start + word.length);
+
+      return {
+        diagramOverflows:
+          root.scrollWidth > root.clientWidth + 1
+          || root.scrollHeight > root.clientHeight + 1
+          || graph.scrollWidth > graph.clientWidth + 1,
+        minimumPrimarySize: Math.min(
+          ...primaryLabels.map(
+            (label) => Number.parseFloat(getComputedStyle(label).fontSize),
+          ),
+        ),
+        subtitleSize: Number.parseFloat(getComputedStyle(subtitle).fontSize),
+        wordBreak: getComputedStyle(title).wordBreak,
+        wordLines: new Set(
+          Array.from(range.getClientRects()).map((rect) => Math.round(rect.top)),
+        ).size,
+      };
+    });
+
+    expect(controllerGeometry.diagramOverflows).toBe(false);
+    expect(controllerGeometry.minimumPrimarySize).toBeGreaterThanOrEqual(9.5);
+    expect(controllerGeometry.subtitleSize).toBeGreaterThanOrEqual(8);
+    expect(controllerGeometry.wordBreak).toBe("keep-all");
+    expect(controllerGeometry.wordLines).toBe(1);
+  }
+});
+
 test("@scene labels and framed content respond to pointer hover", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Pointer hover is exercised once per CI job");
   await page.goto(ENGLISH_ROUTE);
@@ -327,7 +527,7 @@ test("controller and platform visuals use source-backed labels", async ({ page }
   const platformVisual = page
     .locator("[data-content-id=development-infrastructure]")
     .locator(".project-visual");
-  await expect(platformVisual).toContainText("LLM environment");
+  await expect(platformVisual).toContainText("LLM serving");
   await expect(platformVisual).toContainText("Simulation");
   await expect(platformVisual).toContainText("Metrics");
   await expect(platformVisual).toContainText("Kubernetes cluster");

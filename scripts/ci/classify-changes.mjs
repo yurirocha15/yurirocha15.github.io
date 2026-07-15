@@ -4,7 +4,6 @@ import { pathToFileURL } from "node:url";
 
 const CONTENT_PATHS = new Set([
   "src/content/career.ts",
-  "src/content/locales/ko.ts",
   "src/content/profile.ts",
   "src/content/projects.ts",
   "src/content/research.ts",
@@ -40,7 +39,8 @@ export function classifyPath(filePath) {
     || normalizedPath === "cv/Makefile"
     || normalizedPath.startsWith("cv/src/")
     || normalizedPath.startsWith("cv/scripts/")) return "cv";
-  if (CONTENT_PATHS.has(normalizedPath)) return "content";
+  if (CONTENT_PATHS.has(normalizedPath)
+    || normalizedPath.startsWith("src/content/locales/")) return "content";
   if (normalizedPath.startsWith("tests/")) return "quality";
   return "full";
 }

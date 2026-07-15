@@ -28,8 +28,8 @@ export function ControllerRuntimeVisual({ labels }: VisualProps) {
         <div className="external-stack"><span>{copy.agent}</span></div>
         <div className="input-flow"><i><b /></i></div>
         <div className="task-manager-node">
-          <strong>{copy.agentInterface}</strong>
-          <small>{copy.agenticWorkflows}</small>
+          <strong className="task-manager-node__title">{copy.agentInterface}</strong>
+          <span className="task-manager-node__subtitle">{copy.agenticWorkflows}</span>
         </div>
         <div className="task-fanout"><i><b /></i><i><b /></i><i><b /></i><i><b /></i></div>
         <div className="controller-tasks">

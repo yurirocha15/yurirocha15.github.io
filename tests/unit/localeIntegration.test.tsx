@@ -53,7 +53,7 @@ describe("locale integration", () => {
     render(<App initialLocale="ko" />);
 
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
-      "Physical AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
+      "피지컬 AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
     );
     screen.getAllByRole("link", { name: "이력서" }).forEach((link) => {
       expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-ko.pdf");

@@ -5,7 +5,6 @@ export const profile = {
   identity: {
     name: "Yuri Rocha",
     title: "Robotics Software · Physical AI",
-    mark: "YR",
     homeLabel: "Yuri Rocha home",
   },
   navigation: [
@@ -48,7 +47,7 @@ export const profile = {
     metadata: ["Senior Robotics Software Engineer", "C++ · ROS 2 · Linux", "Seoul, South Korea"],
     heading: "Building reliable software for Physical AI.",
     lead:
-      "I architect real-time robot-controller software and interfaces for agentic workflows on collaborative robots. My work also spans industrial motion planning, model-level AI optimization, and Kubernetes-based LLMOps and simulation infrastructure.",
+      "I architect real-time robot controller software and interfaces that connect agentic workflows to collaborative robots. My work also spans industrial motion planning, model- and graph-level AI optimization, and Kubernetes-based LLMOps and simulation infrastructure.",
   },
   engineeringProfile: {
     label: "Engineering profile",
@@ -72,7 +71,7 @@ export const profile = {
       {
         id: "capability-simulation",
         title: "Robotics Simulation & Learning",
-        items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo", "Reinforcement Learning"],
+        items: ["Isaac Sim", "MuJoCo", "Unity", "Gazebo", "Reinforcement Learning"],
       },
     ],
   },

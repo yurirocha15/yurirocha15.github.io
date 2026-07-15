@@ -93,7 +93,7 @@ describe("typed portfolio content", () => {
       "Building reliable software for Physical AI.",
     );
     expect(portfolioContent.profile.hero.lead).toContain(
-      "real-time robot-controller software and interfaces for agentic workflows",
+      "interfaces that connect agentic workflows to collaborative robots",
     );
     expect(portfolioContent.profile.engineeringProfile.title).toBe(
       "Software architecture for robotics and Physical AI",

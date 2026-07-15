@@ -59,6 +59,23 @@ function LocaleSelector({
   );
 }
 
+function BrandMonogram(): JSX.Element {
+  return (
+    <svg
+      aria-hidden="true"
+      className="brand-monogram"
+      focusable="false"
+      viewBox="0 0 48 36"
+    >
+      <path
+        className="brand-monogram-stroke"
+        d="M3.5 4.5 12.5 15.5 21.5 4.5M12.5 15.5v16M26.5 31.5v-27h8c5.8 0 9 2.7 9 7.2 0 4.6-3.2 7.3-9 7.3h-8M34.5 19 44 31.5"
+      />
+      <circle className="brand-monogram-node" cx="44" cy="31.5" r="2.5" />
+    </svg>
+  );
+}
+
 export function SiteHeader({
   identity,
   navigation,
@@ -137,7 +154,7 @@ export function SiteHeader({
           aria-label={identity.homeLabel}
           onClick={() => closeAndFocusTarget("top")}
         >
-          <span className="brand-mark">{identity.mark}</span>
+          <BrandMonogram />
           <span>
             <strong>{identity.name}</strong>
             <small>{identity.title}</small>

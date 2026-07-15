@@ -24,7 +24,7 @@ export const skills = [
   {
     id: "simulation",
     title: "Robotics Simulation & Learning",
-    items: ["Isaac Sim", "MuJoCo", "Unity3D", "Gazebo", "Reinforcement Learning"],
+    items: ["Isaac Sim", "MuJoCo", "Unity", "Gazebo", "Reinforcement Learning"],
   },
   {
     id: "infrastructure",

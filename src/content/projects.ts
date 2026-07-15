@@ -6,7 +6,7 @@ export const professionalProjects = [
     eyebrow: "Robot controller at Doosan Robotics",
     title: "Real-time robot controller core",
     description:
-      "Core real-time software for high-performance robotic controllers, including task-management and data-flow architecture.",
+      "Core real-time software for high-performance robot controllers, including task-management and data-flow architecture.",
     visual: "controller-runtime",
     layout: "standard",
     bullets: [
@@ -19,15 +19,15 @@ export const professionalProjects = [
   {
     id: "development-infrastructure",
     eyebrow: "Development platform at Doosan Robotics",
-    title: "Kubernetes platform for LLMs and simulation",
+    title: "Kubernetes platform for LLM serving and simulation",
     description:
-      "A developer-facing web platform for deploying LLMs and simulation environments on the internal Kubernetes cluster and monitoring workload metrics.",
+      "A developer-facing web platform for deploying LLM-serving and robotics-simulation workloads to the internal Kubernetes cluster and monitoring workload metrics.",
     visual: "gpu-platform",
     layout: "standard",
     bullets: [
-      "Self-service deployment of LLM and robotics-simulation environments.",
-      "Workload metrics available through the same operating interface.",
-      "Supported by internal cluster operations and CI/CD and LLMOps pipelines.",
+      "Self-service deployment of LLM-serving and robotics-simulation workloads.",
+      "Deployment controls and workload metrics in a unified interface.",
+      "Backed by the internally operated cluster, CI/CD pipelines, and LLMOps workflows.",
     ],
     tags: ["Kubernetes", "Python", "LLMOps", "CI/CD", "Simulation", "Monitoring", "Web Platform"],
   },
@@ -36,12 +36,12 @@ export const professionalProjects = [
     eyebrow: "Industrial automation at MakinaRocks",
     title: "Automated robot programming for welding lines",
     description:
-      "Led the architecture of an automated robot-programming system for spot-welding lines containing hundreds of robots, reducing the workflow from six weeks to three days.",
+      "Led the architecture of an automated robot-programming system for spot-welding lines containing hundreds of robots, cutting robot-programming time from six weeks to three days.",
     visual: "smart-frame",
     layout: "wide-visual",
     bullets: [
       "Parallel C++ planning for work-point validation, trajectory generation and evaluation, task distribution, and collision-aware coordination.",
-      "ROS, MoveIt, OMPL, and MongoDB algorithms backed by scalable Kubernetes and Docker planning infrastructure.",
+      "Planning algorithms built with ROS, MoveIt, and OMPL, backed by MongoDB data management and scalable Kubernetes/Docker infrastructure.",
     ],
     tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker"],
   },
@@ -54,10 +54,10 @@ export const professionalProjects = [
     visual: "palletizer",
     layout: "standard",
     bullets: [
-      "Fine-tuned Cosmos Reason2 with LoRA on synthetic data and connected its decisions to Isaac Sim and cuRobo through four containerized services.",
+      "Fine-tuned NVIDIA Cosmos Reason 2 with LoRA on synthetic data and connected its decisions to Isaac Sim and cuRobo through four containerized services.",
       "First place in a hackathon with more than 1,600 participants worldwide.",
     ],
-    tags: ["Python", "Cosmos Reason2", "LoRA", "Isaac Sim", "cuRobo", "vLLM", "Docker"],
+    tags: ["Python", "Cosmos Reason 2", "LoRA", "Isaac Sim", "cuRobo", "vLLM", "Docker"],
     links: [
       {
         id: "palletizer-github",
@@ -76,9 +76,9 @@ export const professionalProjects = [
   {
     id: "model-level-llm-optimization",
     eyebrow: "One-year machine-learning assignment at MakinaRocks",
-    title: "Model-level LLM optimization for mobile inference",
+    title: "LLM and ONNX graph optimization for mobile inference",
     description:
-      "Optimized LLM architectures and ONNX graphs at the model and graph levels for mobile edge targets.",
+      "Optimized LLM architectures and ONNX computation graphs for on-device inference on mobile hardware.",
     visual: "edge-llm",
     layout: "standard",
     bullets: [
@@ -125,7 +125,7 @@ export const openSourceProjects = [
     layout: "standard",
     bullets: [
       "CPU and memory relative to cgroup limits, not just host totals.",
-      "Docker, Kubernetes, NVIDIA/NVML, terminal controls, and JSON snapshots.",
+      "Docker and Kubernetes integration, NVIDIA GPU metrics via NVML, terminal controls, and JSON snapshots.",
     ],
     tags: ["Go", "Linux", "cgroups", "Docker", "Kubernetes", "NVML"],
     links: [
@@ -160,7 +160,7 @@ export const openSourceProjects = [
   },
   {
     id: "kims-rl-curriculum",
-    eyebrow: "Collaborative reinforcement learning education",
+    eyebrow: "Open-source reinforcement learning education",
     title: "Isaac Sim reinforcement learning curriculum",
     description:
       "Core developer of a public, hands-on reinforcement learning curriculum for the Korea Institute of Materials Science.",
@@ -237,7 +237,7 @@ export const contributions = [
     id: "quill",
     repository: "odygrd/quill",
     description:
-      "Fixed older-GCC compilation when Quill's bundled fmt is used alongside Boost.SML operator overloads.",
+      "Fixed compilation with older GCC versions when Quill’s bundled fmt was used alongside Boost.SML operator overloads.",
     href: "https://github.com/odygrd/quill/pull/878",
     linkLabel: "Merged PR #878",
     mergedPrCount: 1,

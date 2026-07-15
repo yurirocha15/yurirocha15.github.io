@@ -11,6 +11,8 @@ import {
   SUPPORTED_LOCALES,
   type PortfolioContent,
 } from "../../src/content";
+import { englishPortfolioContent as englishLocaleContent } from "../../src/content/locales/en";
+import { koreanPortfolioContent as koreanLocaleContent } from "../../src/content/locales/ko";
 import {
   assertContentParity,
   collectContentParityErrors,
@@ -63,6 +65,9 @@ describe("localized portfolio content", () => {
   test("exports complete English and Korean bundles with English compatibility", () => {
     expect(SUPPORTED_LOCALES).toEqual(["en", "ko"]);
     expect(Object.keys(portfolioContentByLocale)).toEqual(SUPPORTED_LOCALES);
+    expect(englishPortfolioContent).toBe(englishLocaleContent);
+    expect(portfolioContentByLocale.en).toBe(englishLocaleContent);
+    expect(portfolioContentByLocale.ko).toBe(koreanLocaleContent);
     expect(portfolioContent).toBe(englishPortfolioContent);
     expect(getPortfolioContent("ko")).toBe(portfolioContentByLocale.ko);
 
@@ -85,6 +90,37 @@ describe("localized portfolio content", () => {
     expect(koreanCv?.locations).toEqual(["hero", "footer"]);
     expect(koreanCv?.label).toBe("이력서");
     expect(koreanCv?.href).toBe("./cv/yuri-rocha-cv-ko.pdf");
+  });
+
+  test("preserves independently audited Korean copy and visual labels", () => {
+    const korean = portfolioContentByLocale.ko;
+    const academicAchievement = korean.awards.find(
+      ({ id }) => id === "academic-achievement",
+    );
+    const serialized = JSON.stringify(korean);
+
+    expect(korean.metadata.title).toBe(
+      "유리 허샤 - 로보틱스 소프트웨어 · 피지컬 AI",
+    );
+    expect(korean.profile.identity.title).toBe("로보틱스 소프트웨어 · 피지컬 AI");
+    expect(korean.profile.hero.heading).toBe(
+      "피지컬 AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
+    );
+    expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
+    expect(korean.visuals.leetcode.problem).toBe("문제");
+    expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("지표");
+    expect(portfolioContentByLocale.en.visuals.leetcode.problem).toBe("Problem");
+    for (const artifact of [
+      "Korean Government Scholarship Program",
+      "Cosmos Reason2",
+      "Unity3D",
+      "고병렬",
+      "문제 0042",
+      "충돌 회피 협업",
+      "협업형 강화학습",
+    ]) {
+      expect(serialized).not.toContain(artifact);
+    }
   });
 
   test("rejects a CV destination that does not match its bundle locale", () => {

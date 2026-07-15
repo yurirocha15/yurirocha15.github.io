@@ -6,13 +6,13 @@ test("locale query renders localized metadata, content, and complete CV links", 
   await page.goto("/?source=e2e&lang=ko#career");
 
   await expect(page.locator("html")).toHaveAttribute("lang", "ko");
-  await expect(page).toHaveTitle("유리 허샤 - 로보틱스 소프트웨어 & Physical AI");
+  await expect(page).toHaveTitle("유리 허샤 - 로보틱스 소프트웨어 · 피지컬 AI");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     /시니어 로보틱스 소프트웨어 엔지니어/,
   );
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Physical AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
+    "피지컬 AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
   );
   await expect(page.locator(".proof-strip")).toHaveCount(0);
 
