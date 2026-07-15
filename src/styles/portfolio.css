@@ -425,6 +425,7 @@ h1 {
 }
 
 .timeline-period {
+  align-self: start;
   color: var(--quiet);
   font-family:
     "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -432,7 +433,10 @@ h1 {
   font-weight: 850;
   grid-column: 2;
   line-height: var(--timeline-marker-size);
+  overflow-wrap: normal;
   position: relative;
+  white-space: nowrap;
+  word-break: normal;
   z-index: 1;
 }
 

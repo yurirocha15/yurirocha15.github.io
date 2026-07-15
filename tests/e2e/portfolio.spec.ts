@@ -252,6 +252,52 @@ test("Korean career timeline uses compact mobile geometry", async ({ page }, tes
   }
 });
 
+test("career periods stay on one line in both locales and layouts", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "Localized period geometry is exercised once");
+
+  for (const width of [320, 1024]) {
+    for (const locale of ["en", "ko"]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto(`/?lang=${locale}`);
+
+      const geometry = await page.locator("#career").evaluate((section) => ({
+        documentOverflow:
+          document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        periods: Array.from(section.querySelectorAll<HTMLElement>(".timeline-period"))
+          .map((period) => {
+            const item = period.closest<HTMLElement>(".timeline-item")!;
+            const body = item.querySelector<HTMLElement>(".timeline-body")!;
+            const periodStyle = getComputedStyle(period);
+            const range = document.createRange();
+            range.selectNodeContents(period);
+            const textBounds = range.getBoundingClientRect();
+            const bodyBounds = body.getBoundingClientRect();
+            const itemBounds = item.getBoundingClientRect();
+
+            return {
+              doesNotOverlapBody:
+                bodyBounds.top >= textBounds.bottom - 0.5
+                || textBounds.right <= bodyBounds.left + 0.5,
+              lineCount: new Set(
+                Array.from(range.getClientRects()).map((rect) => Math.round(rect.top * 2) / 2),
+              ).size,
+              textFitsItem: textBounds.right <= itemBounds.right + 0.5,
+              whiteSpace: periodStyle.whiteSpace,
+            };
+          }),
+      }));
+
+      expect(geometry.documentOverflow, `${locale} overflow at ${width}px`).toBe(0);
+      for (const period of geometry.periods) {
+        expect(period.doesNotOverlapBody, `${locale} body overlap at ${width}px`).toBe(true);
+        expect(period.lineCount, `${locale} wrapped period at ${width}px`).toBe(1);
+        expect(period.textFitsItem, `${locale} period overflow at ${width}px`).toBe(true);
+        expect(period.whiteSpace).toBe("nowrap");
+      }
+    }
+  }
+});
+
 test("Korean words never split between syllables", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "mobile", "Korean wrapping is exercised once");
 
