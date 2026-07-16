@@ -429,6 +429,7 @@ test("Korean platform and controller visuals remain contained and legible", asyn
 
 test("@scene labels and framed content respond to pointer hover", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Pointer hover is exercised once per CI job");
+  test.setTimeout(SCENE_TEST_TIMEOUT);
   await page.goto(ENGLISH_ROUTE);
 
   const label = page.locator(".tag-list span").first();
