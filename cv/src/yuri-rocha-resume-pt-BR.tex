@@ -1,0 +1,107 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{cv-style}
+\hypersetup{
+  pdftitle={Yuri Rocha - Currículo Profissional},
+  pdfauthor={Yuri Rocha},
+  pdfsubject={Software para robótica e IA física},
+  pdflang={pt-BR}
+}
+
+\begin{document}
+\newgeometry{top=5mm,bottom=4mm,left=7mm,right=7mm}
+\setlength{\columnsep}{5mm}
+\renewenvironment{cvcolumns}{\columnratio{0.24}\begin{paracol}{2}}{\end{paracol}}
+\newcommand{\resumebar}[2]{%
+  {\footnotesize\bfseries\color{cvink}#1}\par
+  \vspace{0.2mm}
+  \makebox[0pt][l]{\color{cvnavylight}\rule{\linewidth}{1.1mm}}%
+  {\color{cvnavy}\rule{#2\linewidth}{1.1mm}}\par
+  \vspace{0.8mm}
+}
+\cvheader
+  {Yuri Rocha}
+  {Engenheiro sênior de software para robótica}
+  {Seul, Coreia do Sul}
+  {\href{mailto:yurirocha15@gmail.com}{yurirocha15@gmail.com}\enspace\textbullet\enspace
+   \href{https://www.yurirocha.com}{yurirocha.com}\enspace\textbullet\enspace
+   \href{https://www.linkedin.com/in/yurirocha15/}{LinkedIn}\enspace\textbullet\enspace
+   \href{https://github.com/yurirocha15}{GitHub}}
+
+\begin{cvcolumns}
+  \cvsidebarsection{Competências principais}
+  \resumebar{C++}{0.92}
+  \resumebar{Python}{0.83}
+  \resumebar{Go}{0.50}
+  \resumebar{Linux}{0.92}
+  \resumebar{ROS}{0.92}
+  \resumebar{GitHub Actions}{0.92}
+  \resumebar{Docker}{0.83}
+  \resumebar{Kubernetes}{0.82}
+
+  \cvsidebarsection{Software, robótica\\e simulação}
+  \cvsmall{Arquitetura de software}
+  \cvsmall{Linux em tempo real}
+  \cvsmall{PREEMPT\_RT \textbullet\ Xenomai}
+  \cvsmall{MoveIt \textbullet\ OMPL}
+  \cvsmall{PyTorch \textbullet\ ONNX}
+
+  \cvsmall{Isaac Sim \textbullet\ Unity3D}
+  \cvsmall{MuJoCo}
+
+  \cvsidebarsection{Certificações}
+  \cvsmall{\href{https://www.credly.com/badges/bb876a9e-74e1-475d-b753-c43f2675c9ee}{CKA \textbullet\ LF-eivj0wxw1q}}
+  \cvsmall{\href{https://www.credly.com/badges/f1d71150-7469-4e33-9745-758d7256fa35}{CKS \textbullet\ LF-nyf5h9e9v9}}
+
+  \cvsidebarsection{Patentes}
+  \cvsmall{\href{https://patents.google.com/patent/US12093832B2}{US12093832B2}}
+  \cvsmall{\href{https://patents.google.com/patent/US12049013B1}{US12049013B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102590491B1}{KR102590491B1} \textbullet\ \href{https://patents.google.com/patent/KR102626109B1}{KR102626109B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102629021B1}{KR102629021B1} \textbullet\ \href{https://patents.google.com/patent/KR102660168B1}{KR102660168B1}}
+  \cvsmall{\href{https://patents.google.com/patent/KR102638245B1}{KR102638245B1} \textbullet\ \href{https://patents.google.com/patent/KR102614099B1}{KR102614099B1}}
+
+  \cvsidebarsection{Prêmio}
+  \cvsmall{\href{https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130}{Vencedor do NVIDIA Cosmos Cookoff}}
+  \cvsmall{\href{https://github.com/doosan-robotics/explainable-palletizer}{Código oficial}}
+
+  \cvsidebarsection{Idiomas}
+  \cvsmall{Português \textbullet\ Inglês}
+  \cvsmall{Coreano \textbullet\ Francês}
+
+  \cvmaincolumn
+  \cvmainsection{Experiência profissional}
+  \cvrole{Doosan Robotics}{ago. 2025--presente}{Engenheiro sênior de software, IA \& Software}{}
+  \begin{cvbullets}
+    \item Projeto e desenvolvo software central de controle em tempo real, incluindo gerenciamento de tarefas e fluxo de dados.
+    \item Desenvolvo interfaces agênticas para robôs reais e uma plataforma Kubernetes para implantar LLMs e simulações com monitoramento de métricas.
+    \item Opero infraestrutura de Kubernetes, CI/CD e LLMOps e lidero lançamentos e manutenção de APIs C++ e pacotes ROS oficiais.
+  \end{cvbullets}
+
+  \cvrole{MakinaRocks}{set. 2020--ago. 2025}{Engenheiro de pesquisa em robótica e aprendizado de máquina}{}
+  \begin{cvbullets}
+    \item Liderei a arquitetura de um sistema de programação automatizada para linhas de soldagem por pontos que reduziu o trabalho de seis semanas para três dias.
+    \item Desenvolvi algoritmos de planejamento em C++ altamente paralelizados com ROS, MoveIt, OMPL e MongoDB.
+    \item Gerenciei infraestrutura Kubernetes para implantação escalável, além de CI/CD com Linux e GitHub Actions.
+    \item Conduzi experimentos de aprendizado por imitação e reforço com PyTorch, Ray RLlib, ML-Agents e Unity3D.
+    \item Em uma atuação de um ano em ML, otimizei LLMs e grafos ONNX no nível de modelo para implantação e avaliação em dispositivos móveis.
+  \end{cvbullets}
+
+  \cvrole{Moringa Digital}{ago. 2016--jul. 2017}{Desenvolvedor de software}{}
+  \begin{cvbullets}
+    \item Desenvolvi um serviço em Node.js que automatizou a integração entre uma plataforma de compras públicas e os sistemas ERP dos clientes.
+    \item Reduzi o tempo operacional da plataforma e trabalhei diretamente com as equipes de tecnologia dos clientes.
+  \end{cvbullets}
+
+  \cvmainsection{Formação e pesquisa}
+  \cvrecord{Mestrado em Engenharia Elétrica e de Computação}{2018--2020}{Sungkyunkwan University, média 4,4/4,5. Navegação híbrida com RL/PRM e simulação mental automática de robôs.}
+  \cvrecord{Bacharelado em Engenharia de Controle e Automação}{2011--2016}{Universidade de Brasília, média 4,1/5,0. Pesquisa em manipulação cooperativa com quatérnios duais.}
+  \cvrecord{Intercâmbio em Engenharia da Computação}{2014--2015}{Sungkyunkwan University, média 4,1/4,5}
+
+  \cvmainsection{Publicações selecionadas}
+  \cvrecord{\href{https://www.mdpi.com/2076-3417/10/9/3219/pdf}{Navegação autônoma para robôs inteligentes}}{2020}{Applied Sciences}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf}{Simulação mental para aprendizado e planejamento autônomos}}{2019}{CEUR Workshop Proceedings}
+  \cvrecord{\href{https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf}{Controladores robustos a singularidades para manipulação cooperativa}}{2017}{IEEE CCTA}
+
+  \cvmainsection{Código aberto}
+  \cvrecord{\href{https://github.com/yurirocha15/mcp-cpp-sdk}{mcp-cpp-sdk}}{}{SDK em C++20 para o Model Context Protocol}
+\end{cvcolumns}
+\end{document}

@@ -265,7 +265,7 @@ test("hero metadata clears the title and career periods stay intact", async ({ p
   test.setTimeout(SCENE_TEST_TIMEOUT);
 
   for (const width of [320, 430, 980, 981, 1024]) {
-    for (const locale of ["en", "ko"]) {
+    for (const locale of ["en", "ko", "pt-BR"]) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`/?lang=${locale}`);
 

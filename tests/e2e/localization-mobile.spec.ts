@@ -43,6 +43,40 @@ test("locale query renders localized metadata, content, and complete CV links", 
   );
 });
 
+test("Brazilian Portuguese system language selects Portuguese automatically", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window.navigator, "languages", {
+      configurable: true,
+      value: ["pt-BR", "en-US"],
+    });
+    Object.defineProperty(window.navigator, "language", {
+      configurable: true,
+      value: "pt-BR",
+    });
+  });
+  await page.goto("/");
+
+  await expect(page.locator("html")).toHaveAttribute("lang", "pt-BR");
+  await expect(page).toHaveTitle("Yuri Rocha - Software para robótica e IA física");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Construindo software confiável para IA física.",
+  );
+
+  const menuToggle = page.getByRole("button", { name: "Abrir menu" });
+  if (await menuToggle.isVisible()) await menuToggle.click();
+  await expect(page.getByRole("button", {
+    name: "Mudar para português (Brasil)",
+  })).toHaveAttribute("aria-pressed", "true");
+
+  const cvLinks = page.getByRole("link", { name: "Currículo", exact: true });
+  await expect(cvLinks).toHaveCount(2);
+  for (const link of await cvLinks.all()) {
+    await expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-pt-BR.pdf");
+  }
+});
+
 test("responsive navigation stays usable and profile buttons do not overflow", async ({
   page,
 }, testInfo) => {

@@ -1,7 +1,7 @@
 # Curriculum vitae sources
 
-This directory contains two distinct CV formats, each maintained in English
-and Korean:
+This directory contains two distinct CV formats, each maintained in English,
+Korean, and Brazilian Portuguese:
 
 - `yuri-rocha-resume-*.tex`: a one-page professional resume;
 - `yuri-rocha-cv-*.tex`: a multi-page comprehensive CV.

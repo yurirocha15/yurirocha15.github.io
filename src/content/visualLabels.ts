@@ -119,3 +119,63 @@ export const koreanVisualLabels = {
     reward: "보상",
   },
 } satisfies PortfolioVisualLabels;
+
+export const brazilianPortugueseVisualLabels = {
+  sceneFallback: {
+    title: "Prévia 3D interativa indisponível",
+    description: "Este ambiente 3D requer WebGL para funcionar.",
+  },
+  controllerRuntime: {
+    realTimeController: "controlador em tempo real",
+    taskManagement: "gerenciamento de tarefas",
+    dataFlow: "fluxo de dados",
+    agent: "agente",
+    agentInterface: "interface do agente",
+    agenticWorkflows: "fluxos de trabalho com agentes",
+    tasks: ["tarefa 01", "tarefa 02", "tarefa 03", "tarefa 04"],
+    realRobot: "robô real",
+  },
+  gpuPlatform: {
+    deploymentPlatform: "plataforma de implantação",
+    llmEnvironment: "serviço de LLMs",
+    simulation: "Simulação",
+    metrics: "Métricas",
+    deploy: "implantar",
+    monitor: "monitorar",
+    kubernetesCluster: "cluster Kubernetes",
+    healthy: "saudável",
+    llmAbbreviation: "LLM",
+    simulationAbbreviation: "SIM",
+    metricsAbbreviation: "MÉTRICAS",
+  },
+  edgeLlm: {
+    onDevice: "no dispositivo",
+    edge: "EDGE",
+    inference: "inferência",
+  },
+  mcp: {
+    cppApplication: "aplicação C++",
+    nativeRuntime: "runtime nativo",
+    robotApi: "API do robô",
+    planner: "planejador",
+    telemetry: "telemetria",
+    typedCalls: "chamadas tipadas",
+    tools: "ferramentas",
+    resources: "recursos",
+    agent: "Agente",
+  },
+  leetcode: {
+    problem: "Problema",
+    description: "descrição",
+    examples: "exemplos",
+    accepted: "Aceita",
+    pythonScraper: "scraper em Python",
+    gitRepository: "repositório Git",
+  },
+  kims: {
+    vectorizedEnvironments: "ambientes vetorizados",
+    policy: "política",
+    rollouts: "rollouts",
+    reward: "recompensa",
+  },
+} satisfies PortfolioVisualLabels;

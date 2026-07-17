@@ -96,6 +96,7 @@ export const koreanPortfolioContent = {
       languageSelector: "언어 선택",
       switchToEnglish: "영어로 전환",
       switchToKorean: "한국어로 전환",
+      switchToPortuguese: "브라질 포르투갈어로 전환",
       primaryLinks: "주요 링크",
       roleAndLocation: "직무 및 위치",
       engineeringCapabilities: "로보틱스 소프트웨어 및 피지컬 AI 역량",

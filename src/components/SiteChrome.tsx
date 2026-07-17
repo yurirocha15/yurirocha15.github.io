@@ -1,4 +1,4 @@
-import { type JSX, useEffect, useId, useRef, useState } from "react";
+import { Fragment, type JSX, useEffect, useId, useRef, useState } from "react";
 import type { Locale, NavigationItem, ProfileContent } from "../content";
 import { ProfileLinkButton } from "./ProfileLinkButton";
 
@@ -11,6 +11,7 @@ export type SiteHeaderProps = {
   languageSelectorLabel: string;
   switchToEnglishLabel: string;
   switchToKoreanLabel: string;
+  switchToPortugueseLabel: string;
   currentLocale: Locale;
   onLocaleChange: (locale: Locale) => void;
 };
@@ -21,6 +22,7 @@ type LocaleSelectorProps = Pick<
   | "languageSelectorLabel"
   | "switchToEnglishLabel"
   | "switchToKoreanLabel"
+  | "switchToPortugueseLabel"
 > & {
   onSelect: (locale: Locale) => void;
 };
@@ -30,31 +32,40 @@ function LocaleSelector({
   languageSelectorLabel,
   switchToEnglishLabel,
   switchToKoreanLabel,
+  switchToPortugueseLabel,
   onSelect,
 }: LocaleSelectorProps): JSX.Element {
+  const options = [
+    { accessibleLabel: switchToEnglishLabel, label: "EN", locale: "en" },
+    { accessibleLabel: switchToKoreanLabel, label: "한국어", locale: "ko" },
+    {
+      accessibleLabel: switchToPortugueseLabel,
+      label: "PT-BR",
+      locale: "pt-BR",
+    },
+  ] satisfies readonly {
+    accessibleLabel: string;
+    label: string;
+    locale: Locale;
+  }[];
+
   return (
     <div className="locale-selector" role="group" aria-label={languageSelectorLabel}>
-      <button
-        aria-label={switchToEnglishLabel}
-        aria-pressed={currentLocale === "en"}
-        className="locale-option"
-        lang="en"
-        onClick={() => onSelect("en")}
-        type="button"
-      >
-        EN
-      </button>
-      <span aria-hidden="true">/</span>
-      <button
-        aria-label={switchToKoreanLabel}
-        aria-pressed={currentLocale === "ko"}
-        className="locale-option"
-        lang="ko"
-        onClick={() => onSelect("ko")}
-        type="button"
-      >
-        한국어
-      </button>
+      {options.map(({ accessibleLabel, label, locale }, index) => (
+        <Fragment key={locale}>
+          {index > 0 && <span aria-hidden="true">/</span>}
+          <button
+            aria-label={accessibleLabel}
+            aria-pressed={currentLocale === locale}
+            className="locale-option"
+            lang={locale}
+            onClick={() => onSelect(locale)}
+            type="button"
+          >
+            {label}
+          </button>
+        </Fragment>
+      ))}
     </div>
   );
 }
@@ -86,6 +97,7 @@ export function SiteHeader({
   languageSelectorLabel,
   switchToEnglishLabel,
   switchToKoreanLabel,
+  switchToPortugueseLabel,
   currentLocale,
   onLocaleChange,
 }: SiteHeaderProps): JSX.Element {
@@ -196,6 +208,7 @@ export function SiteHeader({
           onSelect={selectLocale}
           switchToEnglishLabel={switchToEnglishLabel}
           switchToKoreanLabel={switchToKoreanLabel}
+          switchToPortugueseLabel={switchToPortugueseLabel}
         />
       </div>
     </header>

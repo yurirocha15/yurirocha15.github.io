@@ -2,12 +2,17 @@
 set -euo pipefail
 
 BUILD_DIR="${BUILD_DIR:-build}"
-documents=(
+cv_documents=(
   yuri-rocha-cv-en
   yuri-rocha-cv-ko
+  yuri-rocha-cv-pt-BR
+)
+resume_documents=(
   yuri-rocha-resume-en
   yuri-rocha-resume-ko
+  yuri-rocha-resume-pt-BR
 )
+documents=("${cv_documents[@]}" "${resume_documents[@]}")
 
 fail() {
   printf 'CV verification failed: %s\n' "$1" >&2
@@ -37,12 +42,12 @@ for document in "${documents[@]}"; do
   fi
 done
 
-for document in yuri-rocha-resume-en yuri-rocha-resume-ko; do
+for document in "${resume_documents[@]}"; do
   pages="$(pdfinfo "${BUILD_DIR}/${document}.pdf" | awk '/^Pages:/ {print $2}')"
   [[ "$pages" == "1" ]] || fail "$document must be exactly one page (got $pages)"
 done
 
-for document in yuri-rocha-cv-en yuri-rocha-cv-ko; do
+for document in "${cv_documents[@]}"; do
   pages="$(pdfinfo "${BUILD_DIR}/${document}.pdf" | awk '/^Pages:/ {print $2}')"
   [[ "$pages" == "2" ]] || fail "$document must be exactly two pages (got $pages)"
 done
@@ -62,6 +67,11 @@ done
 for token in '유리 허샤' '두산로보틱스' '마키나락스'; do
   grep -Fq "$token" "${text_dir}/yuri-rocha-cv-ko.txt" || fail "Korean CV is missing: $token"
   grep -Fq "$token" "${text_dir}/yuri-rocha-resume-ko.txt" || fail "Korean resume is missing: $token"
+done
+
+for token in 'Yuri Rocha' 'Doosan Robotics' 'MakinaRocks'; do
+  grep -Fq "$token" "${text_dir}/yuri-rocha-cv-pt-BR.txt" || fail "Portuguese CV is missing: $token"
+  grep -Fq "$token" "${text_dir}/yuri-rocha-resume-pt-BR.txt" || fail "Portuguese resume is missing: $token"
 done
 
 if grep -RiqE 'NPU (expert|specialist)|NPU (kernel|driver|compiler)|low-level NPU' src "$text_dir"; then
@@ -90,7 +100,7 @@ patent_ids=(
   US12049013B1
 )
 
-for document in yuri-rocha-cv-en yuri-rocha-cv-ko; do
+for document in "${cv_documents[@]}"; do
   url_annotations="$(pdfinfo -url "${BUILD_DIR}/${document}.pdf")"
   for url in "${research_urls[@]}"; do
     grep -Fq "$url" <<<"$url_annotations" || fail "$document is missing research link: $url"
@@ -102,7 +112,7 @@ for document in yuri-rocha-cv-en yuri-rocha-cv-ko; do
 done
 
 
-for document in yuri-rocha-cv-en yuri-rocha-cv-ko yuri-rocha-resume-en yuri-rocha-resume-ko; do
+for document in "${documents[@]}"; do
   url_annotations="$(pdfinfo -url "$BUILD_DIR/$document.pdf")"
   for url in \
     "https://github.com/yurirocha15/mcp-cpp-sdk" \
@@ -114,7 +124,7 @@ for document in yuri-rocha-cv-en yuri-rocha-cv-ko yuri-rocha-resume-en yuri-roch
   done
 done
 
-for document in yuri-rocha-resume-en yuri-rocha-resume-ko; do
+for document in "${resume_documents[@]}"; do
   url_annotations="$(pdfinfo -url "$BUILD_DIR/$document.pdf")"
   for url in \
     "https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130" \
@@ -138,4 +148,4 @@ if grep -RIl $'\uFFFD' "$text_dir" >/dev/null; then
   fail 'PDF text contains Unicode replacement characters'
 fi
 
-printf 'Verified four A4 CV PDFs with correct page limits and extractable text.\n'
+printf 'Verified six A4 CV PDFs with correct page limits and extractable text.\n'

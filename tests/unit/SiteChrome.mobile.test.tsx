@@ -22,6 +22,7 @@ function renderHeader(overrides: Partial<SiteHeaderProps> = {}) {
     languageSelectorLabel: "Language",
     switchToEnglishLabel: "Switch to English",
     switchToKoreanLabel: "Switch to Korean",
+    switchToPortugueseLabel: "Switch to Portuguese (Brazil)",
     currentLocale: "en",
     onLocaleChange,
     ...overrides,
@@ -83,6 +84,9 @@ describe("SiteHeader mobile disclosure", () => {
       "aria-pressed",
       "false",
     );
+    expect(screen.getByRole("button", {
+      name: "Switch to Portuguese (Brazil)",
+    })).toHaveAttribute("aria-pressed", "false");
   });
 
   test("closes after section selection and moves focus to the destination", async () => {
@@ -117,8 +121,10 @@ describe("SiteHeader mobile disclosure", () => {
     renderHeader({ onLocaleChange });
 
     fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
-    fireEvent.click(screen.getByRole("button", { name: "Switch to Korean" }));
-    expect(onLocaleChange).toHaveBeenCalledWith("ko");
+    fireEvent.click(screen.getByRole("button", {
+      name: "Switch to Portuguese (Brazil)",
+    }));
+    expect(onLocaleChange).toHaveBeenCalledWith("pt-BR");
     expect(screen.getByRole("button", { name: "Open menu" })).toHaveAttribute(
       "aria-expanded",
       "false",

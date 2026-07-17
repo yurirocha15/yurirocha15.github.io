@@ -30,7 +30,7 @@ and Three.js scene controllers in `src/scenes`.
 
 ## CV sources
 
-The bilingual one-page resumes and multi-page comprehensive CVs are generated from LaTeX sources in `cv/`. Docker keeps the local and CI toolchains consistent.
+The English, Korean, and Brazilian Portuguese one-page resumes and multi-page comprehensive CVs are generated from LaTeX sources in `cv/`. Docker keeps the local and CI toolchains consistent.
 
 ```bash
 npm run cv:build

@@ -88,6 +88,7 @@ export const profile = {
     languageSelector: "Language selector",
     switchToEnglish: "Switch to English",
     switchToKorean: "Switch to Korean",
+    switchToPortuguese: "Switch to Portuguese (Brazil)",
     primaryLinks: "Primary links",
     roleAndLocation: "Role and location",
     engineeringCapabilities: "Robotics software and Physical AI capabilities",

@@ -1,9 +1,12 @@
 import type { Locale } from "./types";
 
-export const SUPPORTED_LOCALES = ["en", "ko"] as const satisfies readonly Locale[];
+export const SUPPORTED_LOCALES = ["en", "ko", "pt-BR"] as const satisfies readonly Locale[];
 export const DEFAULT_LOCALE: Locale = "en";
 
 const supportedLocaleSet = new Set<string>(SUPPORTED_LOCALES);
+const localeByLanguage = new Map<string, Locale>(
+  SUPPORTED_LOCALES.map((locale) => [locale.split("-")[0].toLowerCase(), locale]),
+);
 
 export type LocaleResolutionInput = {
   search?: unknown;
@@ -25,7 +28,7 @@ export function normalizeBrowserLocale(value: unknown): Locale | undefined {
   if (typeof value !== "string") return undefined;
 
   const language = value.trim().toLowerCase().replaceAll("_", "-").split("-")[0];
-  return isLocale(language) ? language : undefined;
+  return localeByLanguage.get(language);
 }
 
 function localeFromSearch(search: unknown) {

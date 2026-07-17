@@ -1,6 +1,6 @@
 export type LinkLocation = "hero" | "footer" | "project";
 
-export type Locale = "en" | "ko";
+export type Locale = "en" | "ko" | "pt-BR";
 
 export type Link = {
   id: string;
@@ -104,6 +104,7 @@ export type PortfolioLabels = {
   languageSelector: string;
   switchToEnglish: string;
   switchToKorean: string;
+  switchToPortuguese: string;
   primaryLinks: string;
   roleAndLocation: string;
   engineeringCapabilities: string;

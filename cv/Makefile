@@ -8,8 +8,10 @@ LEGACY_PDF := $(REPO_ROOT)/public/assets/cv_yuri_website.pdf
 DOCUMENTS := \
 	yuri-rocha-cv-en \
 	yuri-rocha-cv-ko \
+	yuri-rocha-cv-pt-BR \
 	yuri-rocha-resume-en \
-	yuri-rocha-resume-ko
+	yuri-rocha-resume-ko \
+	yuri-rocha-resume-pt-BR
 
 .PHONY: image build verify publish clean
 
@@ -41,8 +43,10 @@ publish: verify
 	mkdir -p $(PUBLIC_DIR)
 	cp $(BUILD_DIR)/yuri-rocha-cv-en.pdf $(PUBLIC_DIR)/
 	cp $(BUILD_DIR)/yuri-rocha-cv-ko.pdf $(PUBLIC_DIR)/
+	cp $(BUILD_DIR)/yuri-rocha-cv-pt-BR.pdf $(PUBLIC_DIR)/
 	cp $(BUILD_DIR)/yuri-rocha-resume-en.pdf $(PUBLIC_DIR)/
 	cp $(BUILD_DIR)/yuri-rocha-resume-ko.pdf $(PUBLIC_DIR)/
+	cp $(BUILD_DIR)/yuri-rocha-resume-pt-BR.pdf $(PUBLIC_DIR)/
 	cp $(BUILD_DIR)/yuri-rocha-cv-en.pdf $(LEGACY_PDF)
 
 clean:

@@ -11,10 +11,10 @@ const initialLocale = resolveInitialLocale();
 const initialContent = portfolioContentByLocale[initialLocale];
 
 if (import.meta.env.DEV) {
-  Object.values(portfolioContentByLocale).forEach((content) => {
+  Object.entries(portfolioContentByLocale).forEach(([locale, content]) => {
     assertValidContent(content, { visualKeys: projectVisualKeys });
+    if (locale !== "en") assertContentParity(portfolioContentByLocale.en, content);
   });
-  assertContentParity(portfolioContentByLocale.en, portfolioContentByLocale.ko);
 }
 
 applyDocumentMetadata(initialContent);

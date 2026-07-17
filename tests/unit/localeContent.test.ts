@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vitest";
 import {
   buildLocaleUrl,
+  brazilianPortuguesePortfolioContent,
   DEFAULT_LOCALE,
   englishPortfolioContent,
   getPortfolioContent,
@@ -14,6 +15,9 @@ import {
 import { englishPortfolioContent as englishLocaleContent } from "../../src/content/locales/en";
 import { koreanPortfolioContent as koreanLocaleContent } from "../../src/content/locales/ko";
 import {
+  brazilianPortuguesePortfolioContent as brazilianPortugueseLocaleContent,
+} from "../../src/content/locales/pt-BR";
+import {
   assertContentParity,
   collectContentParityErrors,
   collectContentValidationErrors,
@@ -24,6 +28,8 @@ describe("locale resolution", () => {
   test("normalizes supported browser language tags", () => {
     expect(normalizeBrowserLocale("ko-KR")).toBe("ko");
     expect(normalizeBrowserLocale(" EN_us ")).toBe("en");
+    expect(normalizeBrowserLocale("pt-BR")).toBe("pt-BR");
+    expect(normalizeBrowserLocale("pt_PT")).toBe("pt-BR");
     expect(normalizeBrowserLocale("fr-FR")).toBeUndefined();
     expect(normalizeBrowserLocale(null)).toBeUndefined();
   });
@@ -35,6 +41,8 @@ describe("locale resolution", () => {
       language: "ko",
     })).toBe("en");
     expect(resolveLocale({ search: "lang=ko", languages: ["en-US"] })).toBe("ko");
+    expect(resolveLocale({ search: "lang=pt-BR", languages: ["en-US"] }))
+      .toBe("pt-BR");
   });
 
   test("an explicit unsupported query falls straight back to English", () => {
@@ -44,6 +52,7 @@ describe("locale resolution", () => {
 
   test("uses browser preference order and fails safely to English", () => {
     expect(resolveLocale({ languages: ["fr-FR", "ko-KR", "en-US"] })).toBe("ko");
+    expect(resolveLocale({ languages: ["fr-FR", "pt-BR", "en-US"] })).toBe("pt-BR");
     expect(resolveLocale({ languages: [], language: "ko_KR" })).toBe("ko");
     expect(resolveLocale({ languages: null, language: "not-a-language" })).toBe("en");
     expect(resolveLocale({ search: 42, languages: [undefined, "en-GB"] })).toBe("en");
@@ -56,20 +65,25 @@ describe("locale resolution", () => {
       search: "?ref=linkedin&lang=en&view=compact",
       hash: "#projects",
     }, "ko")).toBe("/portfolio/?ref=linkedin&lang=ko&view=compact#projects");
+    expect(buildLocaleUrl({ pathname: "/portfolio", search: "?source=test" }, "pt-BR"))
+      .toBe("/portfolio?source=test&lang=pt-BR");
     expect(buildLocaleUrl({ pathname: "/", hash: "contact" }, "en"))
       .toBe("/?lang=en#contact");
   });
 });
 
 describe("localized portfolio content", () => {
-  test("exports complete English and Korean bundles with English compatibility", () => {
-    expect(SUPPORTED_LOCALES).toEqual(["en", "ko"]);
+  test("exports all complete locale bundles with English compatibility", () => {
+    expect(SUPPORTED_LOCALES).toEqual(["en", "ko", "pt-BR"]);
     expect(Object.keys(portfolioContentByLocale)).toEqual(SUPPORTED_LOCALES);
     expect(englishPortfolioContent).toBe(englishLocaleContent);
     expect(portfolioContentByLocale.en).toBe(englishLocaleContent);
     expect(portfolioContentByLocale.ko).toBe(koreanLocaleContent);
+    expect(brazilianPortuguesePortfolioContent).toBe(brazilianPortugueseLocaleContent);
+    expect(portfolioContentByLocale["pt-BR"]).toBe(brazilianPortugueseLocaleContent);
     expect(portfolioContent).toBe(englishPortfolioContent);
     expect(getPortfolioContent("ko")).toBe(portfolioContentByLocale.ko);
+    expect(getPortfolioContent("pt-BR")).toBe(portfolioContentByLocale["pt-BR"]);
 
     for (const locale of SUPPORTED_LOCALES) {
       const content = portfolioContentByLocale[locale];
@@ -84,12 +98,40 @@ describe("localized portfolio content", () => {
   test("selects the complete CV that matches each locale", () => {
     const englishCv = portfolioContentByLocale.en.profile.links.find(({ id }) => id === "cv");
     const koreanCv = portfolioContentByLocale.ko.profile.links.find(({ id }) => id === "cv");
+    const portugueseCv = portfolioContentByLocale["pt-BR"].profile.links.find(
+      ({ id }) => id === "cv",
+    );
 
     expect(englishCv?.locations).toEqual(["hero", "footer"]);
     expect(englishCv?.href).toBe("./cv/yuri-rocha-cv-en.pdf");
     expect(koreanCv?.locations).toEqual(["hero", "footer"]);
     expect(koreanCv?.label).toBe("이력서");
     expect(koreanCv?.href).toBe("./cv/yuri-rocha-cv-ko.pdf");
+    expect(portugueseCv?.locations).toEqual(["hero", "footer"]);
+    expect(portugueseCv?.label).toBe("Currículo");
+    expect(portugueseCv?.href).toBe("./cv/yuri-rocha-cv-pt-BR.pdf");
+  });
+
+  test("provides independently localized Brazilian Portuguese copy and visual labels", () => {
+    const portuguese = portfolioContentByLocale["pt-BR"];
+
+    expect(portuguese.metadata.title).toBe(
+      "Yuri Rocha - Software para robótica e IA física",
+    );
+    expect(portuguese.profile.hero.heading).toBe(
+      "Construindo software confiável para IA física.",
+    );
+    expect(portuguese.profile.labels.switchToPortuguese).toBe(
+      "Mudar para português (Brasil)",
+    );
+    expect(portuguese.visuals.leetcode.problem).toBe("Problema");
+    expect(portuguese.visuals.gpuPlatform.metricsAbbreviation).toBe("MÉTRICAS");
+    expect(portuguese.languages.map(({ name }) => name)).toEqual([
+      "Português",
+      "Inglês",
+      "Coreano",
+      "Francês",
+    ]);
   });
 
   test("preserves independently audited Korean copy and visual labels", () => {
@@ -143,14 +185,16 @@ describe("localized portfolio content", () => {
   });
 
   test("keeps the locale-invariant rendering and navigation structure aligned", () => {
-    expect(collectContentParityErrors(
-      portfolioContentByLocale.en,
-      portfolioContentByLocale.ko,
-    )).toEqual([]);
-    expect(() => assertContentParity(
-      portfolioContentByLocale.en,
-      portfolioContentByLocale.ko,
-    )).not.toThrow();
+    for (const locale of ["ko", "pt-BR"] as const) {
+      expect(collectContentParityErrors(
+        portfolioContentByLocale.en,
+        portfolioContentByLocale[locale],
+      )).toEqual([]);
+      expect(() => assertContentParity(
+        portfolioContentByLocale.en,
+        portfolioContentByLocale[locale],
+      )).not.toThrow();
+    }
   });
 
   test("reports drift in navigation, links, visuals, destinations, counts, and ordered IDs", () => {

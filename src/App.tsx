@@ -44,6 +44,7 @@ function App({ initialLocale = resolveInitialLocale() }: AppProps) {
         languageSelectorLabel={profile.labels.languageSelector}
         switchToEnglishLabel={profile.labels.switchToEnglish}
         switchToKoreanLabel={profile.labels.switchToKorean}
+        switchToPortugueseLabel={profile.labels.switchToPortuguese}
         currentLocale={locale}
         onLocaleChange={selectLocale}
       />

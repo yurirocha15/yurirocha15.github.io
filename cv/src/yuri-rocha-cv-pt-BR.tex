@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{cv-style}
+\hypersetup{
+  pdftitle={Yuri Rocha - Curriculum Vitae Completo},
+  pdfauthor={Yuri Rocha},
+  pdfsubject={Software para robótica e IA física},
+  pdflang={pt-BR}
+}
+
+\begin{document}
+\newgeometry{margin=15mm}
+\cvheader
+  {Yuri Rocha}
+  {Engenheiro sênior de software para robótica}
+  {Seul, Coreia do Sul}
+  {\href{mailto:yurirocha15@gmail.com}{yurirocha15@gmail.com}\enspace\textbullet\enspace
+   \href{https://www.yurirocha.com}{yurirocha.com}\enspace\textbullet\enspace
+   \href{https://www.linkedin.com/in/yurirocha15/}{LinkedIn}\enspace\textbullet\enspace
+   \href{https://github.com/yurirocha15}{GitHub}}
+
+\cvmainsection{Áreas de interesse}
+{\small Robótica \textbullet\ LLMs e modelos fundacionais \textbullet\ Aprendizado por reforço \textbullet\ Aprendizado profundo \textbullet\ DevOps \textbullet\ Desenvolvimento de software\par}
+
+\cvmainsection{Competências técnicas}
+\cvproject{Software}{C++, Python, Go, Linux, JavaScript, Node.js, arquitetura de software}
+\cvproject{Sistemas em tempo real}{Linux em tempo real, PREEMPT\_RT, Xenomai}
+\cvproject{Robótica}{ROS / ROS 2, MoveIt, OMPL, planejamento de movimento}
+\cvproject{Aprendizado de máquina}{PyTorch, ONNX}
+\cvproject{Simulação}{Isaac Sim, MuJoCo, Unity3D, Gazebo}
+\cvproject{Infraestrutura}{Kubernetes, Docker, GitHub Actions}
+
+\cvmainsection{Experiência profissional}
+\cvrole{Doosan Robotics}{ago. 2025--presente}{Engenheiro sênior de software, IA \& Software}{}
+\begin{cvbullets}
+  \item Projeto e desenvolvo o software central em tempo real para controladores robóticos de alto desempenho, incluindo o gerenciamento de tarefas e o fluxo de dados.
+  \item Desenvolvo interfaces e estruturas de suporte que permitem a fluxos de trabalho agênticos interagir com hardware robótico real e operá-lo.
+  \item Gerencio o cluster Kubernetes interno e mantenho pipelines de CI/CD e LLMOps para desenvolvimento e implantação contínuos.
+  \item Projetei e desenvolvi uma plataforma web para implantar LLMs e ambientes de simulação no Kubernetes e monitorar suas métricas.
+  \item Lidero o desenvolvimento, os lançamentos e a manutenção de repositórios oficiais de código aberto, incluindo APIs C++ e pacotes ROS.
+\end{cvbullets}
+
+\cvrole{MakinaRocks}{set. 2020--ago. 2025}{Engenheiro de pesquisa em robótica e aprendizado de máquina}{}
+\begin{cvbullets}
+  \item Liderei a arquitetura de software de um sistema de programação automatizada para linhas de soldagem por pontos com centenas de robôs.
+  \item Reduzi o processo de programação de robôs industriais de aproximadamente seis semanas para três dias.
+  \item Desenvolvi algoritmos de planejamento em C++ altamente paralelizados com ROS, MoveIt, OMPL e MongoDB para validar pontos de trabalho, gerar e avaliar trajetórias, distribuir tarefas e coordenar robôs com prevenção de colisões.
+  \item Construí e operei infraestrutura escalável em Kubernetes e Docker para cargas intensivas de planejamento e mantive CI/CD com Linux e GitHub Actions para compilação, testes, empacotamento e entrega.
+  \item Conduzi experimentos de aprendizado por imitação e reforço e desenvolvi simulações com PyTorch, Ray RLlib, ML-Agents e Unity3D.
+  \item Em uma atuação de um ano em ML, otimizei arquiteturas de LLMs no nível de modelo para dispositivos móveis.
+  \item Criei fluxos com PyTorch e ONNX para otimização de grafos, quantização e avaliação reproduzível de desempenho; o escopo limitou-se aos níveis de modelo e grafo.
+\end{cvbullets}
+
+\cvrole{Moringa Digital / Portal de Compras Públicas}{ago. 2016--jul. 2017}{Desenvolvedor de software}{}
+\begin{cvbullets}
+  \item Desenvolvi um serviço em Node.js que automatizou a integração entre a plataforma de compras públicas e os ERPs dos clientes. A integração reduziu o tempo operacional e tornou-se um importante argumento comercial; também desenvolvi back-ends web e trabalhei diretamente com as equipes de tecnologia dos clientes.
+\end{cvbullets}
+
+\cvmainsection{Formação e pesquisa}
+\cvrecord{Mestrado em Engenharia Elétrica e de Computação}{2018--2020}{Sungkyunkwan University, média 4,4/4,5. Contribuí para uma estrutura de conhecimento semântico, criei um sistema automático de simulação mental com ROS e Gazebo e desenvolvi métodos de navegação por reforço e planejamento híbrido.}
+\cvrecord{Bacharelado em Engenharia de Controle e Automação}{2011--2016}{Universidade de Brasília, média 4,1/5,0. Derivei métodos de manipulação cooperativa com quatérnios duais, implementei estratégias de controle no NAO e no V-REP e desenvolvi comunicação visual entre robôs com OpenCV.}
+\cvrecord{Intercâmbio em Engenharia da Computação}{2014--2015}{Sungkyunkwan University, média 4,1/4,5}
+
+\cvmainsection{Atividades adicionais e divulgação}
+\cvrecord{Equipe de futebol de robôs humanoides UnBeatables}{2015--2016}{Líder da equipe; coordenei a participação na RoboCup e na LARC e desenvolvi a arquitetura multithread em C++/Python, comunicação UDP, gerenciamento de comportamentos e integração dos movimentos humanoides. Liderei demonstrações em escolas, hospitais infantis e feiras de ciência para incentivar carreiras em STEM.}
+\cvrecord{Projeto Elétron}{2013--2014}{Professor voluntário de eletrônica e programação para estudantes de escolas públicas de Brasília.}
+
+\cvmainsection{Código aberto}
+\cvrecord{\href{https://github.com/yurirocha15/mcp-cpp-sdk}{mcp-cpp-sdk}}{}{SDK em C++20 para o Model Context Protocol}
+
+\cvmainsection{Certificações, prêmios e idiomas}
+\cvrecord{\href{https://www.credly.com/badges/bb876a9e-74e1-475d-b753-c43f2675c9ee}{Certified Kubernetes Administrator}}{}{LF-eivj0wxw1q}
+\cvrecord{\href{https://www.credly.com/badges/f1d71150-7469-4e33-9745-758d7256fa35}{Certified Kubernetes Security Specialist}}{}{LF-nyf5h9e9v9}
+\cvrecord{\href{https://forums.developer.nvidia.com/t/the-results-are-in-meet-the-nvidia-cosmos-cookoff-winners-see-them-live-on-april-16/366130}{Vencedor do NVIDIA Cosmos Cookoff}}{2026}{\href{https://github.com/doosan-robotics/explainable-palletizer}{Paletização mista explicável --- código oficial}}
+\cvrecord{Prêmio por desempenho acadêmico}{2019}{Programa de Bolsas do Governo Coreano}
+\cvrecord{Bolsa do Governo Coreano}{2017--2020}{Bolsa de pós-graduação na Sungkyunkwan University}
+\cvrecord{Idiomas}{}{Português: nativo \textbullet\ Inglês: fluente, TOEFL 115/120 \textbullet\ Coreano: fluente, TOPIK 5 \textbullet\ Francês: intermediário}
+
+\cvmainsection{Produção científica}
+\cvrecord{\href{https://www.mdpi.com/2076-3417/10/9/3219/pdf}{Estrutura de navegação autônoma para robôs inteligentes baseada em modelagem semântica do ambiente}}{2020}{S.-H. Joo*, S. Manzoor*, Y. G. Rocha, S.-H. Bae, K.-H. Lee, T.-Y. Kuc e M. Kim. Applied Sciences, 10:3219.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Yuri_Master_Thesis.pdf}{Simulação mental para aprendizado e planejamento autônomos usando uma estrutura baseada em ontologias}}{2020}{Y. G. Rocha. Dissertação de mestrado, Sungkyunkwan University.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Mental_Simulation_IROS_2019.pdf}{Simulação mental para aprendizado e planejamento autônomos baseada em modelo semântico ontológico de triplas}}{2019}{Y. G. Rocha e T.-Y. Kuc. CEUR Workshop Proceedings, 2487:65--73.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Automatic_Generation_ICCAS2019.pdf}{Geração automática de um robô simulado a partir de uma descrição semântica baseada em ontologias}}{2019}{Y. G. Rocha, S.-H. Joo, E.-J. Kim e T.-Y. Kuc. 19th International Conference on Control, Automation and Systems, 1340--1343.}
+\cvrecord{\href{https://www.yurirocha.com/assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf}{Controladores robustos a singularidades e com prioridade de tarefas para manipulação cooperativa}}{2017}{C. M. de Farias*, Y. G. Rocha*, L. F. C. Figueredo e M. C. Bernardes. IEEE CCTA, 740--745.}
+
+\cvmainsection{Patentes concedidas}
+\cvrecord{Geração de um programa para um processo robótico}{\href{https://patents.google.com/patent/KR102590491B1}{KR102590491B1}}{}
+\cvrecord{Determinação de pontos de trabalho válidos em um processo robótico}{\href{https://patents.google.com/patent/KR102626109B1}{KR102626109B1}}{}
+\cvrecord{Geração de trajetórias para robôs industriais}{\href{https://patents.google.com/patent/KR102629021B1}{KR102629021B1}}{}
+\cvrecord{Cálculo do comprimento do percurso de trabalho de um robô}{\href{https://patents.google.com/patent/KR102660168B1}{KR102660168B1}, \href{https://patents.google.com/patent/KR102638245B1}{KR102638245B1}}{}
+\cvrecord{Distribuição de pontos de trabalho entre robôs executores}{\href{https://patents.google.com/patent/KR102614099B1}{KR102614099B1}, \href{https://patents.google.com/patent/US12093832B2}{US12093832B2}}{}
+\cvrecord{Prevenção de colisões entre robôs executores}{\href{https://patents.google.com/patent/US12049013B1}{US12049013B1}}{}
+\end{document}

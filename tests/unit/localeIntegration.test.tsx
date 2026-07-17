@@ -23,6 +23,10 @@ describe("locale integration", () => {
       { pathname: "/", search: "", hash: "" },
       { languages: ["fr-FR", "ko-KR"], language: "fr-FR" },
     )).toBe("ko");
+    expect(resolveInitialLocale(
+      { pathname: "/", search: "", hash: "" },
+      { languages: ["pt-BR", "en-US"], language: "pt-BR" },
+    )).toBe("pt-BR");
 
     const brokenNavigator = {
       get languages(): readonly string[] {
@@ -70,6 +74,25 @@ describe("locale integration", () => {
     );
     screen.getAllByRole("link", { name: "CV" }).forEach((link) => {
       expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-en.pdf");
+    });
+  });
+
+  test("switches to Brazilian Portuguese content, metadata, and CV", async () => {
+    window.history.replaceState({}, "", "/portfolio?source=test&lang=en#career");
+    render(<App initialLocale="en" />);
+
+    fireEvent.click(screen.getByRole("button", {
+      name: "Switch to Portuguese (Brazil)",
+    }));
+
+    await waitFor(() => expect(document.documentElement.lang).toBe("pt-BR"));
+    expect(window.location.search).toBe("?source=test&lang=pt-BR");
+    expect(document.title).toBe(portfolioContentByLocale["pt-BR"].metadata.title);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "Construindo software confiável para IA física.",
+    );
+    screen.getAllByRole("link", { name: "Currículo" }).forEach((link) => {
+      expect(link).toHaveAttribute("href", "./cv/yuri-rocha-cv-pt-BR.pdf");
     });
   });
 
