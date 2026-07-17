@@ -59,7 +59,7 @@ export const brazilianPortuguesePortfolioContent = {
       ],
       heading: "Construindo software confiável para IA física.",
       lead:
-        "Projeto software e interfaces para controladores de robôs em tempo real que conectam fluxos de trabalho agênticos a robôs colaborativos. Minha atuação também abrange planejamento de movimento industrial, otimização de IA nos níveis de modelo e grafo e infraestrutura de LLMOps e simulação baseada em Kubernetes.",
+        "Projeto software de controle de robôs em tempo real e interfaces que conectam fluxos de trabalho agênticos a robôs colaborativos. Minha atuação também abrange planejamento de movimento industrial, otimização de modelos de IA e grafos computacionais e infraestrutura de LLMOps e simulação baseada em Kubernetes.",
     },
     engineeringProfile: {
       label: "Perfil de engenharia",
@@ -114,7 +114,7 @@ export const brazilianPortuguesePortfolioContent = {
       publicPullRequests: "Pull requests públicos",
       contributionsTitle: "Contribuições para código aberto",
       repositories: "repositórios",
-      mergedPullRequests: "PRs integrados",
+      mergedPullRequests: "PRs mesclados",
       spokenLanguages: "Idiomas falados",
       technologiesForProject: (title) => `Tecnologias usadas em ${title}`,
       technologiesForExperience: (company) => `Tecnologias usadas em ${company}`,
@@ -140,15 +140,15 @@ export const brazilianPortuguesePortfolioContent = {
     {
       id: "doosan-robotics",
       period: "ago.\u00a02025–presente",
-      role: "Engenheiro sênior de software, IA e Software",
+      role: "Engenheiro sênior de software — AI & Software",
       company: "Doosan Robotics",
       detail:
-        "Arquitetura de controladores de robôs em tempo real, interfaces de agentes para robôs físicos, infraestrutura de LLMOps baseada em Kubernetes e APIs C++ e pacotes ROS oficiais.",
+        "Arquitetura de controladores de robôs em tempo real, interfaces para agentes operarem robôs físicos, infraestrutura de LLMOps baseada em Kubernetes e APIs C++ e pacotes ROS oficiais.",
       bullets: [
         "Arquitetura e desenvolvimento do software central em tempo real para controladores de robôs de alto desempenho, incluindo o projeto do gerenciamento de tarefas e do fluxo de dados.",
-        "Desenvolvimento de interfaces de software e estruturas de suporte que permitem a fluxos de trabalho agênticos interagir com robôs reais e operá-los.",
+        "Desenvolvimento de interfaces de software e estruturas de suporte que permitem que fluxos de trabalho agênticos interajam com robôs reais e os operem.",
         "Gerenciamento do cluster Kubernetes interno e manutenção de pipelines de CI/CD e LLMOps para desenvolvimento e implantação contínuos.",
-        "Projeto e desenvolvimento de uma plataforma web que permite implantar cargas de inferência de LLMs e simulação robótica no Kubernetes e monitorar suas métricas.",
+        "Projeto e desenvolvimento de uma plataforma web que permite implantar cargas de trabalho de inferência de LLMs e de simulação robótica no Kubernetes e monitorar suas métricas.",
         "Liderança do desenvolvimento, dos lançamentos e da manutenção contínua de APIs C++ e pacotes ROS oficiais de código aberto.",
       ],
       tags: [
@@ -171,9 +171,9 @@ export const brazilianPortuguesePortfolioContent = {
       detail:
         "Programação automatizada de robôs para grandes linhas de soldagem por pontos, planejamento paralelo em C++, implantação escalável e otimização de LLMs nos níveis de modelo e grafo.",
       bullets: [
-        "Liderou a arquitetura de software de um sistema de programação automatizada para linhas de soldagem por pontos com centenas de robôs, reduzindo o tempo de programação de aproximadamente seis semanas para três dias.",
+        "Liderou a arquitetura de software de um sistema de programação automatizada para linhas de montagem com soldagem por pontos com centenas de robôs, reduzindo o tempo de programação de aproximadamente seis semanas para três dias.",
         "Desenvolveu um sistema de planejamento de movimento em C++ altamente paralelizado com ROS, MoveIt e OMPL para validar pontos de trabalho, gerar e avaliar trajetórias, distribuir tarefas e coordenar robôs com prevenção de colisões; utilizou MongoDB para os dados de planejamento.",
-        "Construiu e operou infraestrutura Kubernetes e Docker para cargas de planejamento intensivas em computação, além de pipelines de CI/CD baseados em Linux no GitHub Actions para compilação, testes, empacotamento e entrega.",
+        "Construiu e operou infraestrutura Kubernetes e Docker para cargas de trabalho de planejamento com uso intensivo de computação, além de pipelines de CI/CD baseados em Linux no GitHub Actions para compilação, testes, empacotamento e entrega.",
         "Conduziu experimentos de aprendizado por imitação e por reforço com PyTorch e desenvolveu ambientes de simulação no Unity.",
         "Durante uma atuação de um ano em ML, criou fluxos com PyTorch e ONNX para otimização de modelos e grafos, quantização e avaliação reproduzível voltada à inferência em dispositivos móveis.",
       ],
@@ -207,7 +207,7 @@ export const brazilianPortuguesePortfolioContent = {
     {
       id: "robot-controller-core",
       eyebrow: "Controlador de robôs na Doosan Robotics",
-      title: "Núcleo de controlador de robôs em tempo real",
+      title: "Núcleo do controlador de robôs em tempo real",
       description:
         "Software central em tempo real para controladores de robôs de alto desempenho, incluindo a arquitetura de gerenciamento de tarefas e fluxo de dados.",
       visual: "controller-runtime",
@@ -231,12 +231,12 @@ export const brazilianPortuguesePortfolioContent = {
       eyebrow: "Plataforma de desenvolvimento na Doosan Robotics",
       title: "Plataforma Kubernetes para inferência de LLMs e simulação",
       description:
-        "Plataforma web para desenvolvedores implantarem cargas de inferência de LLMs e simulação robótica no cluster Kubernetes interno e monitorarem suas métricas.",
+        "Plataforma web para desenvolvedores implantarem cargas de trabalho de inferência de LLMs e de simulação robótica no cluster Kubernetes interno e monitorarem suas métricas.",
       visual: "gpu-platform",
       layout: "standard",
       bullets: [
-        "Implantação autônoma de cargas de inferência de LLMs e simulação robótica.",
-        "Controles de implantação e métricas das cargas em uma interface unificada.",
+        "Implantação de cargas de trabalho de inferência de LLMs e de simulação robótica por autoatendimento.",
+        "Controles de implantação e métricas das cargas de trabalho em uma interface unificada.",
         "Baseada no cluster operado internamente, nos pipelines de CI/CD e nos fluxos de LLMOps.",
       ],
       tags: [
@@ -281,7 +281,7 @@ export const brazilianPortuguesePortfolioContent = {
       visual: "palletizer",
       layout: "standard",
       bullets: [
-        "Ajustou o NVIDIA Cosmos Reason 2 com LoRA em dados sintéticos e conectou suas decisões ao Isaac Sim e ao cuRobo por meio de quatro serviços em contêineres.",
+        "Aplicou ajuste fino ao modelo NVIDIA Cosmos Reason 2 com LoRA usando dados sintéticos e conectou suas decisões ao Isaac Sim e ao cuRobo por meio de quatro serviços em contêineres.",
         "Primeiro lugar em um hackathon com mais de 1.600 participantes no mundo todo.",
       ],
       tags: ["Python", "Cosmos Reason 2", "LoRA", "Isaac Sim", "cuRobo", "vLLM", "Docker"],
@@ -303,7 +303,7 @@ export const brazilianPortuguesePortfolioContent = {
     {
       id: "model-level-llm-optimization",
       eyebrow: "Otimização de LLMs na MakinaRocks",
-      title: "Otimização de LLMs e grafos ONNX para inferência móvel",
+      title: "Otimização de LLMs e grafos ONNX para inferência em dispositivos móveis",
       description:
         "Otimização de arquiteturas de LLMs e grafos computacionais ONNX para inferência em dispositivos móveis.",
       visual: "edge-llm",
@@ -319,7 +319,7 @@ export const brazilianPortuguesePortfolioContent = {
         "LLMs",
         "Quantização",
         "Otimização de modelos",
-        "Inferência móvel",
+        "Inferência em dispositivos móveis",
       ],
     },
   ],
@@ -401,7 +401,7 @@ export const brazilianPortuguesePortfolioContent = {
       visual: "kims",
       layout: "wide-balanced",
       bullets: [
-        "Criou exercícios de pêndulo invertido com PPO, desde uma única simulação até o treinamento vetorizado no Isaac Sim.",
+        "Criou exercícios de pêndulo invertido sobre carrinho (CartPole) com PPO, desde uma única simulação até o treinamento em ambientes vetorizados no Isaac Sim.",
         "Integrou exemplos do Stable-Baselines3 e do RL-Games à base de código compartilhada do curso.",
       ],
       tags: [
@@ -427,9 +427,9 @@ export const brazilianPortuguesePortfolioContent = {
       id: "ompl",
       repository: "ompl/ompl",
       description:
-        "Corrigiu falhas de amostragem, validade do grafo, encerramento e limpeza antes da configuração no AIT* e EIT*; adicionou callbacks para soluções intermediárias.",
+        "Corrigiu problemas de amostragem, validade do grafo e encerramento no AIT* e EIT*, além de falhas ao chamar clear() antes de setup(); adicionou callbacks para soluções intermediárias.",
       href: "https://github.com/ompl/ompl/pulls?q=is%3Apr+is%3Amerged+author%3Ayurirocha15",
-      linkLabel: "5 PRs integrados",
+      linkLabel: "5 PRs mesclados",
       mergedPrCount: 5,
       tags: ["C++", "Planejamento de movimento", "OMPL"],
     },
@@ -439,7 +439,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Corrigiu a cópia do mundo de colisões Bullet e a tipagem de contatos com testes de regressão, além da ordem dos eixos de caixas no RViz.",
       href: "https://github.com/moveit/moveit/pulls?q=is%3Apr+is%3Amerged+author%3Ayurirocha15",
-      linkLabel: "3 PRs integrados",
+      linkLabel: "3 PRs mesclados",
       mergedPrCount: 3,
       tags: ["C++", "MoveIt", "Bullet", "RViz"],
     },
@@ -449,7 +449,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Corrigiu a alocação de portas do ambiente Unity do RLlib entre workers paralelos e adicionou testes unitários para portas padrão e personalizadas.",
       href: "https://github.com/ray-project/ray/pull/13519",
-      linkLabel: "PR #13519 integrado",
+      linkLabel: "PR #13519 mesclado",
       mergedPrCount: 1,
       tags: ["Python", "RLlib", "Unity", "Testes"],
     },
@@ -459,7 +459,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Migrou o tratamento de URLs para Python 3 e corrigiu a decodificação de bytes ao gravar arquivos de tags do Doxygen.",
       href: "https://github.com/ros-infrastructure/rosdoc_lite/pulls?q=is%3Apr+is%3Amerged+author%3Ayurirocha15",
-      linkLabel: "2 PRs integrados",
+      linkLabel: "2 PRs mesclados",
       mergedPrCount: 2,
       tags: ["Python", "ROS", "Doxygen"],
     },
@@ -469,7 +469,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Adicionou níveis de log configuráveis e os propagou pela conversão de mensagens e arrays ROS aninhados.",
       href: "https://github.com/DFKI-NI/rospy_message_converter/pulls?q=is%3Apr+is%3Amerged+author%3Ayurirocha15",
-      linkLabel: "2 PRs integrados",
+      linkLabel: "2 PRs mesclados",
       mergedPrCount: 2,
       tags: ["Python", "ROS", "Logs"],
     },
@@ -479,7 +479,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Corrigiu a compilação com versões antigas do GCC quando o fmt incluído no Quill era usado com sobrecargas de operadores do Boost.SML.",
       href: "https://github.com/odygrd/quill/pull/878",
-      linkLabel: "PR #878 integrado",
+      linkLabel: "PR #878 mesclado",
       mergedPrCount: 1,
       tags: ["C++", "GCC", "Boost.SML"],
     },
@@ -489,7 +489,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Publicou atualizações visuais em tempo de execução pelo Gazebo Transport para que câmeras ROS observem cores com randomização de domínio.",
       href: "https://github.com/neka-nat/gazebo_domain_randomization/pull/5",
-      linkLabel: "PR #5 integrado",
+      linkLabel: "PR #5 mesclado",
       mergedPrCount: 1,
       tags: ["C++", "Gazebo", "ROS"],
     },
@@ -497,9 +497,9 @@ export const brazilianPortuguesePortfolioContent = {
       id: "moveit-serialization",
       repository: "captain-yoshi/moveit_serialization",
       description:
-        "Corrigiu a instalação de headers C++ pelo CMake para projetos dependentes.",
+        "Corrigiu a instalação de arquivos de cabeçalho C++ pelo CMake para projetos dependentes.",
       href: "https://github.com/captain-yoshi/moveit_serialization/pull/9",
-      linkLabel: "PR #9 integrado",
+      linkLabel: "PR #9 mesclado",
       mergedPrCount: 1,
       tags: ["C++", "CMake", "MoveIt"],
     },
@@ -509,7 +509,7 @@ export const brazilianPortuguesePortfolioContent = {
       description:
         "Integrou patches do pybind11 que restauram a geração de cinemática inversa no OpenRAVE.",
       href: "https://github.com/cielavenir/openrave-installation/pull/1",
-      linkLabel: "PR #1 integrado",
+      linkLabel: "PR #1 mesclado",
       mergedPrCount: 1,
       tags: ["Python", "OpenRAVE", "pybind11"],
     },

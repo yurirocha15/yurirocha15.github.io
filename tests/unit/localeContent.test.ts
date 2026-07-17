@@ -114,6 +114,7 @@ describe("localized portfolio content", () => {
 
   test("provides independently localized Brazilian Portuguese copy and visual labels", () => {
     const portuguese = portfolioContentByLocale["pt-BR"];
+    const serialized = JSON.stringify(portuguese);
 
     expect(portuguese.metadata.title).toBe(
       "Yuri Rocha - Software para robótica e IA física",
@@ -126,6 +127,10 @@ describe("localized portfolio content", () => {
     );
     expect(portuguese.visuals.leetcode.problem).toBe("Problema");
     expect(portuguese.visuals.gpuPlatform.metricsAbbreviation).toBe("MÉTRICAS");
+    expect(portuguese.profile.labels.mergedPullRequests).toBe("PRs mesclados");
+    expect(serialized).toContain("cargas de trabalho");
+    expect(serialized).not.toContain("Implantação autônoma");
+    expect(serialized).not.toContain("PRs integrados");
     expect(portuguese.languages.map(({ name }) => name)).toEqual([
       "Português",
       "Inglês",
@@ -150,7 +155,8 @@ describe("localized portfolio content", () => {
     );
     expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
     expect(korean.visuals.leetcode.problem).toBe("문제");
-    expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("지표");
+    expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("메트릭");
+    expect(korean.profile.hero.lead).toContain("모델·그래프 수준의 AI 최적화");
     expect(korean.professionalProjects.find(
       ({ id }) => id === "model-level-llm-optimization",
     )?.eyebrow).toBe("마키나락스 LLM 최적화");
@@ -163,6 +169,9 @@ describe("localized portfolio content", () => {
       "문제 0042",
       "충돌 회피 협업",
       "협업형 강화학습",
+      "전체 작업 소요 기간",
+      "웹 스크레이핑",
+      "정답 처리된 제출 코드",
     ]) {
       expect(serialized).not.toContain(artifact);
     }

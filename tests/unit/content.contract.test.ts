@@ -90,7 +90,7 @@ describe("typed portfolio content", () => {
     expect(cvLink?.href).toBe("./cv/yuri-rocha-cv-en.pdf");
     expect(portfolioContent.profile.identity.title).toBe("Robotics Software · Physical AI");
     expect(portfolioContent.profile.hero.heading).toBe(
-      "Building reliable software for Physical AI.",
+      "Building reliable software for Physical\u00a0AI.",
     );
     expect(portfolioContent.profile.hero.lead).toContain(
       "interfaces that connect agentic workflows to collaborative robots",

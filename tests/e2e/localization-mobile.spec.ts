@@ -77,6 +77,37 @@ test("Brazilian Portuguese system language selects Portuguese automatically", as
   }
 });
 
+test("English Physical AI phrase stays together on mobile", async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Mobile wrapping is exercised once");
+
+  await page.goto("/?lang=en");
+
+  for (const width of [320, 390, 490]) {
+    await page.setViewportSize({ width, height: 844 });
+
+    const phraseLineCount = await page.locator(".hero h1").evaluate((heading) => {
+      const textNode = heading.firstChild;
+      const text = textNode?.textContent ?? "";
+      const phrase = "Physical\u00a0AI";
+      const start = text.indexOf(phrase);
+
+      if (!textNode || start < 0) return 0;
+
+      const range = document.createRange();
+      range.setStart(textNode, start);
+      range.setEnd(textNode, start + phrase.length);
+
+      return new Set(
+        Array.from(range.getClientRects()).map((rect) => Math.round(rect.top * 2) / 2),
+      ).size;
+    });
+
+    expect(phraseLineCount, `Physical AI split at ${width}px`).toBe(1);
+  }
+});
+
 test("responsive navigation stays usable and profile buttons do not overflow", async ({
   page,
 }, testInfo) => {

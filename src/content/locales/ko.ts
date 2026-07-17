@@ -55,7 +55,7 @@ export const koreanPortfolioContent = {
       metadata: ["시니어 로보틱스 소프트웨어 엔지니어", "C++ · ROS 2 · Linux", "대한민국 서울"],
       heading: "피지컬 AI를 위한\n신뢰성 높은\n소프트웨어를 만듭니다.",
       lead:
-        "협동 로봇을 위한 실시간 로봇 컨트롤러 소프트웨어와 에이전틱 워크플로 인터페이스를 설계합니다. 산업용 모션 플래닝, 모델 수준 AI 최적화, Kubernetes 기반 LLMOps 및 시뮬레이션 인프라 분야에서도 일해 왔습니다.",
+        "실시간 로봇 컨트롤러 소프트웨어와 에이전틱 워크플로를 협동 로봇에 연결하는 인터페이스를 설계합니다. 산업용 모션 플래닝, 모델·그래프 수준의 AI 최적화, Kubernetes 기반 LLMOps 및 시뮬레이션 인프라 분야에서도 일해 왔습니다.",
     },
     engineeringProfile: {
       label: "엔지니어링 프로필",
@@ -144,10 +144,10 @@ export const koreanPortfolioContent = {
       role: "로보틱스 및 머신러닝 리서치 엔지니어",
       company: "마키나락스",
       detail:
-        "대규모 점용접 라인의 로봇 프로그램 자동 생성, 병렬 C++ 플래닝, 확장형 배포 및 모델 및 그래프 수준 LLM 최적화를 수행했습니다.",
+        "대규모 점용접 라인의 로봇 프로그램 자동 생성, 병렬 C++ 플래닝, 확장 가능한 배포 인프라, 모델·그래프 수준의 LLM 최적화를 수행했습니다.",
       bullets: [
-        "수백 대의 로봇이 배치된 점용접 조립 라인을 위한 로봇 프로그램 자동 생성 시스템의 아키텍처 설계를 주도해 전체 작업 소요 기간을 약 6주에서 3일로 단축했습니다.",
-        "ROS, MoveIt, OMPL을 활용해 고도로 병렬화된 C++ 플래닝 알고리즘을 개발하고 MongoDB로 플래닝 데이터를 관리했습니다. 이를 통해 작업점 검증, 궤적 생성과 평가, 작업 분배 및 충돌을 고려한 로봇 간 협조를 구현했습니다.",
+        "수백 대의 로봇이 배치된 점용접 조립 라인을 위한 로봇 프로그램 자동 생성 시스템의 아키텍처 설계를 주도해 로봇 프로그래밍 소요 시간을 약 6주에서 3일로 단축했습니다.",
+        "ROS, MoveIt, OMPL을 활용해 고도로 병렬화된 C++ 모션 플래닝 시스템을 개발하고 MongoDB로 플래닝 데이터를 관리했습니다. 이를 통해 작업점 검증, 궤적 생성과 평가, 작업 분배 및 충돌을 고려한 로봇 간 협조를 구현했습니다.",
         "연산 집약적인 플래닝 워크로드를 위한 Kubernetes 및 Docker 인프라를 구축하고 운영했으며, 빌드, 테스트, 패키징 및 배포를 위한 Linux 기반 GitHub Actions CI/CD 파이프라인을 유지보수했습니다.",
         "PyTorch로 모방학습 및 강화학습 실험을 수행하고 Unity에서 시뮬레이션 환경을 개발했습니다.",
         "1년간의 ML 업무에서 모바일 하드웨어의 온디바이스 추론을 위한 모델 및 그래프 수준 최적화, 양자화 및 반복 가능한 평가용 PyTorch/ONNX 워크플로를 구축했습니다.",
@@ -203,11 +203,11 @@ export const koreanPortfolioContent = {
       eyebrow: "마키나락스 산업 자동화",
       title: "용접 라인 로봇 프로그램 자동 생성",
       description:
-        "수백 대의 로봇이 배치된 점용접 라인을 위한 로봇 프로그램 자동 생성 시스템의 아키텍처 설계를 주도해 전체 작업 소요 기간을 6주에서 3일로 단축했습니다.",
+        "수백 대의 로봇이 배치된 점용접 라인을 위한 로봇 프로그램 자동 생성 시스템의 아키텍처 설계를 주도해 로봇 프로그래밍 소요 시간을 6주에서 3일로 단축했습니다.",
       visual: "smart-frame",
       layout: "wide-visual",
       bullets: [
-        "작업점 검증, 궤적 생성과 평가, 작업 분배 및 충돌을 고려한 로봇 간 협조를 위한 병렬 C++ 플래닝을 개발했습니다.",
+        "작업점 검증, 궤적 생성과 평가, 작업 분배 및 충돌을 고려한 로봇 간 협조를 위한 병렬 C++ 모션 플래닝을 개발했습니다.",
         "ROS, MoveIt, OMPL 기반 플래닝 알고리즘과 MongoDB 데이터 관리를 확장 가능한 Kubernetes 및 Docker 플래닝 인프라에 통합했습니다.",
       ],
       tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker"],
@@ -305,14 +305,14 @@ export const koreanPortfolioContent = {
     },
     {
       id: "leet2git",
-      eyebrow: "Python 웹 스크레이핑",
+      eyebrow: "Python 웹 스크래핑",
       title: "leet2git",
       description:
-        "인증된 LeetCode 브라우저 세션으로 문제와 정답 처리된 제출 코드를 수집해 구조화된 Git 리포지토리로 가져오는 웹 스크레이퍼 및 CLI입니다.",
+        "인증된 LeetCode 브라우저 세션으로 문제와 정답 판정을 받은 제출 코드를 수집해 구조화된 Git 리포지토리로 가져오는 웹 스크래퍼 겸 CLI입니다.",
       visual: "leetcode",
       layout: "standard",
       bullets: ["수집한 문제 데이터에서 소스 파일, Python 테스트 및 README 색인을 생성합니다."],
-      tags: ["Python", "웹 스크레이핑", "CLI", "Git", "테스트"],
+      tags: ["Python", "웹 스크래핑", "CLI", "Git", "테스트"],
       links: [
         {
           id: "leet2git-github",
@@ -332,7 +332,7 @@ export const koreanPortfolioContent = {
       layout: "wide-balanced",
       bullets: [
         "단일 시뮬레이션부터 벡터화된 Isaac Sim 학습까지 이어지는 PPO 카트폴 실습을 구축했습니다.",
-        "Stable-Baselines3 및 RL-Games 예제를 공동 교육 코드베이스에 통합했습니다.",
+        "Stable-Baselines3 및 RL-Games 예제를 공용 교육 코드베이스에 통합했습니다.",
       ],
       tags: ["Python", "Isaac Sim", "강화학습", "PPO", "Stable-Baselines3", "RL-Games"],
       links: [
