@@ -220,6 +220,11 @@
     margin-bottom: 18px;
   }
 
+  html[lang="ko"] .hero h1 {
+    font-size: clamp(1.8rem, 9.1vw, 2.5rem);
+    white-space: pre-line;
+  }
+
   .hero {
     padding-top: 28px;
   }

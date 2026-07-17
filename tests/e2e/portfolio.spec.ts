@@ -339,7 +339,9 @@ test("hero metadata clears the title and career periods stay intact", async ({ p
   }
 });
 
-test("Korean words never split between syllables", async ({ page }, testInfo) => {
+test("Korean words and hero phrases preserve intended line breaks", async ({
+  page,
+}, testInfo) => {
   test.skip(testInfo.project.name !== "mobile", "Korean wrapping is exercised once");
 
   await page.goto("/?lang=ko");
@@ -381,15 +383,40 @@ test("Korean words never split between syllables", async ({ page }, testInfo) =>
         textNode = walker.nextNode();
       }
 
+      const heading = document.querySelector<HTMLElement>(".hero h1")!;
+      const headingTextNode = heading.firstChild!;
+      const headingText = headingTextNode.textContent ?? "";
+      const headingLineRects = [
+        "피지컬 AI를 위한",
+        "신뢰성 높은",
+        "소프트웨어를 만듭니다.",
+      ].map((line) => {
+        const start = headingText.indexOf(line);
+        const range = document.createRange();
+        range.setStart(headingTextNode, start);
+        range.setEnd(headingTextNode, start + line.length);
+        return Array.from(range.getClientRects()).map((rect) => ({
+          top: Math.round(rect.top * 2) / 2,
+          width: rect.width,
+        }));
+      });
+
       return {
         documentOverflow:
           document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        headingLineRects,
+        headingWhiteSpace: getComputedStyle(heading).whiteSpace,
         splitWords,
       };
     });
 
     expect(wrapping.documentOverflow, `horizontal overflow at ${width}px`).toBe(0);
     expect(wrapping.splitWords, `split Korean words at ${width}px`).toEqual([]);
+    if (width <= 720) {
+      expect(wrapping.headingWhiteSpace).toBe("pre-line");
+      expect(wrapping.headingLineRects.every((rects) => rects.length === 1)).toBe(true);
+      expect(new Set(wrapping.headingLineRects.map(([rect]) => rect.top)).size).toBe(3);
+    }
   }
 });
 

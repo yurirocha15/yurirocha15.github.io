@@ -146,7 +146,7 @@ describe("localized portfolio content", () => {
     );
     expect(korean.profile.identity.title).toBe("로보틱스 소프트웨어 · 피지컬 AI");
     expect(korean.profile.hero.heading).toBe(
-      "피지컬 AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
+      "피지컬 AI를 위한\n신뢰성 높은\n소프트웨어를 만듭니다.",
     );
     expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
     expect(korean.visuals.leetcode.problem).toBe("문제");

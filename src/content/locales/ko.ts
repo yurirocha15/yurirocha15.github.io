@@ -53,7 +53,7 @@ export const koreanPortfolioContent = {
     ],
     hero: {
       metadata: ["시니어 로보틱스 소프트웨어 엔지니어", "C++ · ROS 2 · Linux", "대한민국 서울"],
-      heading: "피지컬 AI를 위한 신뢰성 높은 소프트웨어를 만듭니다.",
+      heading: "피지컬 AI를 위한\n신뢰성 높은\n소프트웨어를 만듭니다.",
       lead:
         "협동 로봇을 위한 실시간 로봇 컨트롤러 소프트웨어와 에이전틱 워크플로 인터페이스를 설계합니다. 산업용 모션 플래닝, 모델 수준 AI 최적화, Kubernetes 기반 LLMOps 및 시뮬레이션 인프라 분야에서도 일해 왔습니다.",
     },
