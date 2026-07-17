@@ -414,8 +414,14 @@ test("Korean words and hero phrases preserve intended line breaks", async ({
     expect(wrapping.splitWords, `split Korean words at ${width}px`).toEqual([]);
     if (width <= 720) {
       expect(wrapping.headingWhiteSpace).toBe("pre-line");
-      expect(wrapping.headingLineRects.every((rects) => rects.length === 1)).toBe(true);
-      expect(new Set(wrapping.headingLineRects.map(([rect]) => rect.top)).size).toBe(3);
+      expect(
+        wrapping.headingLineRects.every((rects) => rects.length === 1),
+        `wrapped Korean hero phrase at ${width}px: ${JSON.stringify(wrapping.headingLineRects)}`,
+      ).toBe(true);
+      expect(
+        new Set(wrapping.headingLineRects.map(([rect]) => rect.top)).size,
+        `Korean hero lines overlap at ${width}px`,
+      ).toBe(3);
     }
   }
 });
