@@ -75,7 +75,7 @@ export const professionalProjects = [
   },
   {
     id: "model-level-llm-optimization",
-    eyebrow: "One-year machine-learning assignment at MakinaRocks",
+    eyebrow: "LLM Optimization at MakinaRocks",
     title: "LLM and ONNX graph optimization for mobile inference",
     description:
       "Optimized LLM architectures and ONNX computation graphs for on-device inference on mobile hardware.",

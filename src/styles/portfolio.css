@@ -492,6 +492,10 @@ h1 {
   padding: 4px 7px;
 }
 
+.tag-list span[lang="ko"] {
+  font-weight: 600;
+}
+
 .tag-row {
   margin-top: 18px;
 }

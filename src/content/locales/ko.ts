@@ -241,7 +241,7 @@ export const koreanPortfolioContent = {
     },
     {
       id: "model-level-llm-optimization",
-      eyebrow: "마키나락스 1년간의 머신러닝 업무",
+      eyebrow: "마키나락스 LLM 최적화",
       title: "모바일 추론을 위한 LLM 및 ONNX 그래프 최적화",
       description:
         "모바일 하드웨어의 온디바이스 추론을 위해 LLM 아키텍처와 ONNX 연산 그래프를 최적화했습니다.",

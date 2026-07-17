@@ -118,6 +118,7 @@ test("YR favicon is declared and served in modern and fallback formats", async (
   const svg = await svgResponse.text();
   expect(svg).toContain('viewBox="0 0 48 48"');
   expect(svg).toContain("M3.5 4.5 12.5 15.5 21.5 4.5");
+  expect(svg).toContain('<path d="M34.5 19 44 31.5" stroke-linecap="butt"');
   expect(svg).toContain('stroke="#151713"');
   expect(svg).toContain('fill="#d39b2a"');
 

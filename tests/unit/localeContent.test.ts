@@ -109,6 +109,9 @@ describe("localized portfolio content", () => {
     expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
     expect(korean.visuals.leetcode.problem).toBe("문제");
     expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("지표");
+    expect(korean.professionalProjects.find(
+      ({ id }) => id === "model-level-llm-optimization",
+    )?.eyebrow).toBe("마키나락스 LLM 최적화");
     expect(portfolioContentByLocale.en.visuals.leetcode.problem).toBe("Problem");
     for (const artifact of [
       "Korean Government Scholarship Program",

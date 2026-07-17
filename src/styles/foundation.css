@@ -263,6 +263,10 @@ select {
   vector-effect: non-scaling-stroke;
 }
 
+.brand-monogram-leg {
+  stroke-linecap: butt;
+}
+
 .brand-monogram-node {
   fill: var(--yellow);
   stroke: var(--page);

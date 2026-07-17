@@ -121,6 +121,7 @@ describe("typed portfolio content", () => {
     const npuProject = portfolioContent.professionalProjects.find(
       (project) => project.id === "model-level-llm-optimization",
     );
+    expect(npuProject?.eyebrow).toBe("LLM Optimization at MakinaRocks");
     expect(npuProject?.bullets).toContain(
       "The work focused on model inference efficiency and static graph optimization.",
     );

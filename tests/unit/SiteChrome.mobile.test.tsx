@@ -53,6 +53,11 @@ describe("SiteHeader mobile disclosure", () => {
     expect(monogram).toHaveAttribute("aria-hidden", "true");
     expect(monogram).toHaveAttribute("focusable", "false");
     expect(monogram).toHaveAttribute("viewBox", "0 0 48 36");
+    expect(monogram?.querySelectorAll("path")).toHaveLength(2);
+    expect(monogram?.querySelector(".brand-monogram-leg")).toHaveAttribute(
+      "d",
+      "M34.5 19 44 31.5",
+    );
   });
 
   test("connects the localized toggle to navigation and exposes locale state", () => {

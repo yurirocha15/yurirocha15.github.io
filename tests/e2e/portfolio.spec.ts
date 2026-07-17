@@ -212,8 +212,14 @@ test("Korean career timeline uses compact mobile geometry", async ({ page }, tes
         const bodyBounds = body.getBoundingClientRect();
         const periodBounds = period.getBoundingClientRect();
         const periodStyle = getComputedStyle(period);
+        const periodRange = document.createRange();
+        periodRange.selectNodeContents(period);
+        const periodTextBounds = periodRange.getBoundingClientRect();
         const markerCenter = Number.parseFloat(markerStyle.top)
           + Number.parseFloat(markerStyle.height) / 2;
+        const markerRight = itemBounds.left
+          + Number.parseFloat(markerStyle.left)
+          + Number.parseFloat(markerStyle.width) / 2;
         const periodCenter = periodBounds.top - itemBounds.top + periodBounds.height / 2;
 
         return {
@@ -226,6 +232,7 @@ test("Korean career timeline uses compact mobile geometry", async ({ page }, tes
           markerMatchesTimeline:
             markerStyle.borderTopColor
               === getComputedStyle(section.querySelector(".timeline")!).backgroundColor,
+          markerDateGap: periodTextBounds.left - markerRight,
           markerPeriodAlignment: Math.abs(markerCenter - periodCenter),
           periodFits: period.scrollWidth <= period.clientWidth + 1,
           periodSingleLine:
@@ -246,6 +253,7 @@ test("Korean career timeline uses compact mobile geometry", async ({ page }, tes
     expect(item.bodyWidthRatio).toBeGreaterThan(0.94);
     expect(item.markerAboveAxis).toBe(true);
     expect(item.markerMatchesTimeline).toBe(true);
+    expect(item.markerDateGap).toBeGreaterThanOrEqual(4);
     expect(item.markerPeriodAlignment).toBeLessThanOrEqual(0.5);
     expect(item.periodFits).toBe(true);
     expect(item.periodSingleLine).toBe(true);
@@ -278,6 +286,10 @@ test("hero metadata clears the title and career periods stay intact", async ({ p
             const periodBounds = period.getBoundingClientRect();
             const bodyBounds = body.getBoundingClientRect();
             const itemBounds = item.getBoundingClientRect();
+            const markerStyle = getComputedStyle(item, "::before");
+            const markerRight = itemBounds.left
+              + Number.parseFloat(markerStyle.left)
+              + Number.parseFloat(markerStyle.width) / 2;
 
             return {
               doesNotOverlapBody:
@@ -286,6 +298,7 @@ test("hero metadata clears the title and career periods stay intact", async ({ p
               lineCount: new Set(
                 Array.from(range.getClientRects()).map((rect) => Math.round(rect.top * 2) / 2),
               ).size,
+              markerDateGap: textBounds.left - markerRight,
               protectedDateUnits: period.textContent?.includes("\u00a0") ?? false,
               textFitsPeriod:
                 period.scrollWidth <= period.clientWidth + 1
@@ -313,6 +326,10 @@ test("hero metadata clears the title and career periods stay intact", async ({ p
       for (const period of geometry.periods) {
         expect(period.doesNotOverlapBody, `${locale} body overlap at ${width}px`).toBe(true);
         expect(period.lineCount, `${locale} wrapped period at ${width}px`).toBe(1);
+        if (width <= 980) {
+          expect(period.markerDateGap, `${locale} marker overlap at ${width}px`)
+            .toBeGreaterThanOrEqual(4);
+        }
         expect(period.protectedDateUnits, `${locale} breakable date unit at ${width}px`).toBe(true);
         expect(period.textFitsPeriod, `${locale} period track overflow at ${width}px`).toBe(true);
         expect(period.textFitsItem, `${locale} period overflow at ${width}px`).toBe(true);
@@ -326,6 +343,12 @@ test("Korean words never split between syllables", async ({ page }, testInfo) =>
   test.skip(testInfo.project.name !== "mobile", "Korean wrapping is exercised once");
 
   await page.goto("/?lang=ko");
+
+  const koreanTags = page.locator('.tag-list span[lang="ko"]');
+  expect(await koreanTags.count()).toBeGreaterThan(0);
+  await expect.poll(() => koreanTags.first().evaluate(
+    (element) => Number.parseInt(getComputedStyle(element).fontWeight, 10),
+  )).toBeLessThanOrEqual(600);
 
   for (const width of [320, 390, 490, 790, 958]) {
     await page.setViewportSize({ width, height: 844 });
