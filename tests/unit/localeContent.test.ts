@@ -156,7 +156,7 @@ describe("localized portfolio content", () => {
     expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
     expect(korean.visuals.leetcode.problem).toBe("문제");
     expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("메트릭");
-    expect(korean.profile.hero.lead).toContain("모델·그래프 수준의 AI 최적화");
+    expect(korean.profile.hero.lead).toContain("모델 및 그래프 수준의 AI 최적화");
     expect(korean.professionalProjects.find(
       ({ id }) => id === "model-level-llm-optimization",
     )?.eyebrow).toBe("마키나락스 LLM 최적화");
