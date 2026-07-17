@@ -123,7 +123,7 @@ export const koreanPortfolioContent = {
   experience: [
     {
       id: "doosan-robotics",
-      period: "2025년 8월–현재",
+      period: "2025년\u00a08월–현재",
       role: "시니어 소프트웨어 엔지니어, AI & Software",
       company: "두산로보틱스",
       detail:
@@ -139,7 +139,7 @@ export const koreanPortfolioContent = {
     },
     {
       id: "makinarocks",
-      period: "2020년 9월–2025년 8월",
+      period: "2020년\u00a09월–2025년\u00a08월",
       role: "로보틱스 및 머신러닝 리서치 엔지니어",
       company: "마키나락스",
       detail:
@@ -155,7 +155,7 @@ export const koreanPortfolioContent = {
     },
     {
       id: "moringa-digital",
-      period: "2016년 8월–2017년 7월",
+      period: "2016년\u00a08월–2017년\u00a07월",
       role: "소프트웨어 개발자",
       company: "Moringa Digital",
       detail: "ERP 연동 및 웹 백엔드 개발을 수행했습니다.",

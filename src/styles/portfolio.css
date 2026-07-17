@@ -388,7 +388,7 @@ h1 {
   --timeline-marker-size: 22px;
   display: grid;
   gap: 0;
-  grid-template-columns: 28px 150px 28px minmax(0, 1fr);
+  grid-template-columns: 28px minmax(170px, max-content) 28px minmax(0, 1fr);
   padding: 0 0 46px;
   position: relative;
 }
@@ -475,6 +475,7 @@ h1 {
 }
 
 .hero-meta {
+  margin-block-end: clamp(12px, 1.5vw, 18px);
   position: relative;
   z-index: 1;
 }

@@ -252,18 +252,22 @@ test("Korean career timeline uses compact mobile geometry", async ({ page }, tes
   }
 });
 
-test("career periods stay on one line in both locales and layouts", async ({ page }, testInfo) => {
+test("hero metadata clears the title and career periods stay intact", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Localized period geometry is exercised once");
+  test.setTimeout(SCENE_TEST_TIMEOUT);
 
-  for (const width of [320, 1024]) {
+  for (const width of [320, 430, 980, 981, 1024]) {
     for (const locale of ["en", "ko"]) {
       await page.setViewportSize({ width, height: 844 });
       await page.goto(`/?lang=${locale}`);
 
-      const geometry = await page.locator("#career").evaluate((section) => ({
-        documentOverflow:
-          document.documentElement.scrollWidth - document.documentElement.clientWidth,
-        periods: Array.from(section.querySelectorAll<HTMLElement>(".timeline-period"))
+      const geometry = await page.evaluate(() => {
+        const heroMeta = document.querySelector<HTMLElement>(".hero-meta")!;
+        const heroHeading = document.querySelector<HTMLElement>(".hero h1")!;
+        const metaBounds = heroMeta.getBoundingClientRect();
+        const headingBounds = heroHeading.getBoundingClientRect();
+        const section = document.querySelector<HTMLElement>("#career")!;
+        const periods = Array.from(section.querySelectorAll<HTMLElement>(".timeline-period"))
           .map((period) => {
             const item = period.closest<HTMLElement>(".timeline-item")!;
             const body = item.querySelector<HTMLElement>(".timeline-body")!;
@@ -271,6 +275,7 @@ test("career periods stay on one line in both locales and layouts", async ({ pag
             const range = document.createRange();
             range.selectNodeContents(period);
             const textBounds = range.getBoundingClientRect();
+            const periodBounds = period.getBoundingClientRect();
             const bodyBounds = body.getBoundingClientRect();
             const itemBounds = item.getBoundingClientRect();
 
@@ -281,16 +286,35 @@ test("career periods stay on one line in both locales and layouts", async ({ pag
               lineCount: new Set(
                 Array.from(range.getClientRects()).map((rect) => Math.round(rect.top * 2) / 2),
               ).size,
+              protectedDateUnits: period.textContent?.includes("\u00a0") ?? false,
+              textFitsPeriod:
+                period.scrollWidth <= period.clientWidth + 1
+                && textBounds.left >= periodBounds.left - 0.5
+                && textBounds.right <= periodBounds.right + 1,
               textFitsItem: textBounds.right <= itemBounds.right + 0.5,
               whiteSpace: periodStyle.whiteSpace,
             };
-          }),
-      }));
+          });
+
+        return {
+          documentOverflow:
+            document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          heroGap: headingBounds.top - metaBounds.bottom,
+          heroTagsClearHeading: Array.from(heroMeta.children).every(
+            (tag) => tag.getBoundingClientRect().bottom <= headingBounds.top,
+          ),
+          periods,
+        };
+      });
 
       expect(geometry.documentOverflow, `${locale} overflow at ${width}px`).toBe(0);
+      expect(geometry.heroGap, `${locale} hero gap at ${width}px`).toBeGreaterThanOrEqual(11.5);
+      expect(geometry.heroTagsClearHeading, `${locale} hero overlap at ${width}px`).toBe(true);
       for (const period of geometry.periods) {
         expect(period.doesNotOverlapBody, `${locale} body overlap at ${width}px`).toBe(true);
         expect(period.lineCount, `${locale} wrapped period at ${width}px`).toBe(1);
+        expect(period.protectedDateUnits, `${locale} breakable date unit at ${width}px`).toBe(true);
+        expect(period.textFitsPeriod, `${locale} period track overflow at ${width}px`).toBe(true);
         expect(period.textFitsItem, `${locale} period overflow at ${width}px`).toBe(true);
         expect(period.whiteSpace).toBe("nowrap");
       }

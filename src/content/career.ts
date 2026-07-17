@@ -3,7 +3,7 @@ import type { Experience } from "./types";
 export const experience = [
   {
     id: "doosan-robotics",
-    period: "Aug. 2025–Present",
+    period: "Aug.\u00a02025–Present",
     role: "Senior Software Engineer, AI & Software",
     company: "Doosan Robotics",
     detail:
@@ -19,7 +19,7 @@ export const experience = [
   },
   {
     id: "makinarocks",
-    period: "Sep. 2020–Aug. 2025",
+    period: "Sep.\u00a02020–Aug.\u00a02025",
     role: "Robotics and Machine Learning Research Engineer",
     company: "MakinaRocks",
     detail:
@@ -35,7 +35,7 @@ export const experience = [
   },
   {
     id: "moringa-digital",
-    period: "Aug. 2016–Jul. 2017",
+    period: "Aug.\u00a02016–Jul.\u00a02017",
     role: "Software Developer",
     company: "Moringa Digital",
     detail: "ERP integration and web back-end development.",

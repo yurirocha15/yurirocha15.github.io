@@ -101,19 +101,35 @@ test("responsive navigation stays usable and profile buttons do not overflow", a
   expect(overflow).toBe(0);
 });
 
-test("favicon is declared and served from the production asset path", async ({
+test("YR favicon is declared and served in modern and fallback formats", async ({
   page,
   request,
 }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "The favicon contract only needs one browser");
 
   await page.goto("/?lang=en");
-  await expect(page.locator('link[rel="icon"]')).toHaveAttribute("href", /favicon\.ico/);
+  const svgLink = page.locator('link[rel="icon"][type="image/svg+xml"]');
+  await expect(svgLink).toHaveAttribute("href", /(?:^|\/)favicon\.svg$/);
+  await expect(svgLink).toHaveAttribute("sizes", "any");
 
+  const svgResponse = await request.get("/favicon.svg");
+  expect(svgResponse.ok()).toBe(true);
+  expect(svgResponse.headers()["content-type"]).toMatch(/image\/svg\+xml/);
+  const svg = await svgResponse.text();
+  expect(svg).toContain('viewBox="0 0 48 48"');
+  expect(svg).toContain("M3.5 4.5 12.5 15.5 21.5 4.5");
+  expect(svg).toContain('stroke="#151713"');
+  expect(svg).toContain('fill="#d39b2a"');
+
+  await expect(page.locator('link[rel="icon"][href$="favicon.ico"]')).toHaveAttribute(
+    "sizes",
+    "16x16 32x32 48x48",
+  );
   const response = await request.get("/favicon.ico");
   expect(response.ok()).toBe(true);
   expect(response.headers()["content-type"]).toMatch(/image\/(?:x-icon|vnd\.microsoft\.icon)/);
   const icon = await response.body();
   expect(icon.length).toBeGreaterThan(100);
   expect([...icon.subarray(0, 4)]).toEqual([0, 0, 1, 0]);
+  expect(icon.readUInt16LE(4)).toBeGreaterThanOrEqual(3);
 });

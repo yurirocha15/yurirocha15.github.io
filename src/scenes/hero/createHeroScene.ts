@@ -367,7 +367,11 @@ function updateSparks(state: HeroState, frame: FrameState, weldActive: number) {
 function updateHero(state: HeroState, frame: FrameState) {
   const animation = getHeroAnimationState(frame.elapsed);
   if (state.robot) {
-    applyFrankaPose(state.robot, animation.pose, animation.carrying > 0.08 ? 0.026 : 0.034);
+    applyFrankaPose(
+      state.robot,
+      animation.pose,
+      animation.crateStage === "carried" ? 0.026 : 0.034,
+    );
   }
   if (state.weldTip) {
     state.context.scene.updateMatrixWorld(true);
@@ -381,9 +385,10 @@ function updateHero(state: HeroState, frame: FrameState) {
   setObjectOpacity(state.weldShadow, animation.weldMode * 0.12);
   setObjectOpacity(state.suction, animation.palletMode);
   setObjectOpacity(state.torch, animation.weldMode);
-  setObjectOpacity(state.pallet.toolCrate, animation.carrying);
-  setObjectOpacity(state.pallet.feedCrate, animation.palletMode * (1 - animation.carrying));
-  setObjectOpacity(state.pallet.placedCrate, animation.placed);
+  const palletVisible = animation.palletMode > 0.01;
+  state.pallet.feedCrate.visible = palletVisible && animation.crateStage === "feed";
+  state.pallet.toolCrate.visible = palletVisible && animation.crateStage === "carried";
+  state.pallet.placedCrate.visible = palletVisible && animation.crateStage === "placed";
   setObjectOpacity(state.weld.glow, animation.weldActive);
   state.materials.seam.emissiveIntensity = animation.weldActive
     * (1.2 + Math.sin(frame.elapsed * 16) * 0.25);
@@ -396,6 +401,7 @@ function updateHero(state: HeroState, frame: FrameState) {
     + Math.sin(frame.elapsed * 0.15) * 0.018;
   state.cell.scale.setScalar(1 - animation.spinPulse * 0.05);
   state.context.canvas.dataset.mode = animation.weldMode > 0.5 ? "welding" : "palletizing";
+  state.context.canvas.dataset.crateStage = animation.crateStage;
   state.context.camera.lookAt(0, 0.72, -0.12);
 }
 

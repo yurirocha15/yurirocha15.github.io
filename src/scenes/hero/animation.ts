@@ -5,13 +5,19 @@ export type HeroAnimationState = {
   pose: FrankaPose;
   weldMode: number;
   palletMode: number;
-  carrying: number;
-  placed: number;
+  crateStage: "feed" | "carried" | "placed";
   weldActive: number;
   spinToWeld: number;
   spinToPallet: number;
   spinPulse: number;
 };
+
+function getCrateStage(cycle: number, palletPhase: number): HeroAnimationState["crateStage"] {
+  if (cycle >= 0.5) return "feed";
+  if (palletPhase < 0.22) return "feed";
+  if (palletPhase < 0.74) return "carried";
+  return "placed";
+}
 
 function getHeroPose(cycle: number, palletPhase: number, spinToWeld: number, spinToPallet: number) {
   if (cycle < 0.42) {
@@ -46,10 +52,6 @@ export function getHeroAnimationState(elapsed: number): HeroAnimationState {
     Math.sin(spinToPallet * Math.PI),
   );
   const palletPhase = Math.min(cycle / 0.42, 1);
-  const carryIn = smoothstep(0.2, 0.28, palletPhase);
-  const carryOut = 1 - smoothstep(0.62, 0.72, palletPhase);
-  const carrying = Math.max(0, Math.min(carryIn, carryOut)) * palletMode;
-  const placed = smoothstep(0.66, 0.76, palletPhase) * palletMode;
   const weldActive = weldMode * smoothstep(0.54, 0.6, cycle)
     * (1 - smoothstep(0.78, 0.84, cycle));
 
@@ -57,8 +59,7 @@ export function getHeroAnimationState(elapsed: number): HeroAnimationState {
     pose: getHeroPose(cycle, palletPhase, spinToWeld, spinToPallet),
     weldMode,
     palletMode,
-    carrying,
-    placed,
+    crateStage: getCrateStage(cycle, palletPhase),
     weldActive,
     spinToWeld,
     spinToPallet,

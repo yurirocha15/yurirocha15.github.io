@@ -73,6 +73,18 @@ describe("scene motion primitives", () => {
     expect(transformToPallet.spinPulse).toBeGreaterThan(0);
   });
 
+  test("hero palletizer swaps one visible crate at pick and place contact points", () => {
+    const atPalletPhase = (phase: number) => getHeroAnimationState(11.2 * 0.42 * phase);
+
+    expect(atPalletPhase(0.219).crateStage).toBe("feed");
+    expect(atPalletPhase(0.22).crateStage).toBe("carried");
+    expect(atPalletPhase(0.739).crateStage).toBe("carried");
+    expect(atPalletPhase(0.74).crateStage).toBe("placed");
+    expect(getHeroAnimationState(11.2 * 0.49).crateStage).toBe("placed");
+    expect(getHeroAnimationState(11.2 * 0.5).crateStage).toBe("feed");
+    expect(getHeroAnimationState(11.2 * 0.9).crateStage).toBe("feed");
+  });
+
   test("asset URLs normalize base paths without duplicate separators", () => {
     expect(normalizeBaseUrl("/portfolio")).toBe("/portfolio/");
     expect(normalizeBaseUrl("/portfolio/")).toBe("/portfolio/");
