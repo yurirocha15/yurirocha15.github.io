@@ -150,7 +150,7 @@ export const koreanPortfolioContent = {
         "ROS, MoveIt, OMPL을 활용해 고도로 병렬화된 C++ 모션 플래닝 시스템을 개발하고 MongoDB로 플래닝 데이터를 관리했습니다. 이를 통해 작업점 검증, 궤적 생성과 평가, 작업 분배 및 충돌을 고려한 로봇 간 협조를 구현했습니다.",
         "연산 집약적인 플래닝 워크로드를 위한 Kubernetes 및 Docker 인프라를 구축하고 운영했으며, 빌드, 테스트, 패키징 및 배포를 위한 Linux 기반 GitHub Actions CI/CD 파이프라인을 유지보수했습니다.",
         "PyTorch로 모방학습 및 강화학습 실험을 수행하고 Unity에서 시뮬레이션 환경을 개발했습니다.",
-        "1년간의 ML 업무에서 모바일 하드웨어의 온디바이스 추론을 위한 모델 및 그래프 수준 최적화, 양자화 및 반복 가능한 평가용 PyTorch/ONNX 워크플로를 구축했습니다.",
+        "모바일 하드웨어의 온디바이스 추론을 위한 모델 및 그래프 수준 최적화, 양자화 및 반복 가능한 평가용 PyTorch/ONNX 워크플로를 구축했습니다.",
       ],
       tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker", "PyTorch", "ONNX"],
     },

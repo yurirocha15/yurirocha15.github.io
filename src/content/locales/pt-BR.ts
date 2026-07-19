@@ -175,7 +175,7 @@ export const brazilianPortuguesePortfolioContent = {
         "Desenvolveu um sistema de planejamento de movimento em C++ altamente paralelizado com ROS, MoveIt e OMPL para validar pontos de trabalho, gerar e avaliar trajetórias, distribuir tarefas e coordenar robôs com prevenção de colisões; utilizou MongoDB para os dados de planejamento.",
         "Construiu e operou infraestrutura Kubernetes e Docker para cargas de trabalho de planejamento com uso intensivo de computação, além de pipelines de CI/CD baseados em Linux no GitHub Actions para compilação, testes, empacotamento e entrega.",
         "Conduziu experimentos de aprendizado por imitação e por reforço com PyTorch e desenvolveu ambientes de simulação no Unity.",
-        "Durante uma atuação de um ano em ML, criou fluxos com PyTorch e ONNX para otimização de modelos e grafos, quantização e avaliação reproduzível voltada à inferência em dispositivos móveis.",
+        "Criou fluxos com PyTorch e ONNX para otimização de modelos e grafos, quantização e avaliação reproduzível voltada à inferência em dispositivos móveis.",
       ],
       tags: [
         "C++",

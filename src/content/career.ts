@@ -29,7 +29,7 @@ export const experience = [
       "Developed a highly parallelized C++ motion-planning system with ROS, MoveIt, and OMPL for work-point validation, trajectory generation and evaluation, task distribution, and collision-aware coordination; used MongoDB for planning data.",
       "Built and operated Kubernetes and Docker infrastructure for compute-intensive planning workloads, plus Linux-based CI/CD pipelines in GitHub Actions for builds, tests, packaging, and delivery.",
       "Conducted imitation learning and reinforcement learning experiments with PyTorch and developed simulation environments in Unity.",
-      "During a one-year ML assignment, built PyTorch/ONNX workflows for model- and graph-level optimization, quantization, and repeatable evaluation targeting on-device inference on mobile hardware.",
+      "Built PyTorch/ONNX workflows for model- and graph-level optimization, quantization, and repeatable evaluation targeting on-device inference on mobile hardware.",
     ],
     tags: ["C++", "Python", "ROS", "MoveIt", "OMPL", "MongoDB", "Kubernetes", "Docker", "PyTorch", "ONNX"],
   },
