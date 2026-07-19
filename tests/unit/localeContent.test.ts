@@ -126,7 +126,9 @@ describe("localized portfolio content", () => {
       "Mudar para português (Brasil)",
     );
     expect(portuguese.visuals.leetcode.problem).toBe("Problema");
-    expect(portuguese.visuals.gpuPlatform.metricsAbbreviation).toBe("MÉTRICAS");
+    expect(portuguese.visuals.gpuPlatform.replicas).toBe("réplicas prontas");
+    expect(portuguese.visuals.gpuPlatform.monitoring).toBe("Monitoramento");
+    expect(portuguese.visuals.topic.containerResources).toBe("recursos do contêiner");
     expect(portuguese.profile.labels.mergedPullRequests).toBe("PRs mesclados");
     expect(serialized).toContain("cargas de trabalho");
     expect(serialized).not.toContain("Implantação autônoma");
@@ -155,7 +157,9 @@ describe("localized portfolio content", () => {
     );
     expect(academicAchievement?.detail).toBe("정부초청외국인장학사업");
     expect(korean.visuals.leetcode.problem).toBe("문제");
-    expect(korean.visuals.gpuPlatform.metricsAbbreviation).toBe("메트릭");
+    expect(korean.visuals.gpuPlatform.replicas).toBe("준비된 레플리카");
+    expect(korean.visuals.gpuPlatform.monitoring).toBe("모니터링");
+    expect(korean.visuals.topic.containerResources).toBe("컨테이너 리소스");
     expect(korean.profile.hero.lead).toContain("모델 및 그래프 수준의 AI 최적화");
     expect(korean.professionalProjects.find(
       ({ id }) => id === "model-level-llm-optimization",

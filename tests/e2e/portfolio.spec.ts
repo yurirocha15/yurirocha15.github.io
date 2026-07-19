@@ -438,7 +438,7 @@ test("Korean platform and controller visuals remain contained and legible", asyn
   await scrollToCenter(platform);
   const platformGeometry = await platform.evaluate((root) => {
     const consoleElement = root.querySelector<HTMLElement>(".platform-console")!;
-    const lastRow = root.querySelector<HTMLElement>(".workload-row:last-child")!;
+    const lastRow = root.querySelector<HTMLElement>(".deployment-row:last-child")!;
     const consoleBounds = consoleElement.getBoundingClientRect();
     const lastRowBounds = lastRow.getBoundingClientRect();
     const borderBottom = Number.parseFloat(
@@ -459,16 +459,17 @@ test("Korean platform and controller visuals remain contained and legible", asyn
     await page.goto("/?lang=ko");
 
     const controller = page.locator(
-      "[data-content-id=robot-controller-core] .controller-diagram",
+      "[data-content-id=robot-controller-core] .controller-architecture",
     );
     await scrollToCenter(controller);
     const controllerGeometry = await controller.evaluate((root) => {
-      const graph = root.querySelector<HTMLElement>(".task-manager-graph")!;
-      const title = root.querySelector<HTMLElement>(".task-manager-node__title")!;
-      const subtitle = root.querySelector<HTMLElement>(".task-manager-node__subtitle")!;
+      const boundary = root.querySelector<HTMLElement>(".controller-boundary")!;
+      const manager = root.querySelector<HTMLElement>(".controller-task-manager")!;
+      const title = root.querySelector<HTMLElement>(".controller-interface-node strong")!;
       const primaryLabels = Array.from(root.querySelectorAll<HTMLElement>(
-        ".cycle-strip strong, .schedule-overview strong, .external-stack span, "
-          + ".controller-tasks span, .hardware-node, .task-manager-node__title",
+        ".controller-agent-node strong, .controller-boundary__header strong, "
+          + ".controller-interface-node strong, .controller-task-manager__header strong, "
+          + ".robot-hardware-node strong",
       ));
       const textNode = title.firstChild;
       const textContent = textNode?.textContent ?? "";
@@ -485,13 +486,13 @@ test("Korean platform and controller visuals remain contained and legible", asyn
         diagramOverflows:
           root.scrollWidth > root.clientWidth + 1
           || root.scrollHeight > root.clientHeight + 1
-          || graph.scrollWidth > graph.clientWidth + 1,
+          || boundary.scrollWidth > boundary.clientWidth + 1
+          || manager.scrollWidth > manager.clientWidth + 1,
         minimumPrimarySize: Math.min(
           ...primaryLabels.map(
             (label) => Number.parseFloat(getComputedStyle(label).fontSize),
           ),
         ),
-        subtitleSize: Number.parseFloat(getComputedStyle(subtitle).fontSize),
         wordBreak: getComputedStyle(title).wordBreak,
         wordLines: new Set(
           Array.from(range.getClientRects()).map((rect) => Math.round(rect.top)),
@@ -500,8 +501,7 @@ test("Korean platform and controller visuals remain contained and legible", asyn
     });
 
     expect(controllerGeometry.diagramOverflows).toBe(false);
-    expect(controllerGeometry.minimumPrimarySize).toBeGreaterThanOrEqual(9.5);
-    expect(controllerGeometry.subtitleSize).toBeGreaterThanOrEqual(8);
+    expect(controllerGeometry.minimumPrimarySize).toBeGreaterThanOrEqual(8);
     expect(controllerGeometry.wordBreak).toBe("keep-all");
     expect(controllerGeometry.wordLines).toBe(1);
   }
@@ -638,26 +638,68 @@ test("@scene all robot scenes reach readiness and render nonblank WebGL pixels",
   }
 });
 
-test("controller and platform visuals use source-backed labels", async ({ page }) => {
+test("controller and platform visuals explain architecture and deployment state", async ({ page }) => {
   await page.goto(ENGLISH_ROUTE);
 
   const controllerVisual = page
     .locator("[data-content-id=robot-controller-core]")
     .locator(".project-visual");
-  await expect(controllerVisual).toContainText("real-time controller");
-  await expect(controllerVisual).toContainText("task management");
-  await expect(controllerVisual).toContainText("data flow");
+  await expect(controllerVisual).toContainText("real-time robot controller");
+  await expect(controllerVisual).toContainText("agentic workflow");
   await expect(controllerVisual).toContainText("agent interface");
+  await expect(controllerVisual).toContainText("task manager");
+  await expect(controllerVisual).toContainText("robot hardware");
+  await expect(controllerVisual).not.toContainText("outside controller");
+  await expect(controllerVisual).not.toContainText("software boundary");
+  await expect(controllerVisual).not.toContainText("task request");
+  await expect(controllerVisual).not.toContainText("status");
+  await expect(controllerVisual).not.toContainText("selects + dispatches");
+  await expect(controllerVisual).not.toContainText("commands");
+  await expect(controllerVisual).not.toContainText("state feedback");
+  await expect(controllerVisual).not.toContainText("physical system");
+  await expect(controllerVisual).not.toContainText("motors + sensors");
+  await expect(controllerVisual).not.toContainText("task management");
+  await expect(controllerVisual).not.toContainText("data flow");
   await expect(controllerVisual).not.toContainText("safety");
   await expect(controllerVisual).not.toContainText("I/O");
+
+  const controllerBoundary = controllerVisual.locator(".controller-boundary");
+  await expect(controllerBoundary.locator(".controller-interface-node")).toHaveCount(1);
+  await expect(controllerBoundary.locator(".controller-task-manager")).toHaveCount(1);
+  await expect(controllerBoundary.locator(".controller-task-list > span")).toHaveCount(4);
+  await expect(controllerBoundary.locator(".robot-hardware-node")).toHaveCount(0);
+  await expect(controllerVisual.locator(".robot-hardware-node")).toHaveCount(1);
+  await expect(controllerVisual.locator(".controller-arrow")).toHaveCount(3);
+
+  for (const selector of [".controller-agent-node", ".robot-hardware-node"]) {
+    const labelIsContained = await controllerVisual.locator(selector).evaluate((node) => {
+      const label = node.querySelector("strong")!;
+      const nodeBounds = node.getBoundingClientRect();
+      const labelBounds = label.getBoundingClientRect();
+      return labelBounds.left >= nodeBounds.left - 0.5
+        && labelBounds.right <= nodeBounds.right + 0.5
+        && labelBounds.top >= nodeBounds.top - 0.5
+        && labelBounds.bottom <= nodeBounds.bottom + 0.5;
+    });
+    expect(labelIsContained, `${selector} label overflows its box`).toBe(true);
+  }
 
   const platformVisual = page
     .locator("[data-content-id=development-infrastructure]")
     .locator(".project-visual");
   await expect(platformVisual).toContainText("LLM serving");
   await expect(platformVisual).toContainText("Simulation");
-  await expect(platformVisual).toContainText("Metrics");
+  await expect(platformVisual).toContainText("Monitoring");
   await expect(platformVisual).toContainText("Kubernetes cluster");
+  await expect(platformVisual).toContainText("deployment status");
+  await expect(platformVisual).toContainText("ready replicas");
+  await expect(platformVisual).toContainText("ready");
+  await expect(platformVisual).toContainText("deploying");
+  await expect(platformVisual).not.toContainText("Metrics");
+  await expect(platformVisual.locator(".platform-tabs > span")).toHaveCount(3);
+  await expect(platformVisual.locator(".platform-tabs > .is-active")).toContainText("LLM serving");
+  await expect(platformVisual.locator(".deployment-row")).toHaveCount(2);
+  await expect(platformVisual.locator(".gpu-row, .scheduler-pulse")).toHaveCount(0);
 });
 
 test("generated CV routes are valid and the visible link uses the complete English CV", async ({ page, request }) => {

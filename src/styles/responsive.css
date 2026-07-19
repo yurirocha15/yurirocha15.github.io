@@ -302,30 +302,29 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cycle-strip i,
-  .schedule-overview i,
-  .input-flow b,
-  .task-fanout b,
-  .hardware-flow b,
-  .scheduler-pulse,
-  .workload-row.is-active::before,
-  .gpu-row b,
+  .deployment-replicas i.is-starting,
+  .deployment-state.is-deploying > i,
   .token-stream span,
   .on-device-chip,
   .model-layers span,
   .phone-signal span,
   .mcp-flow b,
   .agent-panel code,
-  .metric-line::after,
-  .pod-grid span,
   .scraper-scan,
   .scraper-engine b,
   .generated-repo span,
   .cartpole-env > b,
-  .cartpole-env > b > span,
-  .kims-rollout-flow b,
-  .kims-reward-chart i {
+  .cartpole-env > b > span {
     animation: none;
+  }
+}
+
+@keyframes deploymentStarting {
+  0% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -344,86 +343,6 @@
   }
   100% {
     transform: rotate(14deg);
-  }
-}
-
-@keyframes kimsReward {
-  0% {
-    opacity: 0.5;
-    transform: scaleY(0.58);
-  }
-  100% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-@keyframes workloadPulse {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes cycleTick {
-  0%,
-  100% {
-    opacity: 0.35;
-    transform: scaleY(0.72);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
-@keyframes controllerPacket {
-  0% {
-    left: 0;
-    opacity: 0;
-  }
-  18%,
-  82% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% - 12px);
-    opacity: 0;
-  }
-}
-
-@keyframes taskSlot {
-  0%,
-  100% {
-    opacity: 0.45;
-    transform: scaleX(0.72);
-    transform-origin: left center;
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-}
-
-@keyframes gpuUtilization {
-  0%,
-  100% {
-    transform: scaleX(0.58);
-  }
-  50% {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes schedulerSweep {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(470%);
   }
 }
 
@@ -504,26 +423,6 @@
   }
 }
 
-@keyframes metricFill {
-  0%,
-  100% {
-    width: 45%;
-  }
-  50% {
-    width: 82%;
-  }
-}
-
-@keyframes podPulse {
-  0%,
-  100% {
-    background: var(--green-soft);
-  }
-  50% {
-    background: var(--yellow-soft);
-  }
-}
-
 @keyframes scraperScan {
   0% {
     transform: translateY(0);
@@ -568,12 +467,103 @@
   }
 
   .project-visual-controller {
+    padding: 4px 8px;
+  }
+
+  .controller-architecture {
+    gap: 2px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px 18px 116px 18px 32px;
+    height: 222px;
+  }
+
+  .controller-agent-node,
+  .robot-hardware-node {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 0;
+    padding: 3px 7px;
+  }
+
+  .controller-architecture > .controller-arrow i {
+    height: 12px;
+    width: 2px;
+  }
+
+  .controller-architecture > .controller-arrow i::after {
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 5px solid var(--olive);
+    border-bottom: 0;
+    bottom: -1px;
+    right: -2px;
+    top: auto;
+  }
+
+  .controller-boundary__header {
+    min-height: 26px;
+    padding-block: 4px;
+  }
+
+  .controller-boundary__body {
+    grid-template-columns: 68px 18px minmax(0, 1fr);
+    min-height: 86px;
+    padding: 5px;
+  }
+
+  .controller-interface-node {
+    min-height: 58px;
+  }
+
+  .controller-task-list > span {
+    padding: 2px 3px;
+  }
+
+  .project-visual-platform {
     padding-inline: 10px;
   }
 
-  .task-manager-graph {
-    gap: 2px;
-    padding-inline: 5px;
+  .deployment-panel {
+    padding-inline: 9px;
+  }
+
+  .deployment-table__header,
+  .deployment-row {
+    gap: 6px;
+    grid-template-columns: minmax(0, 1fr) 72px 58px;
+  }
+
+  .project-visual-topic {
+    padding-inline: 8px;
+  }
+
+  .topic-metric {
+    gap: 5px;
+    grid-template-columns: minmax(94px, 0.92fr) minmax(68px, 1.4fr) 52px;
+  }
+
+  .project-visual-kims {
+    padding: 10px;
+  }
+
+  .kims-sim-toolbar span {
+    font-size: 0.38rem;
+  }
+
+  .cartpole-grid {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .cartpole-env > b {
+    left: calc(50% - 13px);
+    width: 26px;
+  }
+
+  .cartpole-env > b > span {
+    height: 44px;
+    left: 11px;
   }
 
   .project-card--featured .project-visual-mcp {

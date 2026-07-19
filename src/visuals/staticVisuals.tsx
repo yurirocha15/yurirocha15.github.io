@@ -6,37 +6,44 @@ type VisualProps = {
   labels: VisualLabels;
 };
 
+const LLM_DEPLOYMENTS = [
+  { id: "llm-serving-01", readyReplicas: 2, status: "ready" },
+  { id: "llm-serving-02", readyReplicas: 1, status: "deploying" },
+] as const;
+
+const DEPLOYMENT_REPLICA_INDEXES = [0, 1] as const;
+const CARTPOLE_ENVIRONMENT_INDEXES = [0, 1, 2, 3] as const;
+
 export function ControllerRuntimeVisual({ labels }: VisualProps) {
   const copy = labels.controllerRuntime;
   return (
-    <div className="controller-diagram">
-      <div className="cycle-strip">
-        <strong>{copy.realTimeController}</strong>
-        <span><i /><i /><i /><i /></span>
+    <div className="controller-architecture">
+      <div className="controller-agent-node">
+        <strong>{copy.agenticWorkflow}</strong>
       </div>
-      <div className="schedule-overview">
-        <div>
-          <strong>{copy.taskManagement}</strong>
-          <span><i /><i /><i /></span>
+      <div className="controller-arrow"><i /></div>
+      <div className="controller-boundary">
+        <div className="controller-boundary__header">
+          <strong>{copy.realTimeController}</strong>
         </div>
-        <div>
-          <strong>{copy.dataFlow}</strong>
-          <span><i /><i /><i /><i /></span>
+        <div className="controller-boundary__body">
+          <div className="controller-interface-node">
+            <strong>{copy.agentInterface}</strong>
+          </div>
+          <div className="controller-arrow"><i /></div>
+          <div className="controller-task-manager">
+            <div className="controller-task-manager__header">
+              <strong>{copy.taskManager}</strong>
+            </div>
+            <div className="controller-task-list">
+              {copy.tasks.map((task) => <span key={task}>{task}</span>)}
+            </div>
+          </div>
         </div>
       </div>
-      <div className="task-manager-graph">
-        <div className="external-stack"><span>{copy.agent}</span></div>
-        <div className="input-flow"><i><b /></i></div>
-        <div className="task-manager-node">
-          <strong className="task-manager-node__title">{copy.agentInterface}</strong>
-          <span className="task-manager-node__subtitle">{copy.agenticWorkflows}</span>
-        </div>
-        <div className="task-fanout"><i><b /></i><i><b /></i><i><b /></i><i><b /></i></div>
-        <div className="controller-tasks">
-          {copy.tasks.map((task) => <span key={task}>{task}</span>)}
-        </div>
-        <div className="hardware-flow"><i><b /></i><i><b /></i></div>
-        <div className="hardware-node">{copy.realRobot}</div>
+      <div className="controller-arrow"><i /></div>
+      <div className="robot-hardware-node">
+        <strong>{copy.robotHardware}</strong>
       </div>
     </div>
   );
@@ -44,28 +51,55 @@ export function ControllerRuntimeVisual({ labels }: VisualProps) {
 
 export function GpuPlatformVisual({ labels }: VisualProps) {
   const copy = labels.gpuPlatform;
+
   return (
-    <>
-      <div className="platform-console">
-        <div className="platform-toolbar">
-          <span /><span /><span /><strong>{copy.deploymentPlatform}</strong>
+    <div className="platform-console">
+      <div className="platform-toolbar">
+        <strong>{copy.deploymentPlatform}</strong>
+        <span>{copy.kubernetesCluster}</span>
+      </div>
+      <div className="platform-tabs">
+        <span className="is-active">{copy.llmServing}</span>
+        <span>{copy.simulation}</span>
+        <span>{copy.monitoring}</span>
+      </div>
+      <div className="deployment-panel">
+        <div className="deployment-heading">
+          <strong>{copy.deploymentStatus}</strong>
+          <span><i />{copy.clusterHealthy}</span>
         </div>
-        <div className="platform-body">
-          <div className="workload-list">
-            <div className="workload-row is-active"><strong>{copy.llmEnvironment}</strong><span>{copy.deploy}</span></div>
-            <div className="workload-row"><strong>{copy.simulation}</strong><span>{copy.deploy}</span></div>
-            <div className="workload-row"><strong>{copy.metrics}</strong><span>{copy.monitor}</span></div>
+        <div className="deployment-table">
+          <div className="deployment-table__header">
+            <span>{copy.deployment}</span>
+            <span>{copy.replicas}</span>
+            <span>{copy.status}</span>
           </div>
-          <div className="gpu-cluster">
-            <div className="cluster-title"><strong>{copy.kubernetesCluster}</strong><span>{copy.healthy}</span></div>
-            <div className="gpu-row"><span>{copy.llmAbbreviation}</span><i><b /></i></div>
-            <div className="gpu-row"><span>{copy.simulationAbbreviation}</span><i><b /></i></div>
-            <div className="gpu-row"><span>{copy.metricsAbbreviation}</span><i><b /></i></div>
-          </div>
+          {LLM_DEPLOYMENTS.map((deployment) => {
+            const isReady = deployment.status === "ready";
+            return (
+              <div className="deployment-row" key={deployment.id}>
+                <strong>{deployment.id}</strong>
+                <div className="deployment-replicas">
+                  <span>
+                    {DEPLOYMENT_REPLICA_INDEXES.map((replica) => (
+                      <i
+                        className={replica < deployment.readyReplicas ? "is-ready" : "is-starting"}
+                        key={replica}
+                      />
+                    ))}
+                  </span>
+                  <strong>{deployment.readyReplicas} / 2</strong>
+                </div>
+                <span className={`deployment-state is-${deployment.status}`}>
+                  <i />
+                  {isReady ? copy.ready : copy.deploying}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <div className="scheduler-pulse" />
-    </>
+    </div>
   );
 }
 
@@ -111,15 +145,36 @@ export function McpVisual({ labels }: VisualProps) {
   );
 }
 
-export function TopicVisual() {
+export function TopicVisual({ labels }: VisualProps) {
+  const copy = labels.topic;
+  const metrics = [
+    { className: "cpu", label: copy.cpu, value: "1.2 / 2.0 cores", source: copy.cgroupLimit },
+    { className: "memory", label: copy.memory, value: "640 / 1024 MiB", source: copy.cgroupLimit },
+    { className: "gpu", label: copy.gpu, value: "42%", source: "NVML" },
+  ];
+
   return (
-    <>
-      <div className="terminal-bar" />
-      <div className="metric-line cpu" />
-      <div className="metric-line memory" />
-      <div className="metric-line gpu" />
-      <div className="pod-grid"><span /><span /><span /><span /></div>
-    </>
+    <div className="topic-terminal">
+      <div className="topic-terminal__header">
+        <strong>topic</strong>
+      </div>
+      <div className="topic-scope">
+        <strong>{copy.containerResources}</strong>
+        <span>{copy.relativeToLimits}</span>
+      </div>
+      <div className="topic-metrics">
+        {metrics.map((metric) => (
+          <div className={`topic-metric topic-metric--${metric.className}`} key={metric.label}>
+            <div><strong>{metric.label}</strong><span>{metric.value}</span></div>
+            <i><b /></i>
+            <small>{metric.source}</small>
+          </div>
+        ))}
+      </div>
+      <div className="topic-sources">
+        <span>Docker</span><span>Kubernetes</span><span>cgroups</span><span>NVML</span>
+      </div>
+    </div>
   );
 }
 
@@ -144,25 +199,22 @@ export function LeetcodeVisual({ labels }: VisualProps) {
 
 export function KimsVisual({ labels }: VisualProps) {
   const copy = labels.kims;
+
   return (
-    <>
-      <div className="kims-sim-panel">
-        <div className="kims-sim-toolbar"><strong>Isaac Sim</strong><span>{copy.vectorizedEnvironments}</span></div>
-        <div className="cartpole-grid">
-          {[0, 1, 2, 3].map((index) => (
-            <div className="cartpole-env" key={index}><i /><b><span /></b></div>
-          ))}
-        </div>
+    <div className="kims-sim-panel">
+      <div className="kims-sim-toolbar">
+        <strong>Isaac Sim</strong>
+        <span>{copy.vectorizedEnvironments}</span>
       </div>
-      <div className="kims-training-panel">
-        <div className="kims-policy-node"><strong>PPO</strong><span>{copy.policy}</span></div>
-        <div className="kims-trainers"><span>Stable-Baselines3</span><span>RL-Games</span></div>
-        <div className="kims-rollout-flow"><small>{copy.rollouts}</small><i><b /></i></div>
-        <div className="kims-reward-chart">
-          <strong>{copy.reward}</strong><div><i /><i /><i /><i /><i /><i /></div>
-        </div>
+      <div className="cartpole-grid">
+        {CARTPOLE_ENVIRONMENT_INDEXES.map((environment) => (
+          <div className="cartpole-env" key={environment}>
+            <i />
+            <b><span /></b>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 

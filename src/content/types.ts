@@ -132,26 +132,25 @@ export type PortfolioVisualLabels = {
   };
   controllerRuntime: {
     realTimeController: string;
-    taskManagement: string;
-    dataFlow: string;
-    agent: string;
+    agenticWorkflow: string;
     agentInterface: string;
-    agenticWorkflows: string;
+    taskManager: string;
     tasks: readonly [string, string, string, string];
-    realRobot: string;
+    robotHardware: string;
   };
   gpuPlatform: {
     deploymentPlatform: string;
-    llmEnvironment: string;
+    llmServing: string;
     simulation: string;
-    metrics: string;
-    deploy: string;
-    monitor: string;
+    monitoring: string;
     kubernetesCluster: string;
-    healthy: string;
-    llmAbbreviation: string;
-    simulationAbbreviation: string;
-    metricsAbbreviation: string;
+    deploymentStatus: string;
+    clusterHealthy: string;
+    deployment: string;
+    replicas: string;
+    status: string;
+    ready: string;
+    deploying: string;
   };
   edgeLlm: {
     onDevice: string;
@@ -169,6 +168,14 @@ export type PortfolioVisualLabels = {
     resources: string;
     agent: string;
   };
+  topic: {
+    containerResources: string;
+    relativeToLimits: string;
+    cpu: string;
+    memory: string;
+    gpu: string;
+    cgroupLimit: string;
+  };
   leetcode: {
     problem: string;
     description: string;
@@ -179,9 +186,6 @@ export type PortfolioVisualLabels = {
   };
   kims: {
     vectorizedEnvironments: string;
-    policy: string;
-    rollouts: string;
-    reward: string;
   };
 };
 
