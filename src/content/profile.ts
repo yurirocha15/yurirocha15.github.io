@@ -38,7 +38,7 @@ export const profile = {
     {
       id: "email",
       label: "Email",
-      href: "mailto:yurirocha15@gmail.com",
+      href: "mailto:contact@yurirocha.com",
       locations: ["hero", "footer"],
       hideOnMobile: true,
     },
@@ -78,8 +78,8 @@ export const profile = {
   contact: {
     eyebrow: "Contact",
     location: "Seoul, South Korea",
-    email: "yurirocha15@gmail.com",
-    emailHref: "mailto:yurirocha15@gmail.com",
+    email: "contact@yurirocha.com",
+    emailHref: "mailto:contact@yurirocha.com",
   },
   labels: {
     mainNavigation: "Main navigation",

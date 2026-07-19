@@ -46,7 +46,7 @@ export const brazilianPortuguesePortfolioContent = {
       {
         id: "email",
         label: "E-mail",
-        href: "mailto:yurirocha15@gmail.com",
+        href: "mailto:contact@yurirocha.com",
         locations: ["hero", "footer"],
         hideOnMobile: true,
       },
@@ -96,8 +96,8 @@ export const brazilianPortuguesePortfolioContent = {
     contact: {
       eyebrow: "Contato",
       location: "Seul, Coreia do Sul",
-      email: "yurirocha15@gmail.com",
-      emailHref: "mailto:yurirocha15@gmail.com",
+      email: "contact@yurirocha.com",
+      emailHref: "mailto:contact@yurirocha.com",
     },
     labels: {
       mainNavigation: "Navegação principal",

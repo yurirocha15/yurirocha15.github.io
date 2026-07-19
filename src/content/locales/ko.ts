@@ -46,7 +46,7 @@ export const koreanPortfolioContent = {
       {
         id: "email",
         label: "이메일",
-        href: "mailto:yurirocha15@gmail.com",
+        href: "mailto:contact@yurirocha.com",
         locations: ["hero", "footer"],
         hideOnMobile: true,
       },
@@ -86,8 +86,8 @@ export const koreanPortfolioContent = {
     contact: {
       eyebrow: "연락처",
       location: "대한민국 서울",
-      email: "yurirocha15@gmail.com",
-      emailHref: "mailto:yurirocha15@gmail.com",
+      email: "contact@yurirocha.com",
+      emailHref: "mailto:contact@yurirocha.com",
     },
     labels: {
       mainNavigation: "주 메뉴",

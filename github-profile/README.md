@@ -13,8 +13,8 @@
   <a href="https://www.linkedin.com/in/yurirocha15/">
     <img src="https://img.shields.io/badge/LinkedIn-yurirocha15-34464a?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
-  <a href="mailto:yurirocha15@gmail.com">
-    <img src="https://img.shields.io/badge/email-yurirocha15%40gmail.com-59624d?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  <a href="mailto:contact@yurirocha.com">
+    <img src="https://img.shields.io/badge/email-contact%40yurirocha.com-59624d?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
   </a>
   <img src="https://komarev.com/ghpvc/?username=yurirocha15&style=for-the-badge&color=59624d&label=profile%20views" alt="Profile views" />
 </p>
@@ -156,5 +156,5 @@ systems for autonomous robots.
   &nbsp;/&nbsp;
   <a href="https://www.linkedin.com/in/yurirocha15/">linkedin</a>
   &nbsp;/&nbsp;
-  <a href="mailto:yurirocha15@gmail.com">email</a>
+  <a href="mailto:contact@yurirocha.com">email</a>
 </p>
