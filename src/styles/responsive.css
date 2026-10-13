@@ -302,6 +302,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .controller-arrow b,
+  .controller-interface-node,
+  .robot-hardware-node,
+  .controller-task-list > span,
+  .deployment-heading span i,
+  .deployment-row.is-deploying::after,
   .deployment-replicas i.is-starting,
   .deployment-state.is-deploying > i,
   .token-stream span,
@@ -316,6 +322,82 @@
   .cartpole-env > b,
   .cartpole-env > b > span {
     animation: none;
+  }
+}
+
+@keyframes controllerPacket {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  4%,
+  21% {
+    opacity: 1;
+  }
+  25%,
+  100% {
+    left: calc(100% - 6px);
+    opacity: 0;
+  }
+}
+
+@keyframes controllerPacketVertical {
+  0% {
+    opacity: 0;
+    top: 0;
+  }
+  4%,
+  21% {
+    opacity: 1;
+  }
+  25%,
+  100% {
+    opacity: 0;
+    top: calc(100% - 6px);
+  }
+}
+
+@keyframes controllerReceive {
+  0%,
+  30%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(211, 155, 42, 0);
+  }
+  8% {
+    box-shadow: 0 0 0 3px rgba(211, 155, 42, 0.85);
+  }
+}
+
+@keyframes controllerTask {
+  0%,
+  25%,
+  100% {
+    background: transparent;
+    border-color: var(--line-strong);
+  }
+  5%,
+  20% {
+    background: var(--yellow-soft);
+    border-color: var(--yellow);
+  }
+}
+
+@keyframes clusterHeartbeat {
+  0% {
+    box-shadow: 0 0 0 0 rgba(89, 98, 77, 0.6);
+  }
+  60%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(89, 98, 77, 0);
+  }
+}
+
+@keyframes deploymentProgress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(295%);
   }
 }
 
@@ -499,6 +581,12 @@
     bottom: -1px;
     right: -2px;
     top: auto;
+  }
+
+  .controller-architecture > .controller-arrow b {
+    animation-name: controllerPacketVertical;
+    left: -2px;
+    top: 0;
   }
 
   .controller-boundary__header {

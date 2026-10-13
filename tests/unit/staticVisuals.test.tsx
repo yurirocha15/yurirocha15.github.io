@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
+import { act, render } from "@testing-library/react";
+import { describe, expect, test, vi } from "vitest";
 import { portfolioContent } from "../../src/content";
 import {
   ControllerRuntimeVisual,
@@ -21,6 +21,7 @@ describe("source-backed static project visuals", () => {
     expect(boundary.querySelector(".robot-hardware-node")).toBeNull();
     expect(container.querySelector(".robot-hardware-node")).toBeTruthy();
     expect(container.querySelectorAll(".controller-arrow")).toHaveLength(3);
+    expect(container.querySelectorAll(".controller-arrow > i > b")).toHaveLength(3);
     expect(container).toHaveTextContent("agentic workflow");
     expect(container).toHaveTextContent("agent interface");
     expect(container).toHaveTextContent("task manager");
@@ -38,6 +39,7 @@ describe("source-backed static project visuals", () => {
     expect(container).toHaveTextContent("Simulation");
     expect(container).toHaveTextContent("Monitoring");
     expect(container.querySelectorAll(".deployment-row")).toHaveLength(2);
+    expect(container.querySelectorAll(".deployment-row.is-deploying")).toHaveLength(1);
     expect(container).toHaveTextContent("ready replicas");
     expect(container).toHaveTextContent("2 / 2");
     expect(container).toHaveTextContent("deploying");
@@ -62,6 +64,35 @@ describe("source-backed static project visuals", () => {
     expect(gpu).toHaveTextContent("NVML");
     expect(container).not.toHaveTextContent("container view");
     expect(container.querySelector(".terminal-bar, .pod-grid")).toBeNull();
+  });
+
+  test("advances container metrics only while the visual is active", () => {
+    vi.useFakeTimers();
+    try {
+      const { container } = render(
+        <div className="project-visual">
+          <TopicVisual labels={labels} />
+        </div>,
+      );
+      const visual = container.querySelector(".project-visual")!;
+      const cpu = container.querySelector(".topic-metric--cpu")!;
+      const cpuBar = cpu.querySelector<HTMLElement>("i > b")!;
+
+      expect(cpuBar.style.width).toBe("60%");
+      act(() => {
+        vi.advanceTimersByTime(1400);
+      });
+      expect(cpu).toHaveTextContent("1.2 / 2.0 cores");
+
+      visual.classList.add("is-active");
+      act(() => {
+        vi.advanceTimersByTime(1400);
+      });
+      expect(cpu).toHaveTextContent("1.5 / 2.0 cores");
+      expect(cpuBar.style.width).toBe("75%");
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   test("shows four vectorized CartPole environments without a training dashboard", () => {

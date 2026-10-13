@@ -72,6 +72,40 @@
   top: -2px;
 }
 
+.controller-arrow b {
+  animation: controllerPacket 2.4s ease-in-out infinite;
+  background: var(--yellow);
+  border: 1px solid var(--ink);
+  box-sizing: border-box;
+  height: 6px;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: -2px;
+  width: 6px;
+}
+
+.controller-boundary .controller-arrow b {
+  animation-delay: 0.6s;
+}
+
+.controller-boundary + .controller-arrow b {
+  animation-delay: 1.2s;
+}
+
+.controller-interface-node,
+.robot-hardware-node {
+  animation: controllerReceive 2.4s ease-in-out infinite;
+}
+
+.controller-interface-node {
+  animation-delay: 0.6s;
+}
+
+.robot-hardware-node {
+  animation-delay: 1.8s;
+}
+
 .controller-boundary {
   background: var(--paper);
   border: 2px solid var(--ink);
@@ -155,6 +189,22 @@
   padding: 4px 3px;
   text-align: center;
   text-transform: uppercase;
+}
+
+.controller-task-list > span {
+  animation: controllerTask 2.4s ease-in-out infinite;
+}
+
+.controller-task-list > span:nth-child(1) {
+  animation-delay: 1.2s;
+}
+
+.controller-task-list > span:nth-child(2) {
+  animation-delay: 1.8s;
+}
+
+.controller-task-list > span:nth-child(4) {
+  animation-delay: 0.6s;
 }
 
 .controller-boundary strong,
@@ -275,6 +325,10 @@
   width: 6px;
 }
 
+.deployment-heading span i {
+  animation: clusterHeartbeat 2.4s ease-out infinite;
+}
+
 .deployment-table {
   display: grid;
   grid-template-rows: 20px repeat(2, 1fr);
@@ -296,11 +350,24 @@
   border: 1px solid var(--line-strong);
   border-bottom: 0;
   min-width: 0;
+  overflow: hidden;
   padding: 4px 8px;
+  position: relative;
 }
 
 .deployment-row:last-child {
   border-bottom: 1px solid var(--line-strong);
+}
+
+.deployment-row.is-deploying::after {
+  animation: deploymentProgress 1.8s ease-in-out infinite;
+  background: var(--yellow);
+  bottom: 0;
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  width: 34%;
 }
 
 .deployment-row > strong {
@@ -781,15 +848,7 @@
   background: var(--yellow);
   display: block;
   height: 100%;
-  width: 60%;
-}
-
-.topic-metric--memory > i > b {
-  width: 62.5%;
-}
-
-.topic-metric--gpu > i > b {
-  width: 42%;
+  transition: width 0.7s ease-in-out;
 }
 
 .topic-metric small {

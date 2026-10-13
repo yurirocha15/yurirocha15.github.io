@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, type RefObject } from "react";
 import type { PortfolioContent } from "../content";
 
 type VisualLabels = PortfolioContent["visuals"];
@@ -14,6 +15,32 @@ const LLM_DEPLOYMENTS = [
 const DEPLOYMENT_REPLICA_INDEXES = [0, 1] as const;
 const CARTPOLE_ENVIRONMENT_INDEXES = [0, 1, 2, 3] as const;
 
+const TOPIC_CPU_LIMIT_CORES = 2;
+const TOPIC_MEMORY_LIMIT_MIB = 1024;
+const TOPIC_SAMPLE_INTERVAL_MS = 1400;
+const TOPIC_SAMPLES = [
+  { cpuCores: 1.2, memoryMib: 640, gpuPercent: 42 },
+  { cpuCores: 1.5, memoryMib: 668, gpuPercent: 57 },
+  { cpuCores: 0.9, memoryMib: 652, gpuPercent: 35 },
+  { cpuCores: 1.7, memoryMib: 704, gpuPercent: 64 },
+] as const;
+
+function useTopicSample(rootRef: RefObject<HTMLElement | null>) {
+  const [sampleIndex, setSampleIndex] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = window.setInterval(() => {
+      const isActive = rootRef.current?.closest(".project-visual")?.classList.contains("is-active");
+      if (isActive) setSampleIndex((current) => (current + 1) % TOPIC_SAMPLES.length);
+    }, TOPIC_SAMPLE_INTERVAL_MS);
+    return () => window.clearInterval(timer);
+  }, [rootRef]);
+
+  return TOPIC_SAMPLES[sampleIndex];
+}
+
 export function ControllerRuntimeVisual({ labels }: VisualProps) {
   const copy = labels.controllerRuntime;
   return (
@@ -21,7 +48,7 @@ export function ControllerRuntimeVisual({ labels }: VisualProps) {
       <div className="controller-agent-node">
         <strong>{copy.agenticWorkflow}</strong>
       </div>
-      <div className="controller-arrow"><i /></div>
+      <div className="controller-arrow"><i><b /></i></div>
       <div className="controller-boundary">
         <div className="controller-boundary__header">
           <strong>{copy.realTimeController}</strong>
@@ -30,7 +57,7 @@ export function ControllerRuntimeVisual({ labels }: VisualProps) {
           <div className="controller-interface-node">
             <strong>{copy.agentInterface}</strong>
           </div>
-          <div className="controller-arrow"><i /></div>
+          <div className="controller-arrow"><i><b /></i></div>
           <div className="controller-task-manager">
             <div className="controller-task-manager__header">
               <strong>{copy.taskManager}</strong>
@@ -41,7 +68,7 @@ export function ControllerRuntimeVisual({ labels }: VisualProps) {
           </div>
         </div>
       </div>
-      <div className="controller-arrow"><i /></div>
+      <div className="controller-arrow"><i><b /></i></div>
       <div className="robot-hardware-node">
         <strong>{copy.robotHardware}</strong>
       </div>
@@ -77,7 +104,7 @@ export function GpuPlatformVisual({ labels }: VisualProps) {
           {LLM_DEPLOYMENTS.map((deployment) => {
             const isReady = deployment.status === "ready";
             return (
-              <div className="deployment-row" key={deployment.id}>
+              <div className={`deployment-row is-${deployment.status}`} key={deployment.id}>
                 <strong>{deployment.id}</strong>
                 <div className="deployment-replicas">
                   <span>
@@ -147,14 +174,34 @@ export function McpVisual({ labels }: VisualProps) {
 
 export function TopicVisual({ labels }: VisualProps) {
   const copy = labels.topic;
+  const terminalRef = useRef<HTMLDivElement>(null);
+  const sample = useTopicSample(terminalRef);
   const metrics = [
-    { className: "cpu", label: copy.cpu, value: "1.2 / 2.0 cores", source: copy.cgroupLimit },
-    { className: "memory", label: copy.memory, value: "640 / 1024 MiB", source: copy.cgroupLimit },
-    { className: "gpu", label: copy.gpu, value: "42%", source: "NVML" },
+    {
+      className: "cpu",
+      label: copy.cpu,
+      value: `${sample.cpuCores.toFixed(1)} / ${TOPIC_CPU_LIMIT_CORES.toFixed(1)} cores`,
+      usagePercent: (sample.cpuCores / TOPIC_CPU_LIMIT_CORES) * 100,
+      source: copy.cgroupLimit,
+    },
+    {
+      className: "memory",
+      label: copy.memory,
+      value: `${sample.memoryMib} / ${TOPIC_MEMORY_LIMIT_MIB} MiB`,
+      usagePercent: (sample.memoryMib / TOPIC_MEMORY_LIMIT_MIB) * 100,
+      source: copy.cgroupLimit,
+    },
+    {
+      className: "gpu",
+      label: copy.gpu,
+      value: `${sample.gpuPercent}%`,
+      usagePercent: sample.gpuPercent,
+      source: "NVML",
+    },
   ];
 
   return (
-    <div className="topic-terminal">
+    <div className="topic-terminal" ref={terminalRef}>
       <div className="topic-terminal__header">
         <strong>topic</strong>
       </div>
@@ -166,7 +213,7 @@ export function TopicVisual({ labels }: VisualProps) {
         {metrics.map((metric) => (
           <div className={`topic-metric topic-metric--${metric.className}`} key={metric.label}>
             <div><strong>{metric.label}</strong><span>{metric.value}</span></div>
-            <i><b /></i>
+            <i><b style={{ width: `${metric.usagePercent}%` }} /></i>
             <small>{metric.source}</small>
           </div>
         ))}
