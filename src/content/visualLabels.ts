@@ -70,7 +70,7 @@ export const koreanVisualLabels = {
     description: "이 3D 환경을 실행하려면 WebGL이 필요합니다.",
   },
   controllerRuntime: {
-    realTimeController: "실시간 로봇 컨트롤러",
+    realTimeController: "실시간 로봇 제어기",
     agenticWorkflow: "에이전틱 워크플로",
     agentInterface: "에이전트 인터페이스",
     taskManager: "태스크 관리자",

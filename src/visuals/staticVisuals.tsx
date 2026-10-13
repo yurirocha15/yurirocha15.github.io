@@ -191,7 +191,7 @@ export function LeetcodeVisual({ labels }: VisualProps) {
       </div>
       <div className="scraper-engine"><strong>leet2git</strong><small>{copy.pythonScraper}</small><i><b /></i></div>
       <div className="generated-repo">
-        <strong>{copy.gitRepository}</strong><span>0042.cpp</span><span>test_0042.py</span><span>README.md</span>
+        <strong>{copy.gitRepository}</strong><span>0042.py</span><span>test_0042.py</span><span>README.md</span>
       </div>
     </>
   );

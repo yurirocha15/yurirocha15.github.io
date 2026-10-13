@@ -37,7 +37,7 @@ export const publications = [
     id: "cooperative-manipulation-ccta",
     year: "2017",
     title:
-      "Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation",
+      "Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation Using Dual Quaternion Representation",
     venue: "IEEE CCTA",
     href: "./assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf",
   },
@@ -71,7 +71,7 @@ export const awards = [
   },
   {
     id: "robocup",
-    year: "2016",
+    year: "2014, 2016",
     title: "RoboCup Standard Platform League",
     detail: "Won the Best Drop-in Only Team award with UnBeatables at RoboCup",
   },

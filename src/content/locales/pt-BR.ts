@@ -585,7 +585,7 @@ export const brazilianPortuguesePortfolioContent = {
     },
     {
       id: "robocup",
-      year: "2016",
+      year: "2014, 2016",
       title: "RoboCup Standard Platform League",
       detail:
         "Prêmio Best Drop-in Only Team com a equipe UnBeatables na RoboCup",

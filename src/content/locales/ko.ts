@@ -6,7 +6,7 @@ export const koreanPortfolioContent = {
   metadata: {
     title: "유리 허샤 - 로보틱스 소프트웨어 · 피지컬 AI",
     description:
-      "실시간 로봇 컨트롤러, 에이전틱 워크플로용 로봇 인터페이스, 모션 플래닝 시스템, Kubernetes 기반 LLMOps 인프라를 개발하는 시니어 로보틱스 소프트웨어 엔지니어 유리 허샤의 포트폴리오입니다.",
+      "실시간 로봇 제어기, 에이전틱 워크플로용 로봇 인터페이스, 모션 플래닝 시스템, Kubernetes 기반 LLMOps 인프라를 개발하는 시니어 로보틱스 소프트웨어 엔지니어 유리 허샤의 포트폴리오입니다.",
   },
   profile: {
     skipLinkLabel: "본문으로 건너뛰기",
@@ -55,7 +55,7 @@ export const koreanPortfolioContent = {
       metadata: ["시니어 로보틱스 소프트웨어 엔지니어", "C++ · ROS 2 · Linux", "대한민국 서울"],
       heading: "피지컬 AI를 위한\n신뢰성 높은\n소프트웨어를 만듭니다.",
       lead:
-        "실시간 로봇 컨트롤러 소프트웨어와 에이전틱 워크플로를 협동 로봇에 연결하는 인터페이스를 설계합니다. 산업용 모션 플래닝, 모델 및 그래프 수준의 AI 최적화, Kubernetes 기반 LLMOps 및 시뮬레이션 인프라 분야에서도 일해 왔습니다.",
+        "실시간 로봇 제어기 소프트웨어와 에이전틱 워크플로를 협동 로봇에 연결하는 인터페이스를 설계합니다. 산업용 모션 플래닝, 모델 및 그래프 수준의 AI 최적화, Kubernetes 기반 LLMOps 및 시뮬레이션 인프라 분야에서도 일해 왔습니다.",
     },
     engineeringProfile: {
       label: "엔지니어링 프로필",
@@ -128,9 +128,9 @@ export const koreanPortfolioContent = {
       role: "시니어 소프트웨어 엔지니어, AI & Software",
       company: "두산로보틱스",
       detail:
-        "실시간 로봇 컨트롤러 아키텍처, 실제 로봇을 위한 에이전트 인터페이스, Kubernetes 기반 LLMOps 인프라, 공식 C++ API 및 ROS 패키지를 담당합니다.",
+        "실시간 로봇 제어기 아키텍처, 실제 로봇을 위한 에이전트 인터페이스, Kubernetes 기반 LLMOps 인프라, 공식 C++ API 및 ROS 패키지를 담당합니다.",
       bullets: [
-        "태스크 관리와 데이터 흐름 설계를 포함한 고성능 로봇 컨트롤러의 핵심 실시간 소프트웨어를 설계하고 개발하고 있습니다.",
+        "태스크 관리와 데이터 흐름 설계를 포함한 고성능 로봇 제어기의 핵심 실시간 소프트웨어를 설계하고 개발하고 있습니다.",
         "에이전틱 워크플로가 실제 로봇과 상호작용하고 이를 구동할 수 있도록 소프트웨어 인터페이스와 하네스를 개발하고 있습니다.",
         "지속적인 개발과 배포를 지원하는 내부 Kubernetes 클러스터를 운영하고 CI/CD 및 LLMOps 파이프라인을 유지보수하고 있습니다.",
         "개발자가 Kubernetes에 LLM 서빙 및 로보틱스 시뮬레이션 워크로드를 배포하고 워크로드 메트릭을 모니터링할 수 있는 웹 플랫폼을 설계하고 개발했습니다.",
@@ -170,14 +170,14 @@ export const koreanPortfolioContent = {
   professionalProjects: [
     {
       id: "robot-controller-core",
-      eyebrow: "두산로보틱스 로봇 컨트롤러",
-      title: "실시간 로봇 컨트롤러 코어",
+      eyebrow: "두산로보틱스 로봇 제어기",
+      title: "실시간 로봇 제어기 코어",
       description:
-        "태스크 관리 및 데이터 흐름 아키텍처를 포함한 고성능 로봇 컨트롤러의 핵심 실시간 소프트웨어입니다.",
+        "태스크 관리 및 데이터 흐름 아키텍처를 포함한 고성능 로봇 제어기의 핵심 실시간 소프트웨어입니다.",
       visual: "controller-runtime",
       layout: "standard",
       bullets: [
-        "컨트롤러 코어 전반의 태스크 관리 및 데이터 흐름을 설계합니다.",
+        "제어기 코어 전반의 태스크 관리 및 데이터 흐름을 설계합니다.",
         "실제 로봇과 상호작용하는 에이전틱 워크플로를 위한 소프트웨어 인터페이스와 하네스를 개발합니다.",
         "공식 C++ API 및 ROS 패키지의 릴리스와 유지보수를 주도합니다.",
       ],
@@ -472,7 +472,7 @@ export const koreanPortfolioContent = {
       id: "cooperative-manipulation-ccta",
       year: "2017",
       title:
-        "Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation",
+        "Design of Singularity-Robust and Task-Priority Primitive Controllers for Cooperative Manipulation Using Dual Quaternion Representation",
       venue: "IEEE CCTA",
       href: "./assets/Design-of-singularity-robust-and-task-priority-primitive-controllers_CCTA_2017.pdf",
     },
@@ -487,7 +487,7 @@ export const koreanPortfolioContent = {
     {
       id: "academic-achievement",
       year: "2019",
-      title: "정부초청장학생 학업성취상",
+      title: "정부초청장학생 학업성적 우수상",
       detail: "정부초청외국인장학사업",
     },
     {
@@ -504,7 +504,7 @@ export const koreanPortfolioContent = {
     },
     {
       id: "robocup",
-      year: "2016",
+      year: "2014, 2016",
       title: "RoboCup Standard Platform League",
       detail: "세계 휴머노이드 로봇 축구 대회에서 UnBeatables로 Best Drop-in Only Team 수상",
     },
