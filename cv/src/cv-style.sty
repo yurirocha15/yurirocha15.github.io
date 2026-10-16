@@ -8,7 +8,25 @@
 \setsansfont{Noto Sans}
 \setCJKmainfont{Noto Sans CJK KR}
 \setCJKsansfont{Noto Sans CJK KR}
-\xeCJKsetup{CJKspace=true}
+% Korean typography: no automatic gap between Hangul and Latin/digits ("7년", not "7 년").
+% xeCJK replaces a typed space after Hangul with that same gap, so the patch below
+% restores a normal word space where the source has one ("약 4년", "개발자로서 PoC").
+\xeCJKsetup{CJKspace=true,CJKecglue={\hskip 0pt},xCJKecglue=false}
+\ExplSyntaxOn
+\cs_set_protected:Npn \__xeCJK_check_for_ecglue:
+  {
+    \xeCJK_if_last_node:nTF { CJK }
+      { \use_i:nn }
+      { \xeCJK_if_last_node:nTF { CJK-widow } }
+      { \xeCJK_remove_node: \skip_horizontal:N \l__xeCJK_ecglue_skip }
+      {
+        \xeCJK_if_last_node:nTF { CJK-space }
+          { \xeCJK_remove_node: \c_space_tl }
+          { }
+      }
+  }
+\cs_set_eq:NN \xeCJK_check_for_ecglue: \__xeCJK_check_for_ecglue:
+\ExplSyntaxOff
 
 \RequirePackage[a4paper,top=11mm,bottom=11mm,left=13mm,right=13mm]{geometry}
 \RequirePackage{xcolor}
