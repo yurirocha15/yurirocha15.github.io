@@ -1,5 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  await page.route("https://www.googletagmanager.com/**", (route) =>
+    route.fulfill({ contentType: "text/javascript", body: "" }),
+  );
+});
+
 test("locale query renders localized metadata, content, and complete CV links", async ({
   page,
 }) => {

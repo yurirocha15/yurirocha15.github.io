@@ -77,6 +77,9 @@ async function hasRenderedPixelSignal(locator: Locator): Promise<boolean> {
 }
 
 test.beforeEach(async ({ page }) => {
+  await page.route("https://www.googletagmanager.com/**", (route) =>
+    route.fulfill({ contentType: "text/javascript", body: "" }),
+  );
   const errors: string[] = [];
   browserErrors.set(page, errors);
   page.on("pageerror", (error) => errors.push(error.message));
