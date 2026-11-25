@@ -1,42 +1,32 @@
-import { mixPose, smoothstep, type FrankaPose } from "../shared/motion";
-import { PALLETIZER_POSES } from "./config";
+import * as THREE from "three";
+import type { URDFRobot } from "urdf-loader";
+import { planArmPickPlace, type PickPlacePlan } from "../shared/pickPlace";
+import { PALLETIZER_APPROACH, PALLETIZER_PALLET_HEIGHT, PALLETIZER_POSES, PALLETIZER_STACK } from "./config";
 
-export type PalletizerAnimationState = {
-  pose: FrankaPose;
-  fingerOpening: number;
-  grasped: boolean;
-};
-
-function getPose(phase: number) {
-  if (phase < 0.18) {
-    return mixPose(PALLETIZER_POSES.home, PALLETIZER_POSES.pick, smoothstep(0, 0.18, phase));
-  }
-  if (phase < 0.3) return PALLETIZER_POSES.pick;
-  if (phase < 0.44) {
-    return mixPose(PALLETIZER_POSES.pick, PALLETIZER_POSES.carry, smoothstep(0.3, 0.44, phase));
-  }
-  if (phase < 0.58) {
-    return mixPose(PALLETIZER_POSES.carry, PALLETIZER_POSES.place, smoothstep(0.44, 0.58, phase));
-  }
-  if (phase < 0.72) return PALLETIZER_POSES.place;
-  return mixPose(PALLETIZER_POSES.place, PALLETIZER_POSES.home, smoothstep(0.72, 1, phase));
+/** Pallet origin on the floor below the point the place pose reaches. */
+export function palletizerOrigin(placePoint: THREE.Vector3) {
+  return new THREE.Vector3(placePoint.x, PALLETIZER_PALLET_HEIGHT, placePoint.z);
 }
 
-function getFingerOpening(phase: number) {
-  if (phase >= 0.2 && phase < 0.24) {
-    return 0.034 + (0.018 - 0.034) * smoothstep(0.2, 0.24, phase);
-  }
-  if (phase >= 0.24 && phase < 0.66) return 0.018;
-  if (phase >= 0.66 && phase < 0.7) {
-    return 0.018 + (0.034 - 0.018) * smoothstep(0.66, 0.7, phase);
-  }
-  return 0.034;
+/** Pallet slot centres in cell coordinates, for a pallet whose origin is `palletOrigin`. */
+export function palletizerSlots(palletOrigin: THREE.Vector3) {
+  return PALLETIZER_STACK.map(([x, y, z]) => palletOrigin.clone().add(new THREE.Vector3(x, y, z)));
 }
 
-export function getPalletizerAnimationState(phase: number): PalletizerAnimationState {
-  return {
-    pose: getPose(phase),
-    fingerOpening: getFingerOpening(phase),
-    grasped: phase >= 0.24 && phase < 0.68,
-  };
+/**
+ * Plans the stacking cycle for the loaded robot. `tool` is the point at the centre of a carried
+ * box; targets are in the coordinates of `cell`.
+ */
+export function planPalletizer(
+  robot: URDFRobot,
+  tool: THREE.Object3D,
+  cell: THREE.Object3D,
+  pick: THREE.Vector3,
+  palletOrigin: THREE.Vector3,
+): PickPlacePlan {
+  return planArmPickPlace(
+    robot, tool, cell,
+    { pick, slots: palletizerSlots(palletOrigin), ...PALLETIZER_APPROACH },
+    PALLETIZER_POSES,
+  );
 }

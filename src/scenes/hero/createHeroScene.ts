@@ -4,6 +4,7 @@ import { makeArcWeldTorch, makeSuctionGripper } from "../../RobotTools";
 import { getFrankaUrdfUrl } from "../shared/assets";
 import { createFrankaLoader, hideFrankaHand, styleFrankaRobot } from "../shared/franka";
 import { applyFrankaPose, type FrankaPose } from "../shared/motion";
+import type { PickPlacePlan } from "../shared/pickPlace";
 import {
   disposeObjectTree,
   getLocalPosition,
@@ -12,8 +13,8 @@ import {
   setObjectOpacity,
 } from "../shared/objects";
 import type { FrameState, SceneContext, SceneController } from "../shared/runtime";
-import { getHeroAnimationState } from "./animation";
-import { HERO_FLOOR_Y, HERO_POSES } from "./config";
+import { getHeroAnimationState, getHeroCycleDuration, heroDeckCentre, heroSlots, planHero } from "./animation";
+import { HERO_CRATE_SIZE, HERO_FLOOR_Y, HERO_POSES, HERO_ROBOT_SCALE, HERO_STACK } from "./config";
 
 type Materials = ReturnType<typeof createMaterials>;
 
@@ -26,7 +27,9 @@ type PalletEnvironment = {
   toolCrate: THREE.Mesh;
   pallet: THREE.Group;
   palletPosts: THREE.Mesh[];
-  placedCrate: THREE.Mesh;
+  stackCrates: THREE.Mesh[];
+  pickPoint: THREE.Vector3;
+  queuePoint: THREE.Vector3;
 };
 
 type WeldEnvironment = {
@@ -47,14 +50,14 @@ type HeroState = {
   palletShadow: THREE.Mesh;
   weldShadow: THREE.Mesh;
   robotHolder: THREE.Group;
-  robotScale: number;
-  cellCrateSize: number;
   robot: URDFRobot | null;
+  plan: PickPlacePlan | null;
   weldTip: THREE.Object3D | null;
   torch: THREE.Group;
   suction: THREE.Group;
   targetOrbit: number;
   orbit: number;
+  previewPhase: number | null;
 };
 
 function createMaterials() {
@@ -110,11 +113,10 @@ function buildFloor(cell: THREE.Group, materials: Materials) {
   cell.add(grid);
 }
 
-function buildPalletEnvironment(materials: Materials, robotScale: number) {
+function buildPalletEnvironment(materials: Materials) {
   const root = new THREE.Group();
-  const cellCrateSize = 0.14;
-  const toolCrateSize = cellCrateSize / robotScale;
-  const crate: [number, number, number] = [cellCrateSize, cellCrateSize, cellCrateSize];
+  const toolCrateSize = HERO_CRATE_SIZE / HERO_ROBOT_SCALE;
+  const crate: [number, number, number] = [HERO_CRATE_SIZE, HERO_CRATE_SIZE, HERO_CRATE_SIZE];
   const toolCrate = makeBox(
     [toolCrateSize, toolCrateSize, toolCrateSize],
     materials.crate.clone(),
@@ -146,9 +148,17 @@ function buildPalletEnvironment(materials: Materials, robotScale: number) {
     pallet.add(makeBox([1.08, 0.08, 0.18], materials.wood.clone(), [0, 0.06, z]));
   });
   root.add(pallet);
-  const placedCrate = makeBox(crate, materials.crate.clone(), [-0.44, 0.66, -0.74]);
-  root.add(placedCrate);
-  return { root, feedCrate, queueCrate, pickSupport, pickLegs, toolCrate, pallet, palletPosts, placedCrate };
+  const stackCrates = HERO_STACK.map(() => {
+    const placed = makeBox(crate, materials.crate.clone(), [0, 0, 0]);
+    placed.visible = false;
+    root.add(placed);
+    return placed;
+  });
+  return {
+    root, feedCrate, queueCrate, pickSupport, pickLegs, toolCrate, pallet, palletPosts, stackCrates,
+    pickPoint: feedCrate.position.clone(),
+    queuePoint: queueCrate.position.clone(),
+  };
 }
 
 function buildWeldEnvironment(materials: Materials) {
@@ -217,11 +227,13 @@ function toolPointForPose(
   return getLocalPosition(state.cell, tool);
 }
 
-function alignPalletEnvironment(state: HeroState, pickPoint: THREE.Vector3, placePoint: THREE.Vector3) {
+function alignPalletEnvironment(state: HeroState, pickPoint: THREE.Vector3, deckCentre: THREE.Vector3) {
   const { pallet } = state;
-  pallet.feedCrate.position.copy(pickPoint);
-  pallet.queueCrate.position.copy(pickPoint).add(new THREE.Vector3(-0.3, 0, -0.08));
-  const supportTop = pickPoint.y - state.cellCrateSize / 2 - 0.004;
+  pallet.pickPoint.copy(pickPoint);
+  pallet.queuePoint.copy(pickPoint).add(new THREE.Vector3(-0.3, 0, 0));
+  pallet.feedCrate.position.copy(pallet.pickPoint);
+  pallet.queueCrate.position.copy(pallet.queuePoint);
+  const supportTop = pickPoint.y - HERO_CRATE_SIZE / 2 - 0.004;
   pallet.pickSupport.position.set(
     (pallet.feedCrate.position.x + pallet.queueCrate.position.x) / 2,
     supportTop - 0.04,
@@ -233,12 +245,9 @@ function alignPalletEnvironment(state: HeroState, pickPoint: THREE.Vector3, plac
     leg.position.set(pallet.pickSupport.position.x + x, HERO_FLOOR_Y + legHeight / 2, pallet.pickSupport.position.z + z);
     leg.scale.y = legHeight;
   });
-  pallet.placedCrate.position.copy(placePoint);
-  pallet.pallet.position.set(
-    placePoint.x + 0.03,
-    placePoint.y - state.cellCrateSize / 2 - 0.1,
-    placePoint.z + 0.03,
-  );
+  // The deck boards' top face is 0.1 above the pallet group origin.
+  pallet.pallet.position.copy(deckCentre).add(new THREE.Vector3(0, -0.1, 0));
+  heroSlots(deckCentre).forEach((slot, index) => pallet.stackCrates[index].position.copy(slot));
   const palletFloorLocal = HERO_FLOOR_Y - pallet.pallet.position.y;
   const postHeight = Math.max(0.05, 0.02 - palletFloorLocal);
   pallet.palletPosts.forEach((post) => {
@@ -291,17 +300,18 @@ function loadHeroRobot(state: HeroState) {
       robot.getFrame("link8").add(state.torch, state.suction);
       const suctionContact = state.suction.getObjectByName("suction-contact") ?? state.suction;
       suctionContact.add(state.pallet.toolCrate);
-      const toolCrateSize = state.cellCrateSize / state.robotScale;
-      state.pallet.toolCrate.position.set(0, 0, toolCrateSize / 2);
+      state.pallet.toolCrate.position.set(0, 0, HERO_CRATE_SIZE / HERO_ROBOT_SCALE / 2);
       state.weldTip = state.torch.getObjectByName("weld-tip") ?? state.torch;
 
-      const pick = toolPointForPose(state, robot, HERO_POSES.palletPick, state.pallet.toolCrate, 0.026);
-      const place = toolPointForPose(state, robot, HERO_POSES.palletPlace, state.pallet.toolCrate, 0.026);
-      const weldStart = toolPointForPose(state, robot, HERO_POSES.weldStart, state.weldTip, 0.032);
+      const pick = toolPointForPose(state, robot, HERO_POSES.palletPick, state.pallet.toolCrate, 0.034);
+      const place = toolPointForPose(state, robot, HERO_POSES.palletPlace, state.pallet.toolCrate, 0.034);
+      const weldStart = toolPointForPose(state, robot, HERO_POSES.weldStart, state.weldTip, 0.034);
       const weldEnd = toolPointForPose(state, robot, HERO_POSES.weldEnd, state.weldTip, 0.034);
-      alignPalletEnvironment(state, pick, place);
+      const deckCentre = heroDeckCentre(place);
+      alignPalletEnvironment(state, pick, deckCentre);
       alignWeldEnvironment(state, weldStart, weldEnd);
-      applyFrankaPose(robot, HERO_POSES.palletHome, 0.034);
+      state.plan = planHero(robot, state.pallet.toolCrate, state.cell, pick, deckCentre);
+      applyFrankaPose(robot, state.plan.once.startPose, 0.034);
       state.context.canvas.dataset.robotReady = "true";
       state.context.requestRender();
     },
@@ -364,15 +374,31 @@ function updateSparks(state: HeroState, frame: FrameState, weldActive: number) {
   });
 }
 
+function placeHeroCrates(state: HeroState, palletMode: number, placed: number, carrying: boolean, feed: number) {
+  const { pallet } = state;
+  const palletVisible = palletMode > 0.01;
+  pallet.feedCrate.position.copy(pallet.queuePoint).lerp(pallet.pickPoint, feed);
+  pallet.feedCrate.visible = palletVisible;
+  setObjectOpacity(pallet.queueCrate, palletMode * THREE.MathUtils.smoothstep(feed, 0, 0.35));
+  pallet.toolCrate.visible = palletVisible && carrying;
+  pallet.stackCrates.forEach((crate, index) => {
+    crate.visible = palletVisible && index < placed;
+  });
+}
+
+/** Development-only `?heroPhase=0..1` freezes the cycle at that fraction, for inspecting the motion. */
+function getPreviewPhase() {
+  const requested = new URLSearchParams(window.location.search).get("heroPhase");
+  const parsed = requested === null ? Number.NaN : Number(requested);
+  return import.meta.env.DEV && Number.isFinite(parsed) ? THREE.MathUtils.clamp(parsed, 0, 0.999) : null;
+}
+
 function updateHero(state: HeroState, frame: FrameState) {
-  const animation = getHeroAnimationState(frame.elapsed);
-  if (state.robot) {
-    applyFrankaPose(
-      state.robot,
-      animation.pose,
-      animation.crateStage === "carried" ? 0.026 : 0.034,
-    );
-  }
+  const pass = state.plan?.once ?? null;
+  const cycle = getHeroCycleDuration(pass);
+  const elapsed = state.previewPhase === null ? frame.elapsed : state.previewPhase * cycle;
+  const animation = getHeroAnimationState(elapsed, pass);
+  if (state.robot) applyFrankaPose(state.robot, animation.pose, 0.034);
   if (state.weldTip) {
     state.context.scene.updateMatrixWorld(true);
     const tip = getLocalPosition(state.weld.station, state.weldTip);
@@ -385,10 +411,7 @@ function updateHero(state: HeroState, frame: FrameState) {
   setObjectOpacity(state.weldShadow, animation.weldMode * 0.12);
   setObjectOpacity(state.suction, animation.palletMode);
   setObjectOpacity(state.torch, animation.weldMode);
-  const palletVisible = animation.palletMode > 0.01;
-  state.pallet.feedCrate.visible = palletVisible && animation.crateStage === "feed";
-  state.pallet.toolCrate.visible = palletVisible && animation.crateStage === "carried";
-  state.pallet.placedCrate.visible = palletVisible && animation.crateStage === "placed";
+  placeHeroCrates(state, animation.palletMode, animation.placed, animation.carrying, animation.feed);
   setObjectOpacity(state.weld.glow, animation.weldActive);
   state.materials.seam.emissiveIntensity = animation.weldActive
     * (1.2 + Math.sin(frame.elapsed * 16) * 0.25);
@@ -398,10 +421,12 @@ function updateHero(state: HeroState, frame: FrameState) {
   state.cell.rotation.x = animation.spinPulse * 0.12;
   state.cell.rotation.y = -0.32 + state.orbit
     + (animation.spinToWeld + animation.spinToPallet) * Math.PI * 2
-    + Math.sin(frame.elapsed * 0.15) * 0.018;
+    + Math.sin(elapsed * 0.15) * 0.018;
   state.cell.scale.setScalar(1 - animation.spinPulse * 0.05);
   state.context.canvas.dataset.mode = animation.weldMode > 0.5 ? "welding" : "palletizing";
-  state.context.canvas.dataset.crateStage = animation.crateStage;
+  state.context.canvas.dataset.phase = ((elapsed % cycle) / cycle).toFixed(3);
+  state.context.canvas.dataset.placed = String(animation.placed);
+  state.context.canvas.dataset.carrying = animation.carrying ? "true" : "false";
   state.context.camera.lookAt(0, 0.72, -0.12);
 }
 
@@ -412,8 +437,7 @@ export function createHeroScene(context: SceneContext): SceneController {
   cell.rotation.y = -0.32;
   context.scene.add(cell);
   buildFloor(cell, materials);
-  const robotScale = 1.52;
-  const pallet = buildPalletEnvironment(materials, robotScale);
+  const pallet = buildPalletEnvironment(materials);
   const weld = buildWeldEnvironment(materials);
   cell.add(pallet.root, weld.root);
   const palletShadow = makeContactShadow([1.2, 0.9], [-0.35, HERO_FLOOR_Y + 0.006, -0.58], 0.12);
@@ -425,14 +449,14 @@ export function createHeroScene(context: SceneContext): SceneController {
   );
   const robotHolder = new THREE.Group();
   robotHolder.position.set(0.08, 0.02, 0.02);
-  robotHolder.scale.setScalar(robotScale);
+  robotHolder.scale.setScalar(HERO_ROBOT_SCALE);
   cell.add(robotHolder);
   const { torch, suction } = createTools(materials);
   setObjectOpacity(pallet.toolCrate, 0);
   const state: HeroState = {
     context, materials, cell, pallet, weld, palletShadow, weldShadow, robotHolder,
-    robotScale, cellCrateSize: 0.14, robot: null, weldTip: null, torch, suction,
-    targetOrbit: 0, orbit: 0,
+    robot: null, plan: null, weldTip: null, torch, suction,
+    targetOrbit: 0, orbit: 0, previewPhase: getPreviewPhase(),
   };
   addOrbitControls(state);
   loadHeroRobot(state);

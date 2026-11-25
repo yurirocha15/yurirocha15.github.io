@@ -4,10 +4,17 @@ import { makeSuctionGripper } from "../../RobotTools";
 import { getFrankaUrdfUrl } from "../shared/assets";
 import { createFrankaLoader, hideFrankaHand, styleFrankaRobot } from "../shared/franka";
 import { applyFrankaPose } from "../shared/motion";
-import { disposeObjectTree, getLocalPosition, makeBox } from "../shared/objects";
+import { disposeObjectTree, getLocalPosition, makeBox, setObjectOpacity } from "../shared/objects";
+import type { PickPlacePlan } from "../shared/pickPlace";
 import type { FrameState, SceneContext, SceneController } from "../shared/runtime";
-import { getPalletizerAnimationState } from "./animation";
-import { PALLETIZER_POSES } from "./config";
+import { palletizerOrigin, planPalletizer } from "./animation";
+import {
+  PALLETIZER_BOX_SIZE,
+  PALLETIZER_POSES,
+  PALLETIZER_QUEUE,
+  PALLETIZER_ROBOT_SCALE,
+  PALLETIZER_STACK,
+} from "./config";
 
 type Materials = ReturnType<typeof createMaterials>;
 
@@ -16,7 +23,7 @@ type PalletizerState = {
   cell: THREE.Group;
   materials: Materials;
   feedCrates: THREE.Mesh[];
-  placedCrate: THREE.Mesh;
+  stackCrates: THREE.Mesh[];
   carriedCrate: THREE.Mesh;
   conveyor: THREE.Group;
   pallet: THREE.Group;
@@ -24,7 +31,8 @@ type PalletizerState = {
   suctionTool: THREE.Group;
   robot: URDFRobot | null;
   gripAnchor: THREE.Group | null;
-  queuedCrateBaseX: number;
+  plan: PickPlacePlan | null;
+  pickPoint: THREE.Vector3;
   previewPhase: number | null;
 };
 
@@ -53,6 +61,11 @@ function addLighting(scene: THREE.Scene) {
   scene.add(keyLight);
 }
 
+function crate(materials: Materials) {
+  const size = PALLETIZER_BOX_SIZE;
+  return makeBox([size, size, size], materials.crate.clone(), [0, 0, 0]);
+}
+
 function buildCell(cell: THREE.Group, materials: Materials) {
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(4.8, 3.2), materials.floor);
   floor.rotation.x = -Math.PI / 2;
@@ -69,10 +82,9 @@ function buildCell(cell: THREE.Group, materials: Materials) {
   conveyor.add(makeBox([1.32, 0.035, 0.36], materials.dark, [0, 0.17, 0]));
   cell.add(conveyor);
 
-  const feedCrates = [
-    makeBox([0.16, 0.16, 0.16], materials.crate.clone(), [-0.9, 0.42, 0.54]),
-    makeBox([0.16, 0.16, 0.16], materials.crate.clone(), [-0.48, 0.42, 0.54]),
-  ];
+  const feedCrates = [crate(materials), crate(materials)];
+  feedCrates[0].position.set(-0.48, 0.42, 0.54);
+  feedCrates[1].position.set(-0.9, 0.42, 0.54);
   cell.add(...feedCrates);
 
   const pallet = new THREE.Group();
@@ -80,15 +92,16 @@ function buildCell(cell: THREE.Group, materials: Materials) {
   [-0.22, 0, 0.22].forEach((z) => {
     pallet.add(makeBox([0.88, 0.055, 0.12], materials.wood.clone(), [0, 0.05, z]));
   });
-  const stackPositions: Array<[number, number, number]> = [
-    [-0.1, 0.16, -0.1], [0.1, 0.16, -0.1], [-0.1, 0.16, 0.1], [0.1, 0.16, 0.1],
-  ];
-  stackPositions.forEach((position) => {
-    pallet.add(makeBox([0.16, 0.16, 0.16], materials.crate.clone(), position));
-  });
   cell.add(pallet);
 
-  return { conveyor, feedCrates, pallet };
+  const stackCrates = PALLETIZER_STACK.map(() => {
+    const placed = crate(materials);
+    placed.visible = false;
+    cell.add(placed);
+    return placed;
+  });
+
+  return { conveyor, feedCrates, pallet, stackCrates };
 }
 
 function getPreviewPhase() {
@@ -116,24 +129,27 @@ function loadRobot(state: PalletizerState) {
       state.robotHolder.add(loadedRobot);
       loadedRobot.getFrame("link8").add(state.suctionTool);
       const suctionContact = state.suctionTool.getObjectByName("suction-contact") ?? state.suctionTool;
-      state.gripAnchor = new THREE.Group();
-      state.gripAnchor.position.set(0, 0, 0.08);
-      suctionContact.add(state.gripAnchor);
+      const gripAnchor = new THREE.Group();
+      gripAnchor.position.set(0, 0, PALLETIZER_BOX_SIZE / PALLETIZER_ROBOT_SCALE / 2);
+      suctionContact.add(gripAnchor);
+      state.gripAnchor = gripAnchor;
 
       applyFrankaPose(loadedRobot, PALLETIZER_POSES.pick);
       state.cell.updateMatrixWorld(true);
-      const pickPoint = getLocalPosition(state.cell, state.gripAnchor);
+      const pickPoint = getLocalPosition(state.cell, gripAnchor);
       applyFrankaPose(loadedRobot, PALLETIZER_POSES.place, 0.018);
       state.cell.updateMatrixWorld(true);
-      const placePoint = getLocalPosition(state.cell, state.gripAnchor);
+      const placePoint = getLocalPosition(state.cell, gripAnchor);
 
-      state.feedCrates[0].position.copy(pickPoint);
-      state.feedCrates[1].position.set(pickPoint.x - 0.38, pickPoint.y, pickPoint.z);
-      state.queuedCrateBaseX = state.feedCrates[1].position.x;
+      state.pickPoint = pickPoint;
       state.conveyor.position.set(pickPoint.x - 0.24, pickPoint.y - 0.2675, pickPoint.z);
-      state.pallet.position.set(placePoint.x, placePoint.y - 0.32, placePoint.z);
-      state.placedCrate.position.copy(placePoint);
-      applyFrankaPose(loadedRobot, PALLETIZER_POSES.home);
+      state.pallet.position.copy(palletizerOrigin(placePoint));
+      state.plan = planPalletizer(loadedRobot, gripAnchor, state.cell, pickPoint, state.pallet.position);
+      state.stackCrates.forEach((placed, index) => {
+        const [x, y, z] = PALLETIZER_STACK[index];
+        placed.position.copy(state.pallet.position).add(new THREE.Vector3(x, y, z));
+      });
+      applyFrankaPose(loadedRobot, state.plan.loop.startPose);
       state.cell.updateMatrixWorld(true);
 
       context.canvas.dataset.robotReady = "true";
@@ -146,25 +162,42 @@ function loadRobot(state: PalletizerState) {
   );
 }
 
-function updatePalletizer(state: PalletizerState, frame: FrameState) {
-  const phase = state.previewPhase ?? (frame.elapsed % 6.4) / 6.4;
-  const animation = getPalletizerAnimationState(phase);
+function placeFeedCrates(state: PalletizerState, feed: number) {
+  const pick = state.pickPoint;
+  const queue = PALLETIZER_QUEUE.map((offset) => pick.clone().add(new THREE.Vector3(offset, 0, 0)));
+  state.feedCrates[0].position.copy(queue[0]).lerp(pick, feed);
+  state.feedCrates[1].position.copy(queue[1]).lerp(queue[0], feed);
+  setObjectOpacity(state.feedCrates[1], THREE.MathUtils.smoothstep(feed, 0, 0.35));
+}
 
-  if (state.robot) {
-    applyFrankaPose(state.robot, animation.pose, animation.fingerOpening);
-    if (state.gripAnchor) {
-      state.cell.updateMatrixWorld(true);
-      state.carriedCrate.position.copy(getLocalPosition(state.cell, state.gripAnchor));
+function updatePalletizer(state: PalletizerState, frame: FrameState) {
+  const { robot, gripAnchor } = state;
+  const loop = state.plan?.loop;
+  const time = loop
+    ? (state.previewPhase !== null ? state.previewPhase * loop.duration : frame.elapsed % loop.duration)
+    : 0;
+  const phase = loop ? time / loop.duration : 0;
+  const sample = loop?.sample(time);
+
+  if (robot && gripAnchor && sample) {
+    applyFrankaPose(robot, sample.pose);
+    state.cell.updateMatrixWorld(true);
+    state.carriedCrate.visible = sample.carrying;
+    if (sample.carrying) {
+      state.carriedCrate.position.copy(getLocalPosition(state.cell, gripAnchor));
+      const cellRotation = state.cell.getWorldQuaternion(new THREE.Quaternion()).invert();
+      state.carriedCrate.quaternion.copy(cellRotation.multiply(gripAnchor.getWorldQuaternion(new THREE.Quaternion())));
     }
+    state.stackCrates.forEach((placed, index) => {
+      setObjectOpacity(placed, index < sample.placed ? 1 - sample.clear : 0);
+    });
+    placeFeedCrates(state, sample.feed);
+    state.context.canvas.dataset.carrying = sample.carrying ? "true" : "false";
+    state.context.canvas.dataset.placed = String(sample.placed);
   }
 
-  state.carriedCrate.visible = animation.grasped;
-  state.feedCrates[0].visible = phase < 0.24;
-  state.placedCrate.visible = phase >= 0.68;
-  state.feedCrates[1].position.x = state.queuedCrateBaseX + Math.sin(frame.elapsed * 0.8) * 0.035;
   state.cell.rotation.y = -0.52 + Math.sin(frame.elapsed * 0.16) * 0.03;
   state.context.canvas.dataset.phase = phase.toFixed(3);
-  state.context.canvas.dataset.carrying = animation.grasped ? "true" : "false";
   state.context.camera.lookAt(0.27, 0.48, 0.02);
 }
 
@@ -175,17 +208,15 @@ export function createPalletizerScene(context: SceneContext): SceneController {
   const cell = new THREE.Group();
   cell.rotation.y = -0.52;
   context.scene.add(cell);
-  const { conveyor, feedCrates, pallet } = buildCell(cell, materials);
+  const { conveyor, feedCrates, pallet, stackCrates } = buildCell(cell, materials);
 
-  const placedCrate = makeBox([0.16, 0.16, 0.16], materials.crate.clone(), [0.82, 0.54, -0.5]);
-  const carriedCrate = makeBox([0.16, 0.16, 0.16], materials.crate.clone(), [0, 0, 0]);
-  placedCrate.visible = false;
+  const carriedCrate = crate(materials);
   carriedCrate.visible = false;
-  cell.add(placedCrate, carriedCrate);
+  cell.add(carriedCrate);
 
   const robotHolder = new THREE.Group();
   robotHolder.position.set(0.08, 0.02, 0.08);
-  robotHolder.scale.setScalar(1.05);
+  robotHolder.scale.setScalar(PALLETIZER_ROBOT_SCALE);
   cell.add(robotHolder);
   const suctionTool = makeSuctionGripper({
     accent: materials.toolLight,
@@ -195,9 +226,9 @@ export function createPalletizerScene(context: SceneContext): SceneController {
   });
 
   const state: PalletizerState = {
-    context, cell, materials, feedCrates, placedCrate, carriedCrate, conveyor, pallet,
-    robotHolder, suctionTool, robot: null, gripAnchor: null,
-    queuedCrateBaseX: feedCrates[1].position.x,
+    context, cell, materials, feedCrates, stackCrates, carriedCrate, conveyor, pallet,
+    robotHolder, suctionTool, robot: null, gripAnchor: null, plan: null,
+    pickPoint: feedCrates[0].position.clone(),
     previewPhase: getPreviewPhase(),
   };
   loadRobot(state);
