@@ -46,6 +46,8 @@ Generated PDFs are ignored by Git and copied into the Pages artifact during the 
 | Franka FR3 links and Franka hand | Franka Robotics GmbH, [`frankarobotics/franka_description`](https://github.com/frankarobotics/franka_description) | `public/franka_description/meshes/` | Apache-2.0; the upstream [`LICENSE`](public/franka_description/LICENSE) and [`NOTICE`](public/franka_description/NOTICE) are retained. |
 | Simplified smart-frame model | Artec Group Inc., [`artec3d.com`](https://www.artec3d.com/) | [`public/models/smart-frame/simplify_Frame.obj`](public/models/smart-frame/simplify_Frame.obj) | Creative Commons Attribution 3.0 Unported; the supplied [`license.txt`](public/models/smart-frame/license.txt) is retained. |
 
+The FR3 visual meshes in `public/franka_description/meshes/robots/fr3/visual/` are modified: [`scripts/convert-fr3-visual-meshes.mjs`](scripts/convert-fr3-visual-meshes.mjs) converts the upstream COLLADA files of release 2.9.0 to GLB, grouping faces by colour, simplifying them and compressing them.
+
 The welding guns, arc torch, suction gripper, pallets, boxes, tables, and other cell fixtures are generated from Three.js primitives in this repository. No third-party mesh files are shipped for those objects.
 
 ## Photo attribution

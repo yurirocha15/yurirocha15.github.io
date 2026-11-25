@@ -24,7 +24,7 @@ import { applyArmPose, readToolFrame, solveToolIk } from "../../src/scenes/share
 import type { FrankaPose } from "../../src/scenes/shared/motion";
 import { moveProgress, transferArc, type PickPlaceSequence } from "../../src/scenes/shared/pickPlace";
 
-const URDF = readFileSync(resolve(__dirname, "../../public/franka_description/fr3_hero.urdf"), "utf8");
+const URDF = readFileSync(resolve(__dirname, "../../public/franka_description/fr3_visual.urdf"), "utf8");
 const DOWN = new THREE.Vector3(0, -1, 0);
 
 type Cell = {

@@ -7,6 +7,7 @@ import {
   getAssetUrl,
   getFrankaPackageRoot,
   getFrankaUrdfUrl,
+  getFrankaVisualUrdfUrl,
   normalizeBaseUrl,
 } from "../../src/scenes/shared/assets";
 import {
@@ -112,6 +113,9 @@ describe("scene motion primitives", () => {
     expect(getFrankaPackageRoot("/portfolio")).toBe("/portfolio/franka_description");
     expect(getFrankaUrdfUrl("/portfolio")).toBe(
       "/portfolio/franka_description/fr3_hero.urdf",
+    );
+    expect(getFrankaVisualUrdfUrl("/portfolio")).toBe(
+      "/portfolio/franka_description/fr3_visual.urdf",
     );
   });
 });

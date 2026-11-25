@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { URDFRobot } from "urdf-loader";
 import { makeSuctionGripper } from "../../RobotTools";
-import { getFrankaUrdfUrl } from "../shared/assets";
+import { getFrankaVisualUrdfUrl } from "../shared/assets";
 import { createFrankaLoader, hideFrankaHand, styleFrankaRobot } from "../shared/franka";
 import { applyFrankaPose } from "../shared/motion";
 import { disposeObjectTree, getLocalPosition, makeBox, setObjectOpacity } from "../shared/objects";
@@ -116,7 +116,7 @@ function loadRobot(state: PalletizerState) {
   const { context, materials } = state;
   const loader = createFrankaLoader(context.baseUrl);
   loader.load(
-    getFrankaUrdfUrl(context.baseUrl),
+    getFrankaVisualUrdfUrl(context.baseUrl),
     (loadedRobot) => {
       if (context.isDisposed()) {
         disposeObjectTree(loadedRobot);
@@ -124,7 +124,7 @@ function loadRobot(state: PalletizerState) {
       }
 
       state.robot = loadedRobot;
-      styleFrankaRobot(loadedRobot, materials);
+      styleFrankaRobot(loadedRobot, { ...materials, metal: materials.toolLight, accent: materials.crate });
       hideFrankaHand(loadedRobot);
       state.robotHolder.add(loadedRobot);
       loadedRobot.getFrame("link8").add(state.suctionTool);

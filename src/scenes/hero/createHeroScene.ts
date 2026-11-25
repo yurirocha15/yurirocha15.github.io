@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { URDFRobot } from "urdf-loader";
 import { makeArcWeldTorch, makeSuctionGripper } from "../../RobotTools";
-import { getFrankaUrdfUrl } from "../shared/assets";
+import { getFrankaVisualUrdfUrl } from "../shared/assets";
 import { createFrankaLoader, hideFrankaHand, styleFrankaRobot } from "../shared/franka";
 import { applyFrankaPose, type FrankaPose } from "../shared/motion";
 import type { PickPlacePlan } from "../shared/pickPlace";
@@ -284,7 +284,7 @@ function alignWeldEnvironment(
 function loadHeroRobot(state: HeroState) {
   const loader = createFrankaLoader(state.context.baseUrl);
   loader.load(
-    getFrankaUrdfUrl(state.context.baseUrl),
+    getFrankaVisualUrdfUrl(state.context.baseUrl),
     (robot) => {
       if (state.context.isDisposed()) {
         disposeObjectTree(robot);
@@ -294,6 +294,8 @@ function loadHeroRobot(state: HeroState) {
       styleFrankaRobot(robot, {
         shell: new THREE.MeshStandardMaterial({ color: 0xd5d6cc, metalness: 0.24, roughness: 0.48 }),
         dark: new THREE.MeshStandardMaterial({ color: 0x151711, metalness: 0.28, roughness: 0.42 }),
+        metal: state.materials.toolLight,
+        accent: state.materials.yellow,
       });
       hideFrankaHand(robot);
       state.robotHolder.add(robot);

@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!-- FR3 arm with the visual meshes, for scenes that show one robot up close; no hand. -->
+<robot name="fr3_visual">
+
+  <link name="link0">
+    <visual name="link0_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link0.glb"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="link1">
+    <visual name="link1_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link1.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint1" type="revolute">
+    <origin xyz="0 0 0.333" rpy="0 0 0"/>
+    <parent link="link0"/>
+    <child link="link1"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.9007" upper="2.9007" effort="87.0" velocity="2.62"/>
+  </joint>
+
+  <link name="link2">
+    <visual name="link2_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link2.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint2" type="revolute">
+    <origin xyz="0 0 0" rpy="-1.570796326794897 0 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-1.8361" upper="1.8361" effort="87.0" velocity="2.62"/>
+  </joint>
+
+  <link name="link3">
+    <visual name="link3_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link3.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint3" type="revolute">
+    <origin xyz="0 -0.316 0" rpy="1.570796326794897 0 0"/>
+    <parent link="link2"/>
+    <child link="link3"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.9007" upper="2.9007" effort="87.0" velocity="2.62"/>
+  </joint>
+
+  <link name="link4">
+    <visual name="link4_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link4.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint4" type="revolute">
+    <origin xyz="0.0825 0 0" rpy="1.570796326794897 0 0"/>
+    <parent link="link3"/>
+    <child link="link4"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.0770" upper="-0.1169" effort="87.0" velocity="2.62"/>
+  </joint>
+
+  <link name="link5">
+    <visual name="link5_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link5.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint5" type="revolute">
+    <origin xyz="-0.0825 0.384 0" rpy="-1.570796326794897 0 0"/>
+    <parent link="link4"/>
+    <child link="link5"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.8763" upper="2.8763" effort="12.0" velocity="5.26"/>
+  </joint>
+
+  <link name="link6">
+    <visual name="link6_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link6.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint6" type="revolute">
+    <origin xyz="0 0 0" rpy="1.570796326794897 0 0"/>
+    <parent link="link5"/>
+    <child link="link6"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.4398" upper="4.6216" effort="12.0" velocity="4.18"/>
+  </joint>
+
+  <link name="link7">
+    <visual name="link7_visual">
+      <geometry>
+        <mesh filename="package://franka_description/meshes/robots/fr3/visual/link7.glb"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="joint7" type="revolute">
+    <origin xyz="0.088 0 0" rpy="1.570796326794897 0 0"/>
+    <parent link="link6"/>
+    <child link="link7"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.0508" upper="3.0508" effort="12.0" velocity="5.26"/>
+  </joint>
+
+  <link name="link8"/>
+  <joint name="joint8" type="fixed">
+    <origin xyz="0 0 0.107" rpy="0 0 0"/>
+    <parent link="link7"/>
+    <child link="link8"/>
+  </joint>
+</robot>
