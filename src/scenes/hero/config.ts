@@ -1,6 +1,8 @@
+import * as THREE from "three";
 import type { FrankaPose } from "../shared/motion";
 import type { PickPlaceTiming } from "../shared/pickPlace";
 import type { SceneRuntimeOptions } from "../shared/runtime";
+import type { WeldOptions } from "../shared/weldProgram";
 
 export const HERO_FLOOR_Y = -0.02;
 
@@ -36,8 +38,34 @@ export const HERO_PICK_TIMING: PickPlaceTiming = {
   approach: 0.42,
 };
 
-/** Seconds of the tool change spin between the cells, and of the weld pass. */
-export const HERO_TIMING = { spin: 0.9, weld: 4 };
+/** Seconds of the tool change spin between the cells, and of the weld program until it is planned. */
+export const HERO_TIMING = { spin: 0.9, unplannedWeld: 6 };
+
+/**
+ * The welding cell: the workpiece origin, on the table top, in cell coordinates, and its turn about
+ * the vertical. Chosen so the arm reaches both seams with the torch at its working angle.
+ */
+export const HERO_WELD_STATION = { position: [0.806, 0.5, -0.806] as [number, number, number], rotation: 0 };
+
+/**
+ * Fillet seams of the workpiece (scripts/blender/props.py, WELD_PART_SEAMS) in its own frame,
+ * Y up: along the front foot of the upright web, then along the front foot of the flat bar. Both
+ * run the same way, so the torch keeps one angle and the arm one posture: welded the other way,
+ * the bar's seam start is out of the arm's reach at the working angle. `wall` is the normal of
+ * the upright plate's welded face; the base plate's normal is +Y. Both welded faces turn towards
+ * the robot and the camera.
+ */
+export const HERO_WELD_SEAMS = [
+  { start: new THREE.Vector3(-0.2, 0.02, 0.042), end: new THREE.Vector3(0.16, 0.02, 0.042), wall: new THREE.Vector3(0, 0, 1) },
+  { start: new THREE.Vector3(-0.16, 0.02, 0.166), end: new THREE.Vector3(0.12, 0.02, 0.166), wall: new THREE.Vector3(0, 0, 1) },
+];
+
+export const HERO_WELD: WeldOptions = {
+  timing: { approach: 0.5, arcStart: 0.3, speed: 0.12, crater: 0.3, retreat: 0.5, transfer: 1.1 },
+  standoff: 0.08,
+  push: THREE.MathUtils.degToRad(12),
+  clearance: 0.08,
+};
 
 export const HERO_RUNTIME = {
   camera: { fov: 36, near: 0.1, far: 100, position: [3.05, 2, 3.65] },

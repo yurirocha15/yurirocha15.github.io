@@ -22,7 +22,13 @@ import {
 } from "../../src/scenes/palletizer/config";
 import { applyArmPose, readToolFrame, solveToolIk } from "../../src/scenes/shared/kinematics";
 import type { FrankaPose } from "../../src/scenes/shared/motion";
-import { moveProgress, transferArc, type PickPlaceSequence } from "../../src/scenes/shared/pickPlace";
+import {
+  carriedBoxRotations,
+  moveProgress,
+  transferArc,
+  type PickPlacePlan,
+  type PickPlaceSequence,
+} from "../../src/scenes/shared/pickPlace";
 
 const URDF = readFileSync(resolve(__dirname, "../../public/franka_description/fr3_visual.urdf"), "utf8");
 const DOWN = new THREE.Vector3(0, -1, 0);
@@ -53,8 +59,7 @@ function suctionCell(
   const robot = loader.parse(URDF);
   robot.rotation.x = -Math.PI / 2;
   holder.add(robot);
-  const material = new THREE.MeshStandardMaterial();
-  const suction = makeSuctionGripper({ accent: material, cup: material, dark: material, metal: material });
+  const suction = makeSuctionGripper();
   robot.getFrame("link8").add(suction);
   const anchor = new THREE.Group();
   anchor.position.set(0, 0, boxSize / scale / 2);
@@ -83,6 +88,38 @@ function toolAt(setup: Cell, sequence: PickPlaceSequence, time: number) {
 }
 
 const degrees = THREE.MathUtils.degToRad;
+
+/**
+ * Follows a box through a plan: it is picked square to the cell, keeps its rotation in the gripper
+ * while carried, and lands in the rotation its placed copy has, upright and squared.
+ */
+function expectBoxRotations(setup: Cell, plan: PickPlacePlan, sequence: PickPlaceSequence) {
+  const { inGripper, placed } = carriedBoxRotations(setup.robot, setup.anchor, setup.cell, plan);
+  const carriedAt = (pose: FrankaPose) => {
+    applyArmPose(setup.robot, pose);
+    setup.cell.updateMatrixWorld(true);
+    return setup.cell.getWorldQuaternion(new THREE.Quaternion()).invert()
+      .multiply(setup.anchor.getWorldQuaternion(new THREE.Quaternion())).multiply(inGripper);
+  };
+  // Picked without a jump: the carried box starts where the waiting one was, square to the cell.
+  expect(carriedAt(plan.pickPose).angleTo(new THREE.Quaternion())).toBeLessThan(degrees(0.5));
+  expect(placed).toHaveLength(plan.boxes);
+  placed.forEach((rotation, box) => {
+    // Released without a jump onto an upright box turned by whole quarter turns.
+    expect(carriedAt(plan.placePoses[box]).angleTo(rotation), `box ${box}`).toBeLessThan(degrees(0.5));
+    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(rotation);
+    expect(up.y).toBeCloseTo(1, 6);
+    const yaw = new THREE.Euler().setFromQuaternion(rotation, "YXZ").y;
+    expect(Math.abs(yaw / (Math.PI / 2) - Math.round(yaw / (Math.PI / 2)))).toBeLessThan(1e-6);
+  });
+  // While carried, the box only tilts as much as the cup does.
+  for (let i = 0; i <= 200; i++) {
+    const sample = sequence.sample((sequence.duration * i) / 200);
+    if (!sample.carrying) continue;
+    const up = new THREE.Vector3(0, 1, 0).applyQuaternion(carriedAt(sample.pose));
+    expect(up.angleTo(new THREE.Vector3(0, 1, 0))).toBeLessThan(degrees(4));
+  }
+}
 
 /**
  * Walks a sequence and checks the suction motion: the cup sits on the box for vacuum and release,
@@ -194,6 +231,7 @@ describe("suction pick and place", () => {
     const slots = palletizerSlots(palletOrigin);
     expect(plan.boxes).toBe(PALLETIZER_STACK.length);
     expectSuctionMotion(setup, plan.loop, slots, PALLETIZER_APPROACH.approachHeight, PALLETIZER_BOX_SIZE);
+    expectBoxRotations(setup, plan, plan.loop);
 
     const { loop } = plan;
     const sampleAt = (fraction: number) => loop.sample(loop.duration * fraction);
@@ -214,6 +252,7 @@ describe("suction pick and place", () => {
     const slots = heroSlots(deckCentre);
     expect(plan.boxes).toBe(HERO_STACK.length);
     expectSuctionMotion(setup, plan.once, slots, HERO_APPROACH.approachHeight, HERO_CRATE_SIZE);
+    expectBoxRotations(setup, plan, plan.once);
 
     const { once } = plan;
     expect(once.sample(0).step).toBe("approach");

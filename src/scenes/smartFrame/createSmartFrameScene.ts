@@ -1,14 +1,23 @@
 import * as THREE from "three";
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { URDFRobot } from "urdf-loader";
-import { makeSpotWeldGun } from "../../RobotTools";
+import { dressTool, makeSpotWeldGun } from "../../RobotTools";
 import { getAssetUrl, getFrankaUrdfUrl } from "../shared/assets";
 import { createFrankaLoader, hideFrankaHand, styleFrankaRobot } from "../shared/franka";
 import { applyFrankaPose, type FrankaPose } from "../shared/motion";
-import { disposeObjectTree, getLocalPosition, makeBox, setObjectOpacity } from "../shared/objects";
+import { disposeObjectTree, getLocalPosition, setObjectOpacity } from "../shared/objects";
+import { loadPropLibrary, type PropLibrary } from "../shared/props";
 import type { FrameState, SceneContext, SceneController } from "../shared/runtime";
 import { getWeldingAnimationState } from "./animation";
-import { RETRACT_POSES, ROBOT_PLACEMENTS, STATION_OFFSETS, WELD_POSES } from "./config";
+import {
+  RETRACT_POSES,
+  ROBOT_PLACEMENTS,
+  SMART_FRAME_VIEW,
+  smartFrameViewScale,
+  STATION_OFFSETS,
+  WELD_POSES,
+} from "./config";
 
 type Materials = ReturnType<typeof createMaterials>;
 
@@ -27,9 +36,18 @@ type FrankaRig = {
 type SmartFrameState = {
   context: SceneContext;
   materials: Materials;
+  line: THREE.Group;
   stations: THREE.Group[];
   rigs: FrankaRig[];
+  library: Promise<PropLibrary>;
 };
+
+const FLOOR_Y = -0.02;
+const LAST_STATION = STATION_OFFSETS[STATION_OFFSETS.length - 1];
+/** The floor runs from the camera's side of the first car to past the last one. */
+const FLOOR = { front: 3.5, back: LAST_STATION - 1.5 };
+/** The floor rails run past the first and last cars, outside the ends of the jigs. */
+const RAIL = { front: 1.62, back: LAST_STATION - 0.7, x: 0.84 };
 
 function createMaterials() {
   return {
@@ -73,42 +91,48 @@ function addLighting(scene: THREE.Scene) {
 function buildProductionLine(scene: THREE.Scene, materials: Materials) {
   const line = new THREE.Group();
   scene.add(line);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 7), materials.floor);
+  const length = FLOOR.front - FLOOR.back;
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(4.4, length), materials.floor);
   floor.rotation.x = -Math.PI / 2;
-  floor.position.y = -0.02;
+  floor.position.set(0, FLOOR_Y, (FLOOR.front + FLOOR.back) / 2);
   floor.receiveShadow = true;
   line.add(floor);
-  const grid = new THREE.GridHelper(7, 14, 0x8f9484, 0xd0d0c5);
-  grid.position.y = 0.002;
+  const grid = new THREE.GridHelper(length, 2 * length, 0x8f9484, 0xd0d0c5);
+  grid.position.set(0, 0.002, (FLOOR.front + FLOOR.back) / 2);
   line.add(grid);
-  line.add(
-    makeBox([0.035, 0.035, 5.8], materials.steel, [-0.84, 0.03, -1.28]),
-    makeBox([0.035, 0.035, 5.8], materials.steel, [0.84, 0.03, -1.28]),
-  );
-
   const stationsRoot = new THREE.Group();
   line.add(stationsRoot);
-  return STATION_OFFSETS.map((z) => {
+  const stations = STATION_OFFSETS.map((z) => {
     const station = new THREE.Group();
     station.position.set(0, 0, z);
     stationsRoot.add(station);
-    const fixture = new THREE.Group();
-    fixture.add(
-      makeBox([1.2, 0.045, 0.045], materials.steel.clone(), [0, 0.07, -0.38]),
-      makeBox([1.2, 0.045, 0.045], materials.steel.clone(), [0, 0.07, 0.38]),
-      makeBox([0.055, 0.05, 0.82], materials.dark.clone(), [-0.5, 0.065, 0]),
-      makeBox([0.055, 0.05, 0.82], materials.dark.clone(), [0.5, 0.065, 0]),
-    );
-    station.add(fixture);
     return station;
   });
+  return { line, stations };
+}
+
+/** Floor rails along the line and a welding jig under each car body. */
+function dressProductionLine(state: SmartFrameState, library: PropLibrary) {
+  const { materials } = state;
+  // The rail model is 1 m long, centred on its origin.
+  [-RAIL.x, RAIL.x].forEach((x) => {
+    const rail = library.create("rail", { steel: materials.steel }, { scale: [1, 1, RAIL.front - RAIL.back] });
+    rail.position.set(x, FLOOR_Y, (RAIL.front + RAIL.back) / 2);
+    state.line.add(rail);
+  });
+  state.stations.forEach((station) => {
+    const jig = library.create("jig", { steel: materials.steel, frame: materials.dark });
+    jig.position.y = FLOOR_Y;
+    station.add(jig);
+  });
+  state.context.requestRender();
 }
 
 function loadCarFrames(state: SmartFrameState) {
   const { context, materials, stations } = state;
-  new OBJLoader().load(
-    getAssetUrl("models/smart-frame/simplify_Frame.obj", context.baseUrl),
-    (object) => {
+  new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(
+    getAssetUrl("models/smart-frame/smart-frame.glb", context.baseUrl),
+    ({ scene: object }) => {
       if (context.isDisposed()) {
         disposeObjectTree(object);
         return;
@@ -119,23 +143,13 @@ function loadCarFrames(state: SmartFrameState) {
         mesh.material = materials.car;
         mesh.castShadow = true;
         mesh.receiveShadow = true;
-        mesh.geometry.computeVertexNormals();
       });
-
-      const box = new THREE.Box3().setFromObject(object);
-      const size = new THREE.Vector3();
-      const center = new THREE.Vector3();
-      box.getSize(size);
-      box.getCenter(center);
-      object.position.copy(center).multiplyScalar(-1);
-      const centeredCar = new THREE.Group();
-      centeredCar.add(object);
-      centeredCar.rotation.x = -Math.PI / 2;
-      centeredCar.position.y = 0.54;
-      centeredCar.scale.setScalar(1.48 / Math.max(size.x, size.y, size.z));
+      // The model is in the station frame with its origin on the floor, held by the jig there
+      // (scripts/convert-smart-frame.mjs).
+      object.position.y = FLOOR_Y;
 
       stations.forEach((station, index) => {
-        const clone = index === 0 ? centeredCar : centeredCar.clone(true);
+        const clone = index === 0 ? object : object.clone(true);
         clone.traverse((child) => {
           const mesh = child as THREE.Mesh;
           if (!mesh.isMesh) return;
@@ -189,10 +203,11 @@ function attachRobot(
   const station = stations[stationIndex];
   station.add(holder);
 
-  const tool = makeSpotWeldGun({
+  const tool = makeSpotWeldGun();
+  state.library.then((library) => dressTool(tool, library, {
     accent: materials.toolLight, body: materials.toolMid, copper: materials.toolLight,
-    dark: materials.toolDark, metal: materials.toolLight,
-  });
+    dark: materials.toolDark, metal: materials.toolLight, hose: materials.toolDark,
+  }), () => undefined);
   tool.rotation.set(Math.PI, 0.34, 0);
   tool.position.set(0, 0, 0.015);
   tool.scale.setScalar(1.35);
@@ -271,19 +286,26 @@ function updateSmartFrame(state: SmartFrameState, frame: FrameState) {
     rig.weldGlow.scale.setScalar(0.75 + active * (0.4 + Math.sin(frame.elapsed * 38) * 0.12));
     updateSparks(rig, frame.elapsed, active);
   });
-  state.context.camera.lookAt(-0.08, 0.43, -1.2);
+  const { camera } = state.context;
+  const { target, offset } = SMART_FRAME_VIEW;
+  camera.position.copy(target).addScaledVector(offset, smartFrameViewScale(camera.aspect));
+  camera.lookAt(target);
 }
 
 export function createSmartFrameScene(context: SceneContext): SceneController {
   context.canvas.dataset.scene = "smart-frame-welding-line";
   addLighting(context.scene);
   const materials = createMaterials();
+  const { line, stations } = buildProductionLine(context.scene, materials);
   const state: SmartFrameState = {
-    context,
-    materials,
-    stations: buildProductionLine(context.scene, materials),
-    rigs: [],
+    context, materials, line, stations, rigs: [], library: loadPropLibrary(context.baseUrl),
   };
+  state.library.then(
+    (library) => {
+      if (!context.isDisposed()) dressProductionLine(state, library);
+    },
+    (error) => console.warn("Unable to load welding-line props", error),
+  );
   loadCarFrames(state);
   loadRobots(state);
   return { update: (frame) => updateSmartFrame(state, frame) };

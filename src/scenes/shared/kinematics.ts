@@ -13,6 +13,8 @@ export type ToolTarget = {
   position: THREE.Vector3;
   /** Rotation of the tool's x axis about the vertical, with the tool z axis pointing down. */
   yaw: number;
+  /** Full tool orientation instead of the downward one, for tools that work at an angle. */
+  axes?: ToolAxes;
 };
 
 export type IkOptions = {
@@ -175,7 +177,7 @@ export function solveToolIk(
     pose.map((value, index) => THREE.MathUtils.clamp(value, limits[index][0], limits[index][1]));
   const { posture = seed, iterations = 80, positionTolerance = 2e-4, orientationTolerance = 1e-3 } = options;
   const chain: ToolChain = {
-    robot, tool, reference, target: target.position, desired: axesQuaternion(downwardAxes(target.yaw)),
+    robot, tool, reference, target: target.position, desired: axesQuaternion(target.axes ?? downwardAxes(target.yaw)),
   };
   let pose = clamp([...seed]);
   let error = chainResidual(chain, pose);

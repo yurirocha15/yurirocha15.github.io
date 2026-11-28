@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import type { URDFRobot } from "urdf-loader";
+import { solveToolIk } from "../shared/kinematics";
 import { mixPose, smoothstep, type FrankaPose } from "../shared/motion";
 import { planArmPickPlace, type PickPlacePlan, type PickPlaceSequence } from "../shared/pickPlace";
+import { planWeld, type WeldSeam, type WeldSequence } from "../shared/weldProgram";
 import {
   HERO_APPROACH,
   HERO_CRATE_SIZE,
@@ -9,6 +11,9 @@ import {
   HERO_POSES,
   HERO_STACK,
   HERO_TIMING,
+  HERO_WELD,
+  HERO_WELD_SEAMS,
+  HERO_WELD_STATION,
 } from "./config";
 
 /** Stands in for the stacking pass until the robot, and so its plan, has loaded. */
@@ -21,6 +26,18 @@ const UNPLANNED_PASS: PickPlaceSequence = {
   }),
 };
 
+/** Stands in for the weld program until it is planned: the torch holds above the work. */
+const UNPLANNED_WELD: WeldSequence = {
+  duration: HERO_TIMING.unplannedWeld,
+  startPose: HERO_POSES.weldStart,
+  endPose: HERO_POSES.weldStart,
+  seams: HERO_WELD_SEAMS.length,
+  worst: { positionError: 0, orientationError: 0 },
+  sample: () => ({
+    pose: HERO_POSES.weldStart, step: "approach", seam: 0, progress: HERO_WELD_SEAMS.map(() => 0), arc: 0,
+  }),
+};
+
 export type HeroAnimationState = {
   pose: FrankaPose;
   weldMode: number;
@@ -30,7 +47,12 @@ export type HeroAnimationState = {
   carrying: boolean;
   /** 0..1 progress of the next box sliding into the pick position. */
   feed: number;
+  /** Arc intensity, faded with the welding cell. */
   weldActive: number;
+  /** Welded fraction of each seam; the workpiece is fresh again while the welding cell is hidden. */
+  seams: number[];
+  /** Seam the torch is on. */
+  seam: number;
   spinToWeld: number;
   spinToPallet: number;
   spinPulse: number;
@@ -61,54 +83,90 @@ export function planHero(
   );
 }
 
-export function getHeroCycleDuration(pass: PickPlaceSequence | null) {
-  return (pass ?? UNPLANNED_PASS).duration + 2 * HERO_TIMING.spin + HERO_TIMING.weld;
+/** The workpiece's frame in cell coordinates. */
+export function heroWeldStationMatrix() {
+  const [x, y, z] = HERO_WELD_STATION.position;
+  return new THREE.Matrix4().makeRotationY(HERO_WELD_STATION.rotation).setPosition(x, y, z);
+}
+
+/** The workpiece's seams in cell coordinates. */
+export function heroWeldSeams(): WeldSeam[] {
+  const station = heroWeldStationMatrix();
+  const turn = new THREE.Matrix4().extractRotation(station);
+  return HERO_WELD_SEAMS.map((seam) => ({
+    start: seam.start.clone().applyMatrix4(station),
+    end: seam.end.clone().applyMatrix4(station),
+    floor: new THREE.Vector3(0, 1, 0),
+    wall: seam.wall.clone().applyMatrix4(turn).normalize(),
+  }));
+}
+
+/** Plans the weld program; `tip` is the torch's TCP, targets in `cell` coordinates. */
+export function planHeroWeld(robot: URDFRobot, tip: THREE.Object3D, cell: THREE.Object3D): WeldSequence {
+  return planWeld(
+    (target, seed) => solveToolIk(robot, tip, cell, target, seed, { posture: HERO_POSES.weldStart }),
+    heroWeldSeams(),
+    HERO_POSES.weldStart,
+    HERO_WELD,
+  );
+}
+
+export function getHeroCycleDuration(pass: PickPlaceSequence | null, weld: WeldSequence | null = null) {
+  return (pass ?? UNPLANNED_PASS).duration + 2 * HERO_TIMING.spin + (weld ?? UNPLANNED_WELD).duration;
 }
 
 type HeroTimeline = {
   time: number;
   pass: PickPlaceSequence;
+  weld: WeldSequence;
   spinToWeld: number;
   spinToPallet: number;
-  weldPhase: number;
 };
 
-/** Stacking pass, joint-space spin to the weld pose, weld sweep, and joint-space spin back. */
-function heroPose({ time, pass, spinToWeld, spinToPallet, weldPhase }: HeroTimeline): FrankaPose {
+/** Stacking pass, joint-space spin onto the weld program, the program, and a joint-space spin back. */
+function heroPose({ time, pass, weld, spinToWeld, spinToPallet }: HeroTimeline): FrankaPose {
+  const weldStart = pass.duration + HERO_TIMING.spin;
   if (time < pass.duration) return pass.sample(time).pose;
-  if (time < pass.duration + HERO_TIMING.spin) return mixPose(pass.endPose, HERO_POSES.weldStart, spinToWeld);
-  if (weldPhase < 1) {
-    const sweep = (Math.sin(weldPhase * Math.PI * 2 - Math.PI / 2) + 1) / 2;
-    return mixPose(HERO_POSES.weldStart, HERO_POSES.weldEnd, sweep);
-  }
-  return mixPose(HERO_POSES.weldStart, pass.startPose, spinToPallet);
+  if (time < weldStart) return mixPose(pass.endPose, weld.startPose, spinToWeld);
+  if (time < weldStart + weld.duration) return weld.sample(time - weldStart).pose;
+  return mixPose(weld.endPose, pass.startPose, spinToPallet);
 }
 
 /**
- * The hero cycle: one stacking pass, a spin into the welding cell, a weld pass, and a spin back.
- * The stack clears while the pallet cell is out of view.
+ * The hero cycle: one stacking pass, a spin into the welding cell, the weld program, and a spin
+ * back. The stack clears while the pallet cell is out of view, and the workpiece while the
+ * welding cell is.
  */
-export function getHeroAnimationState(elapsed: number, plannedPass: PickPlaceSequence | null): HeroAnimationState {
+export function getHeroAnimationState(
+  elapsed: number,
+  plannedPass: PickPlaceSequence | null,
+  plannedWeld: WeldSequence | null = null,
+): HeroAnimationState {
   const pass = plannedPass ?? UNPLANNED_PASS;
-  const { spin, weld } = HERO_TIMING;
-  const cycle = getHeroCycleDuration(pass);
+  const weld = plannedWeld ?? UNPLANNED_WELD;
+  const { spin } = HERO_TIMING;
+  const cycle = getHeroCycleDuration(pass, weld);
   const time = ((elapsed % cycle) + cycle) % cycle;
   const weldStart = pass.duration + spin;
+  const weldEnd = weldStart + weld.duration;
 
   const spinToWeld = smoothstep(pass.duration, weldStart, time);
-  const spinToPallet = smoothstep(weldStart + weld, cycle, time);
+  const spinToPallet = smoothstep(weldEnd, cycle, time);
   const weldMode = spinToWeld * (1 - spinToPallet);
-  const weldPhase = THREE.MathUtils.clamp((time - weldStart) / weld, 0, 1);
   const stacking = pass.sample(Math.min(time, pass.duration));
+  const welding = weld.sample(THREE.MathUtils.clamp(time - weldStart, 0, weld.duration));
+  const weldStarted = time >= weldStart;
 
   return {
-    pose: heroPose({ time, pass, spinToWeld, spinToPallet, weldPhase }),
+    pose: heroPose({ time, pass, weld, spinToWeld, spinToPallet }),
     weldMode,
     palletMode: 1 - weldMode,
     placed: time < weldStart ? stacking.placed : 0,
     carrying: time < pass.duration && stacking.carrying,
     feed: stacking.feed,
-    weldActive: weldMode * smoothstep(0.11, 0.28, weldPhase) * (1 - smoothstep(0.78, 0.94, weldPhase)),
+    weldActive: weldStarted && time < weldEnd ? weldMode * welding.arc : 0,
+    seams: welding.progress.map((progress) => (weldStarted ? progress : 0)),
+    seam: welding.seam,
     spinToWeld,
     spinToPallet,
     spinPulse: Math.max(Math.sin(spinToWeld * Math.PI), Math.sin(spinToPallet * Math.PI)),

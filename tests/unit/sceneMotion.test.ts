@@ -17,6 +17,7 @@ import {
   type FrankaPose,
 } from "../../src/scenes/shared/motion";
 import type { PickPlaceSequence } from "../../src/scenes/shared/pickPlace";
+import type { WeldSequence } from "../../src/scenes/shared/weldProgram";
 
 const ZERO_POSE: FrankaPose = [0, 0, 0, 0, 0, 0, 0];
 const ONE_POSE: FrankaPose = [1, 1, 1, 1, 1, 1, 1];
@@ -36,6 +37,31 @@ function stubPass(duration: number): PickPlaceSequence {
       feed: 1,
       clear: 0,
     }),
+  };
+}
+
+const WELD_POSE: FrankaPose = [2, 2, 2, 2, 2, 2, 2];
+
+/** A weld program of two seams, one per half, with the arc burning in the middle of each. */
+function stubWeld(duration: number): WeldSequence {
+  return {
+    duration,
+    startPose: WELD_POSE,
+    endPose: ONE_POSE,
+    seams: 2,
+    worst: { positionError: 0, orientationError: 0 },
+    sample: (time) => {
+      const seam = time < duration / 2 ? 0 : 1;
+      const local = (time - seam * duration / 2) / (duration / 2);
+      const progress = [seam > 0 ? 1 : local, seam > 0 ? local : 0];
+      return {
+        pose: mixPose(WELD_POSE, ONE_POSE, time / duration),
+        step: "weld",
+        seam,
+        progress,
+        arc: local > 0.2 && local < 0.8 ? 1 : 0,
+      };
+    },
   };
 }
 
@@ -67,10 +93,12 @@ describe("scene motion primitives", () => {
 
   test("hero cycle stacks, spins to the weld cell, welds and spins back", () => {
     const pass = stubPass(6);
-    const { spin, weld } = HERO_TIMING;
-    const cycle = getHeroCycleDuration(pass);
+    const program = stubWeld(4);
+    const { spin } = HERO_TIMING;
+    const weld = program.duration;
+    const cycle = getHeroCycleDuration(pass, program);
     expect(cycle).toBeCloseTo(6 + 2 * spin + weld);
-    const at = (time: number) => getHeroAnimationState(time, pass);
+    const at = (time: number) => getHeroAnimationState(time, pass, program);
 
     expect(at(1).palletMode).toBe(1);
     expect(at(1).carrying).toBe(true);
@@ -82,16 +110,24 @@ describe("scene motion primitives", () => {
     expect(spinningToWeld.placed).toBe(1);
     expect(spinningToWeld.carrying).toBe(false);
 
-    const welding = at(6 + spin + weld / 2);
+    const welding = at(6 + spin + weld / 4);
     expect(welding.weldMode).toBeGreaterThan(0.99);
     expect(welding.weldActive).toBeGreaterThan(0);
     expect(welding.placed).toBe(0);
+    expect(welding.seam).toBe(0);
+    expect(welding.seams[0]).toBeCloseTo(0.5);
+    expect(welding.seams[1]).toBe(0);
     expect(at(6 + spin + 0.01).weldActive).toBe(0);
+    expect(at(6 + spin + weld * 0.75).seams).toEqual([1, expect.closeTo(0.5)]);
+    expect(at(6 + spin / 2).seams).toEqual([0, 0]);
+    expect(at(cycle - spin / 2).seams).toEqual([1, 1]);
+    expect(at(cycle - spin / 2).weldActive).toBe(0);
 
     expect(at(cycle - spin / 2).spinPulse).toBeGreaterThan(0);
     expect(at(cycle - spin / 2).placed).toBe(0);
     at(6 + 1e-6).pose.forEach((value, joint) => expect(value).toBeCloseTo(pass.endPose[joint], 4));
-    at(6 + spin).pose.forEach((value, joint) => expect(value).toBeCloseTo(HERO_POSES.weldStart[joint], 4));
+    at(6 + spin).pose.forEach((value, joint) => expect(value).toBeCloseTo(WELD_POSE[joint], 4));
+    at(6 + spin + weld - 1e-6).pose.forEach((value, joint) => expect(value).toBeCloseTo(program.endPose[joint], 4));
     at(cycle - 1e-6).pose.forEach((value, joint) => expect(value).toBeCloseTo(pass.startPose[joint], 4));
     expect(at(cycle + 1).pose).toEqual(at(1).pose);
   });
@@ -102,7 +138,11 @@ describe("scene motion primitives", () => {
     expect(state.placed).toBe(0);
     expect(state.carrying).toBe(false);
     const cycle = getHeroCycleDuration(null);
-    expect(getHeroAnimationState(cycle - HERO_TIMING.spin - HERO_TIMING.weld / 2, null).weldMode).toBeGreaterThan(0.99);
+    expect(cycle).toBeCloseTo(10 + 2 * HERO_TIMING.spin + HERO_TIMING.unplannedWeld);
+    const holding = getHeroAnimationState(cycle - HERO_TIMING.spin - HERO_TIMING.unplannedWeld / 2, null);
+    expect(holding.weldMode).toBeGreaterThan(0.99);
+    expect(holding.pose).toEqual(HERO_POSES.weldStart);
+    expect(holding.weldActive).toBe(0);
     expect(getHeroAnimationState(cycle - HERO_TIMING.spin / 2, null).spinToPallet).toBeGreaterThan(0);
   });
 

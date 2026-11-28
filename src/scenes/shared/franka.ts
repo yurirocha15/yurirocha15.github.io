@@ -36,6 +36,13 @@ export function createFrankaLoader(baseUrl = import.meta.env.BASE_URL) {
   return loader;
 }
 
+/** Loads a URDF with `loader` as a promise. */
+export function loadFrankaRobot(loader: URDFLoader, url: string) {
+  return new Promise<URDFRobot>((resolve, reject) => {
+    loader.load(url, resolve, undefined, reject);
+  });
+}
+
 /**
  * Applies the scene palette: visual meshes by the role in their material name, collision meshes
  * by link (the base dark, the arm links shell).

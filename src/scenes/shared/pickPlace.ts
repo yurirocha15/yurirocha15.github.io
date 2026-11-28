@@ -75,6 +75,10 @@ export type PickPlacePlan = {
   loop: PickPlaceSequence;
   /** One pass from above the pick to above the last slot, for cells that also do other work. */
   once: PickPlaceSequence;
+  /** Arm pose with the cup on the box at the pick. */
+  pickPose: FrankaPose;
+  /** Arm pose releasing each box onto its slot, in placing order. */
+  placePoses: FrankaPose[];
 };
 
 export type TransferArc = {
@@ -352,6 +356,8 @@ export function planPickPlace(
 
   return {
     boxes: boxes.length,
+    pickPose,
+    placePoses: boxes.map(({ slotDown }) => slotDown[slotDown.length - 1]),
     loop: { duration: stacked + timing.reset, startPose: pickPose, endPose: pickPose, sample: sampleLoop },
     once: {
       duration: lastRelease + 2 * timing.approach,
@@ -360,6 +366,43 @@ export function planPickPlace(
       sample: sampleOnce,
     },
   };
+}
+
+/** Rotation of `object` in the coordinates of `frame`. */
+function rotationIn(frame: THREE.Object3D, object: THREE.Object3D) {
+  return frame.getWorldQuaternion(new THREE.Quaternion()).invert()
+    .multiply(object.getWorldQuaternion(new THREE.Quaternion()));
+}
+
+/** The nearest quarter turn about the vertical to `rotation`. */
+function squareToVertical(rotation: THREE.Quaternion) {
+  const yaw = new THREE.Euler().setFromQuaternion(rotation, "YXZ").y;
+  const quarter = Math.PI / 2;
+  return new THREE.Quaternion().setFromAxisAngle(UP, Math.round(yaw / quarter) * quarter);
+}
+
+/**
+ * How the boxes turn: the planner may pick and place with the cup at different quarter turns, so
+ * a carried box keeps the rotation it had relative to the gripper at the pick, turns with the
+ * wrist, and lands turned the same way. Given the rotation of the box waiting at the pick in
+ * `frame`, returns its rotation in the gripper's frame while carried, and the rotation in `frame`
+ * of each box placed on the pallet, squared to the vertical.
+ */
+export function carriedBoxRotations(
+  robot: URDFRobot,
+  gripper: THREE.Object3D,
+  frame: THREE.Object3D,
+  plan: PickPlacePlan,
+  waiting = new THREE.Quaternion(),
+) {
+  const gripperAt = (pose: FrankaPose) => {
+    applyArmPose(robot, pose);
+    frame.updateMatrixWorld(true);
+    return rotationIn(frame, gripper);
+  };
+  const inGripper = gripperAt(plan.pickPose).invert().multiply(waiting);
+  const placed = plan.placePoses.map((pose) => squareToVertical(gripperAt(pose).multiply(inGripper)));
+  return { inGripper, placed };
 }
 
 /**
